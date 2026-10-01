@@ -1,0 +1,30 @@
+# Letöltött adatok és külső kód – nem kerülnek a tárolóba
+data/*
+!data/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+
+# Nagy köztes eredmények (az összesített CSV-k és ábrák felkerülhetnek)
+results/raw/
+*.jsonl
+*.zip
+
+# Titkok, helyi beállítások
+.env
+*.local.yaml
+
+# Szerkesztők, rendszer
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

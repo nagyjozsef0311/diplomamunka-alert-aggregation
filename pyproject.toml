@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alertagg"
+version = "0.1.0"
+description = "Agent-alapú, metrika-vezérelt IDS riasztásaggregáció SOC környezetben (diplomamunka)"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Nagy József" }]
+dependencies = [
+    "pandas>=2.2,<3",
+    "numpy>=1.26,<3",
+    "scikit-learn>=1.5,<2",
+    "scipy>=1.13,<2",
+    "pyyaml>=6.0,<7",
+    "requests>=2.32,<3",
+    "tqdm>=4.66,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "ruff>=0.6",
+    "jupyterlab>=4,<5",
+    "matplotlib>=3.9,<4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
