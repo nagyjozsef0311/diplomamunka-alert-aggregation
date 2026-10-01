@@ -176,7 +176,6 @@ terhelést kérdőív (NASA-TLX) helyett becsléssel számoljuk.
 
 A Diplomamunka II.-höz:
 
-- a kari szakdolgozat-készítési útmutató és az Overleaf-sablon forrása még nincs a tárolóban;
 - a konzulens nevének alakja a leadandó fájlok nevében („Vorosne” vagy „BanatiBaumann”);
 - a 2026/27. őszi félév pontos dátumai.
 

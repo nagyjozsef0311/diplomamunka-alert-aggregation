@@ -133,7 +133,7 @@ A végleges dolgozat ugyanerre a szerkezetre épül, a 8. fejezet helyére a mé
 
 - [x] A kari szakdolgozat-készítési útmutató: `thesis/utmutato/` (2026-10-01).
 - [x] Az Overleaf-sablon forrása: `thesis/` (2026-10-01).
-- [ ] **IP SCAN Portál:** megtörtént-e a témabejelentés (MSc: a 9. hét utolsó munkanapja)?
+- [x] IP SCAN Portál: a témabejelentés megvolt (a szerző szerint, 2026-10-01).
 - [ ] A konzulens nevének alakja a fájlnevekben.
 - [ ] A 2026/27. őszi félév pontos dátumai (a szorgalmi időszak utolsó napja, a beszámoló hete).
 - [ ] Konzultációs napló: az alkalmak folyamatos vezetése, a végén aláíratás.

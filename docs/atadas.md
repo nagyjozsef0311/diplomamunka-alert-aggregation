@@ -17,10 +17,14 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 - [x] 2026-10-01 – Követelmények, leadandók és fejezetvázlat: `docs/diplomamunka-2.md`.
 - [x] 2026-10-01 – Új ütemterv a decemberi leadásig (D13): `docs/munkaterv.md`.
 - [x] 2026-10-01 – A kari sablon és az útmutató a `thesis/` mappában (v0.1, javítások nélkül).
-- [ ] 2026-10-01 – A sablon formai hiányosságainak javítása (margó, sorköz, oldalszám, fejezetcím,
-  hivatkozási stílus) – a szerző jóváhagyására vár.
-- [ ] 2026-10-01 – **IP SCAN Portál:** megtörtént-e a témabejelentés? (MSc: a szorgalmi időszak 9.
-  hetének utolsó munkanapja; a teljesítés feltétele.)
+- [x] 2026-10-01 – A sablon formai hiányosságainak javítása (v0.2, `thesis/VALTOZASOK.md`).
+- [x] 2026-10-01 – IP SCAN Portál: a témabejelentés megvolt (a szerző szerint).
+- [ ] 2026-10-01 – **A szerző javítja a Word-sablonokban, majd PDF-ben feltölti Overleafbe:** a belső
+  borítólapon a mintaszám maradt (T-000123/FI12904 helyett T/0012125/FI12904/N), az évszám a végleges
+  dolgozatnál 2027; a konzultációs naplók kitöltése (most GIPSZ JAKAB mintaadat).
+- [ ] 2026-10-01 – `thesis/references.bib`: mind az 55 cikknél hiányzik a kötet és az oldalszám
+  (az útmutató kéri); pótlás a Crossrefből szkripttel, amint az `api.crossref.org` elérhető.
+  Webes forrásoknál (`langgraph2025`, `mcp2026spec`) az `urldate` a tényleges megtekintéskor kerül be.
 
 ## Kutatásból a kódolásnak
 
