@@ -11,8 +11,10 @@ Ezek a döntések készek, és megvalósíthatók.
   adatletöltés, adatfeltárás (`experiments/01_adatfeltaras.ipynb`).
 - [ ] 2026-10-01 – Az AMiner-riasztásokat kihagyjuk (D10). A Suricata-riasztásokat a
   `<forgatókönyv>_wazuh.json` fájlokból kell kiszűrni.
-- [ ] 2026-10-01 – Az agentek egyelőre egy Python-csomag moduljai (`src/alertagg/`). A
-  keretrendszer (LangGraph, MCP vagy külön szolgáltatások) még nyitott, ezért a modulok ne függjenek tőle.
+- [ ] 2026-10-01 – **D12, háromrétegű megvalósítás.** Most csak a mag készül: sima Python-modulok
+  a `src/alertagg/`-ban, LangGraph- és MCP-függőség nélkül, meghatározott bemenettel és kimenettel,
+  tömeges (pandas) feldolgozással. A LangGraph-vezérlés az AIT-mérések után jön, az MCP opcionális.
+  Részletek: `CLAUDE.md` 3. pont és `docs/kutatasi-jegyzetek/kutatasi_jegyzet_05.md`.
 
 ## Kódolásból a kutatásnak
 

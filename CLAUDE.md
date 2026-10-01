@@ -87,8 +87,18 @@ Részletesen: `docs/kutatasi-eredmenyek.md` (kérdésenként döntési tábláza
 | Magyarázó | Rövid szöveges összefoglalót ír (nyelvi modell + ellenőrzés) |
 | Vezérlő | Sorba rendezi a lépéseket, naplóz, időt mér |
 
-A technológia **még nyitott**: külön Python-szolgáltatások, LangGraph vagy MCP. Addig az agentek
-egy Python-csomag (`src/alertagg/`) moduljai, így később bármelyik keretbe beköthetők.
+**A technológia (D12, 2026-10-01), három rétegben:**
+
+1. **Mag – sima Python:** minden agent egy modul a `src/alertagg/`-ban, meghatározott bemenettel és
+   kimenettel (dataclass vagy pydantic), LangGraph- és MCP-függőség nélkül. Az AIT-ADS-mérések
+   közvetlenül ezen futnak, tömegesen (pandas), nem riasztásonként.
+2. **Vezérlés – LangGraph:** az AIT-mérések után (kb. 8–9. hét, illetve a laborral együtt) a
+   modulokat egy `StateGraph` csomópontjaiként kötjük be. Ide kerül a magyarázó agent (Ollama), és
+   bizonyítani kell, hogy a vezérelt változat ugyanazt az eredményt adja, mint a mag.
+3. **Csatlakozó – MCP (opcionális):** a laborban a gépnyilvántartást csak olvasható MCP-szolgáltatásként
+   is elérhetővé tesszük a magyarázó modellnek. Ha kifut az idő, elhagyható.
+
+A nyelvi modell soha nem dönti el a lépések sorrendjét, és nem ad pontszámot.
 
 ### Az értékelés lépcsői (lépésenkénti bővítés)
 
@@ -150,7 +160,7 @@ A konzulenssel még nem egyeztetett kérdések:
 - bevonhatók-e SOC-os kollégák a súlyozásba;
 - hivatkozhatók-e a még nem lektorált arXiv-cikkek.
 
-Technikai döntés még nem született: milyen keretben fussanak az agentek (Python-szolgáltatások, LangGraph vagy MCP).
+A keretrendszer kérdése eldőlt (D12, lásd a 3. pontot).
 
 ## 8. Munkaterv és a következő lépés
 
