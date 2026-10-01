@@ -227,4 +227,4 @@ beszámoló fejezetvázlata: `docs/diplomamunka-2.md`.
 - Forrásjegyzék: `thesis/references.bib` (64 tétel + a sablon példabejegyzései) és `thesis/forrasok.xlsx`.
 - A kari sablon és útmutató: `thesis/` (LaTeX, a `main.tex` a fő fájl), `thesis/utmutato/NIK_SZD_DM_TAJ_20252601_2025.pdf`.
   Overleafbe kézi átvitellel: `scripts/export_overleaf.sh` → zip → Overleaf: New Project → Upload Project.
-  A verziók git-tagek (`thesis-v0.1`, …).
+  A változatokat a `thesis/VALTOZASOK.md` sorolja fel (git-tag nem tölthető fel ebből a környezetből).

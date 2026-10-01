@@ -6,8 +6,8 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 
 ## A szerzőtől vár
 
-- [ ] 2026-10-01 – A kari szakdolgozat-készítési útmutató (PDF) feltöltése.
-- [ ] 2026-10-01 – Az Overleaf-sablon forrása zipben (Overleaf: Menu → Download → Source).
+- [x] 2026-10-01 – A kari szakdolgozat-készítési útmutató (PDF) feltöltése.
+- [x] 2026-10-01 – Az Overleaf-sablon forrása zipben.
 - [ ] 2026-10-01 – A konzulens nevének alakja a fájlnevekben („Vorosne” vagy „BanatiBaumann”).
 - [ ] 2026-10-01 – A 2026/27. őszi félév pontos dátumai (a szorgalmi időszak vége, a beszámoló hete).
 - [ ] 2026-10-01 – Hálózati beállítás: `zenodo.org`, `api.crossref.org`, `arxiv.org`, `export.arxiv.org` engedélyezése.
@@ -16,7 +16,11 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 
 - [x] 2026-10-01 – Követelmények, leadandók és fejezetvázlat: `docs/diplomamunka-2.md`.
 - [x] 2026-10-01 – Új ütemterv a decemberi leadásig (D13): `docs/munkaterv.md`.
-- [ ] 2026-10-01 – A `thesis/` LaTeX-váza a kari sablonból (a sablon és az útmutató után).
+- [x] 2026-10-01 – A kari sablon és az útmutató a `thesis/` mappában (v0.1, javítások nélkül).
+- [ ] 2026-10-01 – A sablon formai hiányosságainak javítása (margó, sorköz, oldalszám, fejezetcím,
+  hivatkozási stílus) – a szerző jóváhagyására vár.
+- [ ] 2026-10-01 – **IP SCAN Portál:** megtörtént-e a témabejelentés? (MSc: a szorgalmi időszak 9.
+  hetének utolsó munkanapja; a teljesítés feltétele.)
 
 ## Kutatásból a kódolásnak
 
