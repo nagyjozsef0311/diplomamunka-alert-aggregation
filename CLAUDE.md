@@ -39,6 +39,19 @@ A dolgozat plágiumvizsgálaton megy át, és a hallgatói nyilatkozat szerint s
   URL és a megtekintés dátuma. Minden hivatkozás DOI-ját vagy arXiv-azonosítóját ellenőrizni kell.
 - A saját ábrák és táblázatok alá is oda kell írni, ha más forrás adatán alapulnak („Forrás: [n] alapján”).
 
+## 0/B. Új munkamenet indítása – így folytasd
+
+1. A munkamenet-indító (`.claude/hooks/session-start.sh`) magától telepíti a Python-csomagot
+   (`pip install -e ".[dev]"`: pytest, ruff, jupyterlab) és a LaTeX-et (pdflatex, biber, latexmk).
+2. Nézd meg a feladatlistát (`docs/atadas.md`), az ütemtervet (`docs/munkaterv.md` eleje) és a
+   döntésnaplót (`docs/dontesek.md`), és kérdezd meg a szerzőt, mivel folytassuk.
+3. A dolgozat fordítása: `cd thesis && latexmk -pdf main.tex`. Overleafbe: `scripts/export_overleaf.sh vX.Y`,
+   majd új sor a `thesis/VALTOZASOK.md`-ben. A szerző Overleafben módosított változatát zipben tölti fel;
+   ezt a `thesis/` mappába kell behozni (a `chapters/*.tex` a szerzőé, azokat nem írjuk át).
+4. Ellenőrzés: `ruff check <fájl>`, `python3 -m pytest -q`.
+5. A feladatlap és a borítólap PDF-je (személyes adat) nincs a tárolóban; a fordítás jelzőoldalt tesz
+   a helyükre. Overleafben megvannak.
+
 ## 1. Kiről és miről szól
 
 | | |
@@ -196,8 +209,8 @@ beszámoló fejezetvázlata: `docs/diplomamunka-2.md`.
 
 **Most következik – 1. hét (okt. 5–11):**
 
-1. Írás: a `thesis/` LaTeX-váza a kari sablonból (ehhez kell a sablon forrása és az útmutató),
-   az 1. fejezet vázlata. A LaTeX-et minden munkamenetben telepíteni kell (Ubuntu-csomagból).
+1. Írás: a `thesis/` sablon kész (v0.4, `thesis/VALTOZASOK.md`); következik az 1. fejezet (Bevezetés)
+   írási csomagja a `docs/irasi-csomagok/` mappába (javaslat a szerzőnek, kész mondatok nélkül, D16).
 2. Kód: `python -m venv .venv && source .venv/bin/activate && pip install -e ".[dev]"`, a két
    letöltő szkript (ehhez a hálózati beállításban engedélyezni kell a `zenodo.org`-ot), majd
    adatfeltárás az `experiments/01_adatfeltaras.ipynb` notebookban:

@@ -32,8 +32,9 @@
 \dottedcontents{subsubsection}[5em]{}{3em}{1pc}
 
 % fejezet cím formázás: 14 pontos betűméret, nagybetűs
-% útmutató 2.3: fejezetcím 14 pont, nagybetűs, középre igazítva, a lap tetején
-\titleformat{\section}{\normalfont\fontsize{14}{17}\selectfont\mdseries\filcenter\MakeUppercase}{\thesection}{1em}{}
+% fejezetcím 14 pont, nagybetűs, a lap tetején; a szerző döntése szerint balra igazítva (D18;
+% az útmutató 2.3 középre igazítást ír – középre: \filright helyett \filcenter)
+\titleformat{\section}{\normalfont\fontsize{14}{17}\selectfont\mdseries\filright\MakeUppercase}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\fontsize{12}{12}\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\normalfont\fontsize{12}{12}\bfseries}{\thesubsubsection}{1em}{}
 
