@@ -63,6 +63,7 @@ ellenőrzőösszeget használnak, hogy a mérések megismételhetők legyenek.
 - `docs/munkaterv-reszletes.md` – a teljes AIT-ADS munkaterv
 - `docs/kutatasi-eredmenyek.md` – döntések kutatási kérdésenként, fogalomtárral
 - `docs/metrika-katalogus.md` – mérőszámok és adathalmazok
+- `docs/atadas.md` – átadási lista a kutatás (Cowork) és a kódolás (Claude Code) között
 - `CLAUDE.md` – a teljes háttér a Claude Code számára
 - `docs/kutatasi-jegyzetek/` – a szakirodalom-kutatás jegyzetei (2026. szeptember)
 

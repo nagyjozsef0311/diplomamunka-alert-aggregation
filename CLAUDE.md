@@ -5,6 +5,20 @@ október 1. közötti Cowork-beszélgetésben kialakult, hogy itt, a Claude Code
 folytathassuk. A részletek a `docs/` mappában vannak. Ha valami itt és ott eltér, a `docs/dontesek.md`
 az irányadó.
 
+## 0. Munkamegosztás: kutatás a Cowork-ban, kódolás itt
+
+- **A kutatás** (szakirodalom, módszertani döntések, a konzulensnek szóló anyagok, a dolgozat szövege)
+  a claude.ai Cowork-ban, az „UNI - Diplomamunka” projektben folyik.
+- **A kódolás** (agentek, mérések, labor-szkriptek, tesztek) itt, a Claude Code-ban történik.
+- **A kettő közti átadás a `docs/atadas.md` fájlon keresztül megy.**
+  - Ha kódolás közben kutatási kérdés merül fel, ne itt kutass utána mélyen, hanem írd be a
+    „Kódolásból a kutatásnak” részbe. Ilyen lehet egy módszertani döntés, egy szakirodalmi
+    hivatkozás vagy egy meglepő adat.
+  - A Cowork-ban hozott döntések a „Kutatásból a kódolásnak” részbe kerülnek, és új sort kapnak a `docs/dontesek.md`-ben.
+  - Ha egy átadott tételt elintéztél, jelöld késznek (`[x]`), ne töröld.
+- Mérési eredményt (számokat, táblázatokat) mindig a `results/` mappába írj, összefoglalva a
+  `docs/atadas.md`-be is, hogy a kutatási oldal fel tudja használni.
+
 ## 1. Kiről és miről szól
 
 | | |
