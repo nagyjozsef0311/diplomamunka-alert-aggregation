@@ -59,11 +59,12 @@ ellenőrzőösszeget használnak, hogy a mérések megismételhetők legyenek.
 ## Dokumentáció
 
 - `docs/dontesek.md` – döntésnapló: mit és miért választottunk
-- `docs/munkaterv.md` – az AIT-ADS munkaterv összefoglalója
+- `docs/munkaterv.md` – az érvényes ütemterv (D13) és az AIT-ADS munkaterv összefoglalója
 - `docs/munkaterv-reszletes.md` – a teljes AIT-ADS munkaterv
 - `docs/kutatasi-eredmenyek.md` – döntések kutatási kérdésenként, fogalomtárral
 - `docs/metrika-katalogus.md` – mérőszámok és adathalmazok
-- `docs/atadas.md` – átadási lista a kutatás (Cowork) és a kódolás (Claude Code) között
+- `docs/diplomamunka-2.md` – a Diplomamunka II. követelményei, leadandói és a beszámoló fejezetvázlata
+- `docs/atadas.md` – feladatlista
 - `CLAUDE.md` – a teljes háttér a Claude Code számára
 - `docs/kutatasi-jegyzetek/` – a szakirodalom-kutatás jegyzetei (2026. szeptember)
 

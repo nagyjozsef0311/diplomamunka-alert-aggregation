@@ -1,7 +1,22 @@
-# Átadás a kutatás (Cowork) és a kódolás (Claude Code) között
+# Feladatlista
 
-Ez a fájl köti össze a két munkafelületet. Rövid tételeket írj bele, dátummal. Az elintézett
-tételt jelöld `[x]`-szel, és ne töröld.
+2026-10-01 óta (D14) minden munka a Claude Code-ban folyik, ezért ez a fájl már nem két munkafelület
+közti átadás, hanem a közös feladatlista. Rövid tételeket írj bele, dátummal. Az elintézett tételt
+jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
+
+## A szerzőtől vár
+
+- [ ] 2026-10-01 – A kari szakdolgozat-készítési útmutató (PDF) feltöltése.
+- [ ] 2026-10-01 – Az Overleaf-sablon forrása zipben (Overleaf: Menu → Download → Source).
+- [ ] 2026-10-01 – A konzulens nevének alakja a fájlnevekben („Vorosne” vagy „BanatiBaumann”).
+- [ ] 2026-10-01 – A 2026/27. őszi félév pontos dátumai (a szorgalmi időszak vége, a beszámoló hete).
+- [ ] 2026-10-01 – Hálózati beállítás: `zenodo.org`, `api.crossref.org`, `arxiv.org`, `export.arxiv.org` engedélyezése.
+
+## Diplomamunka II.
+
+- [x] 2026-10-01 – Követelmények, leadandók és fejezetvázlat: `docs/diplomamunka-2.md`.
+- [x] 2026-10-01 – Új ütemterv a decemberi leadásig (D13): `docs/munkaterv.md`.
+- [ ] 2026-10-01 – A `thesis/` LaTeX-váza a kari sablonból (a sablon és az útmutató után).
 
 ## Kutatásból a kódolásnak
 

@@ -1,11 +1,34 @@
-# AIT-ADS munkaterv – összefoglaló
+# Munkaterv – összefoglaló
 
-A részletes, szerkeszthető munkaterv a Claude-projektben van („AIT-ADS munkaterv”); ez a fájl a
-tárolóban követhető kivonata. Cél: **december első hetére** mérhető eredmény arról, mennyit javít a
-riasztások rangsorán a gépek fontossága és a sérülékenységi információ a kockázatalapú
-pontozáshoz képest.
+**2026-10-01 óta érvényes: a D13 szerinti ütemezés** (lent, első táblázat). A Diplomamunka II.
+leadásáig (2026. december, a szorgalmi időszak utolsó napja) az írás az elsődleges, a kód addig
+megy, amíg a beszámolóba érdemi „első eredményt” ad. Követelmények: `docs/diplomamunka-2.md`.
 
-## Hetek
+## Ütemezés a Diplomamunka II. leadásáig (D13)
+
+Heti kb. 8–10 órával számolva, ennek kb. fele írás, fele kód. A fejezetszámok a
+`docs/diplomamunka-2.md` vázlatára utalnak.
+
+| Hét | Írás (`thesis/`) | Kód | Akkor kész, ha |
+| --- | --- | --- | --- |
+| 1. (okt. 5–11) | LaTeX-váz a kari sablonból; 1. fejezet vázlata | Környezet, letöltés, adatfeltárás | A PDF lefordul; minden használt mező jelentése ismert |
+| 2. (okt. 12–18) | 2. fejezet (IDS, SOC, riasztási fáradtság) | Egységesítő agent | A CATS-adatból és az eredetiből ugyanazok a riasztások jönnek ki |
+| 3. (okt. 19–25) | 2. fejezet kész; 3. fejezet eleje | Összehasonlítási alapok: súlyosság szerinti rangsor és a CATS visszamérése (russellmitchell) | A cikk számai kb. ±0,02-en belül visszajönnek |
+| 4. (okt. 26–nov. 1) | 3. fejezet: módszerek, összehasonlító táblázat | Gépnyilvántartás a russellmitchell forgatókönyvhöz | Minden riasztás célpontja géphez köthető |
+| 5. (nov. 2–8) | 3. fejezet kész | Környezet- és sérülékenységi agent (egyszerű változat) | Minden riasztásnál van érték vagy dokumentált „ismeretlen” |
+| 6. (nov. 9–15) | 4. fejezet: mérőszámrendszer és agent-modell | Rangsoroló agent; a szakértői súlyok rögzítése páros összehasonlítással | A súlyok dátummal elmentve, a következetességi arány 0,1 alatt |
+| 7. (nov. 16–22) | 5. és 6. fejezet: felépítés, eszközválasztás, tesztkörnyezet | Első eredménytáblázat egy forgatókönyvre (3–5. lépcső) | Rangsor-pontosság és átlagos pontosság minden lépcsőhöz |
+| 8. (nov. 23–29) | 7. és 8. fejezet: értékelési módszertan, első eredmények, ütemterv a III. félévre | Ábrák a beszámolóhoz | Megvan a teljes, legalább 30 oldalas vázlat |
+| 9. (nov. 30–dec. 6) | A teljes vázlat a konzulensnek; javítások | Tartalék | A konzulens visszajelzett |
+| 10. (dec. 7–a leadás napja) | Végleges beszámoló; feladatlap PDF-ben; aláírt konzultációs napló; zip a megadott nevekkel | – | Feltöltve a Moodle-be |
+| Vizsgaidőszak (2027. jan.) | 8 perces előadás, diasor, próbaelőadás | – | Megtartva a bizottság előtt |
+
+**A Diplomamunka III.-ra (2027. jan.–máj. 15.) marad:** csoportosító agent; mind a 8 forgatókönyv;
+érzékenységvizsgálat és adatból tanult súlyok; LangGraph-vezérlés és magyarázó agent; a labor;
+az eredmény- és értékelési fejezetek. Leadás: 2027. május 15., 16:00.
+
+## Az eredeti, 9 hetes AIT-ADS terv (D7, 2026-10-01; a D13 felváltja)
+
 
 | Hét | Feladat | Akkor kész, ha |
 | --- | --- | --- |

@@ -2,6 +2,10 @@
 
 Oct 1, 2026 · @Csoza
 
+> **Megjegyzés (2026-10-01, D13):** a heti ütemezést a Diplomamunka II. decemberi leadásához
+> igazítottuk; az érvényes ütemterv a `docs/munkaterv.md` elején van. A tartalmi részek (adathalmaz,
+> összehasonlítási alapok, gépnyilvántartás, mérési szabályok, kockázatok) változatlanul érvényesek.
+
 ## Cél
 
 December első hetére legyen meg az első mérhető eredmény az AIT-ADS nyilvános riasztás-adathalmazon. Az eredmény azt mutatja meg, mennyit javít a riasztások rangsorán a gépek fontossága és a sérülékenységi információ a kockázatalapú pontozáshoz képest. Ehhez nem kell labor: a riasztások letölthető fájlok, a munka Pythonban, offline folyik.

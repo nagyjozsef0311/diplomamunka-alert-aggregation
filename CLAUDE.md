@@ -5,19 +5,18 @@ október 1. közötti Cowork-beszélgetésben kialakult, hogy itt, a Claude Code
 folytathassuk. A részletek a `docs/` mappában vannak. Ha valami itt és ott eltér, a `docs/dontesek.md`
 az irányadó.
 
-## 0. Munkamegosztás: kutatás a Cowork-ban, kódolás itt
+## 0. Munkamegosztás: minden itt folyik (D14, 2026-10-01)
 
-- **A kutatás** (szakirodalom, módszertani döntések, a konzulensnek szóló anyagok, a dolgozat szövege)
-  a claude.ai Cowork-ban, az „UNI - Diplomamunka” projektben folyik.
-- **A kódolás** (agentek, mérések, labor-szkriptek, tesztek) itt, a Claude Code-ban történik.
-- **A kettő közti átadás a `docs/atadas.md` fájlon keresztül megy.**
-  - Ha kódolás közben kutatási kérdés merül fel, ne itt kutass utána mélyen, hanem írd be a
-    „Kódolásból a kutatásnak” részbe. Ilyen lehet egy módszertani döntés, egy szakirodalmi
-    hivatkozás vagy egy meglepő adat.
-  - A Cowork-ban hozott döntések a „Kutatásból a kódolásnak” részbe kerülnek, és új sort kapnak a `docs/dontesek.md`-ben.
-  - Ha egy átadott tételt elintéztél, jelöld késznek (`[x]`), ne töröld.
-- Mérési eredményt (számokat, táblázatokat) mindig a `results/` mappába írj, összefoglalva a
-  `docs/atadas.md`-be is, hogy a kutatási oldal fel tudja használni.
+- **Itt, a Claude Code-ban folyik minden:** szakirodalom-kutatás, módszertani döntések, a dolgozat
+  írása LaTeX-ben (`thesis/`), a konzulensnek szóló anyagok, a kód, a mérések és a tesztek.
+  (Korábban a kutatás a claude.ai Cowork-ban folyt; az ott készült anyagok a `docs/` mappában vannak.)
+- **A tároló a közös emlékezet.** Ami nincs commitolva és felküldve, az a munkamenet végén elvész.
+  Minden munkadarab után commit és push.
+- **A `docs/atadas.md` a feladatlista.** Az elintézett tételt jelöld `[x]`-szel, ne töröld.
+- Minden döntés új sort kap a `docs/dontesek.md`-ben; a kutatás eredménye kutatási jegyzetbe
+  (`docs/kutatasi-jegyzetek/`), a hivatkozás a `thesis/references.bib`-be kerül (ellenőrzött DOI-val vagy arXiv-azonosítóval).
+- Mérési eredményt (számokat, táblázatokat) mindig a `results/` mappába írj.
+- Személyes adat (Neptun-kód, törzskönyvi szám, a feladatlap fájlja) nem kerül a gitbe (D15).
 
 ## 1. Kiről és miről szól
 
@@ -27,7 +26,8 @@ az irányadó.
 | Iskola | Óbudai Egyetem, Neumann János Informatikai Kar, Kiberbiztonsági mérnöki MSc |
 | Konzulens | Vörösné Dr. Bánáti-Baumann Anna |
 | Cím | Agent-alapú, metrika-vezérelt IDS riasztásaggregáció SOC környezetben |
-| Beadási határidő | 2027-05-15 |
+| Beadási határidő | 2027-05-15, **16:00** (diplomaportál) |
+| Most | **Diplomamunka II.** (2026/27. ősz): legalább 30–35 oldalas beszámoló a szorgalmi időszak utolsó napjáig (2026. december), 8 perces előadás a vizsgaidőszak 3. hetében. Részletek: `docs/diplomamunka-2.md` |
 | Kötelező alap | A feladatlap (claude.ai projekt: `3FMSc_KIBERBIZTONSÁGI ... .doc`). A kutatási terv (`Diplomamunka_kutatasi_terv.txt`) csak a probléma feltárására szolgál. |
 
 **A probléma:** a SOC-elemzőket elárasztják a behatolásérzékelő riasztásai (riasztási fáradtság).
@@ -153,6 +153,12 @@ terhelést kérdőív (NASA-TLX) helyett becsléssel számoljuk.
 
 ## 7. Nyitott kérdések
 
+A Diplomamunka II.-höz:
+
+- a kari szakdolgozat-készítési útmutató és az Overleaf-sablon forrása még nincs a tárolóban;
+- a konzulens nevének alakja a leadandó fájlok nevében („Vorosne” vagy „BanatiBaumann”);
+- a 2026/27. őszi félév pontos dátumai.
+
 A konzulenssel még nem egyeztetett kérdések:
 
 - jóváhagyja-e az irányt;
@@ -164,18 +170,21 @@ A keretrendszer kérdése eldőlt (D12, lásd a 3. pontot).
 
 ## 8. Munkaterv és a következő lépés
 
-A 9 hetes terv: `docs/munkaterv.md` (rövid) és `docs/munkaterv-reszletes.md` (teljes). A cél,
-hogy december első hetére meglegyen az első mérhető eredmény.
+Az érvényes ütemterv (D13) a `docs/munkaterv.md` elején van: a Diplomamunka II. decemberi leadásáig
+hetente egy-két fejezet és egy kódlépés. A tartalmi részletek: `docs/munkaterv-reszletes.md`. A
+beszámoló fejezetvázlata: `docs/diplomamunka-2.md`.
 
 **Most következik – 1. hét (okt. 5–11):**
 
-1. `python -m venv .venv && source .venv/bin/activate && pip install -e ".[dev]"`
-2. A két letöltő szkript futtatása.
-3. Adatfeltárás egy notebookban (`experiments/01_adatfeltaras.ipynb`):
+1. Írás: a `thesis/` LaTeX-váza a kari sablonból (ehhez kell a sablon forrása és az útmutató),
+   az 1. fejezet vázlata. A LaTeX-et minden munkamenetben telepíteni kell (Ubuntu-csomagból).
+2. Kód: `python -m venv .venv && source .venv/bin/activate && pip install -e ".[dev]"`, a két
+   letöltő szkript (ehhez a hálózati beállításban engedélyezni kell a `zenodo.org`-ot), majd
+   adatfeltárás az `experiments/01_adatfeltaras.ipynb` notebookban:
    - mezők, riasztástípusok, időtartam;
    - az eredeti és a CATS-változat összevetése;
    - mely IP melyik géphez tartozik.
-4. Ezután (2. hét) az **egységesítő agent** (`src/alertagg/normalizer.py`) a közös
+3. Ezután (2. hét) az **egységesítő agent** (`src/alertagg/normalizer.py`) a közös
    riasztásformával: idő, forrás- és cél-IP, gépnév, szabály, súlyosság, sérülékenység-hivatkozás,
    támadási technika. Teszttel igazoljuk, hogy a CATS-változatból és az eredetiből ugyanazok a riasztások jönnek ki.
 
@@ -188,7 +197,9 @@ hogy december első hetére meglegyen az első mérhető eredmény.
 
 ## 10. Kapcsolódó anyagok a claude.ai-on
 
-- „UNI - Diplomamunka” projekt (feladatlap, kutatási terv, kutatási jegyzetek, forrásjegyzék).
+- „UNI - Diplomamunka” projekt (feladatlap, kutatási terv, kutatási jegyzetek, forrásjegyzék) – a korábbi Cowork-munka helye.
+- A dolgozat Overleaf-projektje (a megosztási link a szerzőnél van, szerkesztési jogot ad, ezért nem kerül a tárolóba; innen a sablon forrását zipben kell ide hozni; a munkakörnyezetből az Overleaf nem érhető el).
+- Kari tudnivalók és útmutató: https://nik.uni-obuda.hu/altalanos-tudnivalok/ · Diplomaportál: https://diploma.uni-obuda.hu/
 - Konzulensi diasor: https://claude.ai/artifact/E7GeaF5VNKwYvBVX2cmcGr
 - „Kutatási eredmények – döntések kutatási kérdésenként” (doksi): https://claude.ai/code/artifact/d0c6b0a6-6dc5-49ef-b30d-a26adc52479e – a tárolóban: `docs/kutatasi-eredmenyek.md`
 - „AIT-ADS munkaterv” (doksi): https://claude.ai/code/artifact/8c2f6d55-6b09-431f-95d9-f4c3ffe84ceb – a tárolóban: `docs/munkaterv-reszletes.md`
