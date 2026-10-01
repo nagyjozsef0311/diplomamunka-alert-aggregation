@@ -1,0 +1,112 @@
+% A dokumentumosztály megadása a main.tex elején van, hogy az Overleaf feltöltéskor
+% a main.tex-et válassza fő fájlnak. Ez a fájl csak a beállításokat tartalmazza.
+
+% szükséges csomagok
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{caption}
+\usepackage[colorlinks=false, pdfborder={0 0 0}, linkcolor=black, unicode]{hyperref}
+\usepackage{mathtools}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+% lista elemek közti hely, és vonal mint lista elem előtti jel beállítása
+\setlist{nosep, label={--}}
+
+% tartalomjegyzék formázása
+\dottedcontents{section}[1.5em]{}{1.5em}{1pc}
+\dottedcontents{subsection}[3em]{}{2em}{1pc}
+\dottedcontents{subsubsection}[5em]{}{3em}{1pc}
+
+% fejezet cím formázás: 14 pontos betűméret, nagybetűs
+% fejezetcím 14 pont, nagybetűs, a lap tetején; a szerző döntése szerint balra igazítva (D18;
+% az útmutató 2.3 középre igazítást ír – középre: \filright helyett \filcenter)
+\titleformat{\section}{\normalfont\fontsize{14}{17}\selectfont\mdseries\filright\MakeUppercase}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\fontsize{12}{12}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\fontsize{12}{12}\bfseries}{\thesubsubsection}{1em}{}
+
+% fejezet cím térközök
+\titlespacing*{\section}{0em}{0em}{1em}
+\titlespacing*{\subsection}{0em}{1em}{1em}
+\titlespacing*{\subsubsection}{0em}{1em}{1em}
+
+
+% margó (útmutató 2.3): fent 40 mm, lent 25 mm, kívül 25 mm, a kötés oldalán 35 mm;
+% az oldalszám fent, középen, a lap szélétől 20 mm-re (a fejléc teteje 20 mm-nél)
+\usepackage[right=25mm,
+            left=35mm,
+            top=40mm,
+            bottom=25mm,
+            headheight=15pt,
+            headsep=14.7mm
+            ]{geometry}
+
+% oldalszám a fejlécben, középen
+\usepackage{fancyhdr}
+% a fejléc 10 mm-rel balra kinyújtva, így az oldalszám a lap (nem a szövegtükör) közepén van
+\fancypagestyle{plain}{\fancyhf{}\fancyheadoffset[L]{10mm}\fancyhead[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+\pagestyle{plain}
+
+% sorköz: 1,5 sor (útmutató 2.3)
+\usepackage{setspace}
+\onehalfspacing
+
+% times new roman betűtípus
+\usepackage{times}
+
+% ábra és táblázat számozás beállítása fejezetenként
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+% ábra, táblázat cím formázás
+\captionsetup[figure]{labelfont={it, small},textfont={it, small},labelsep=colon}
+\captionsetup[table]{labelfont={it, small},textfont={it, small},labelsep=colon}
+
+% hivatkozások formátuma és bib fájl importálása
+% útmutató, 1. melléklet: szögletes zárójeles sorszám, az irodalomjegyzék az első szerző szerint
+% betűrendben (sorting=nyt), internetes forrásnál az URL és a megtekintés dátuma (url=true, urldate)
+\usepackage[backend=biber,style=ieee,sorting=nyt,doi=true,isbn=true,url=true,eprint=false,
+            urldate=iso,seconds=true]{biblatex}
+\addbibresource{references.bib}
+% az útmutató 1. mellékletének szóhasználata: „URL”, „utoljára megtekintve”
+\DefineBibliographyStrings{magyar}{url={URL}, urlseen={utoljára megtekintve}}
+
+% bekezdés behúzása
+\setlength{\parindent}{5 mm}
+
+% bekezdés térköz
+\setlength{\parskip}{8pt}
+
+% ábra és táblajegyzék formázása
+\makeatletter
+\renewcommand\listoffigures{
+    \section{\listfigurename}
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+    \@starttoc{lof}%
+    }
+
+\renewcommand\listoftables{
+    \section{\listtablename}
+      \@mkboth{\MakeUppercase\listtablename}%
+              {\MakeUppercase\listtablename}%
+    \@starttoc{lot}%
+    }
+\makeatother
