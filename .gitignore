@@ -28,3 +28,23 @@ results/raw/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Személyes adatot tartalmazó előlapok (D15) – csak Overleafben és helyben
+thesis/includes/FELADATLAP.pdf
+thesis/includes/BELSO-BORITOLAP_DM.pdf
+
+# LaTeX fordítási melléktermékek
+thesis/*.aux
+thesis/*.bbl
+thesis/*.bcf
+thesis/*.blg
+thesis/*.fdb_latexmk
+thesis/*.fls
+thesis/*.log
+thesis/*.lof
+thesis/*.lot
+thesis/*.out
+thesis/*.run.xml
+thesis/*.toc
+thesis/main.pdf
+thesis/export/

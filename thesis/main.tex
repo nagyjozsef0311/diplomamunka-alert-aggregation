@@ -1,0 +1,83 @@
+% template file include
+\input{template}
+
+\newcommand{\hianyzoelolap}[1]{\begin{center}\vspace*{8cm}\textbf{Ide kerül: includes/#1}\\(személyes adat, nincs a git-tárolóban)\end{center}\clearpage}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+% ELŐLAPOK: borító, feladatlap, nyilatkozat, konzultációs napló
+% A borítólap és a feladatlap személyes adatot tartalmaz, ezért nincs a git-tárolóban (D15).
+% Overleafben fel kell tölteni őket az includes/ mappába; ha hiányoznak, jelzőoldal kerül a helyükre.
+\IfFileExists{includes/BELSO-BORITOLAP_DM.pdf}{\includepdf[pages=-]{includes/BELSO-BORITOLAP_DM.pdf}}{\hianyzoelolap{BELSO-BORITOLAP\_DM.pdf}}
+\IfFileExists{includes/FELADATLAP.pdf}{\includepdf[pages=-]{includes/FELADATLAP.pdf}}{\hianyzoelolap{FELADATLAP.pdf}}
+\includepdf[pages=-]{includes/HALLGATOI-NYILATKOZAT_DM.pdf}
+\includepdf[pages=-]{includes/KONZULTACIOS-NAPLO_DM2_NAPPALI 1.pdf}
+\includepdf[pages=-]{includes/KONZULTACIOS-NAPLO_DM3_NAPPALI 1.pdf}
+\includepdf[pages=-]{includes/KONZULTACIOS-NAPLO_DM4_NAPPALI 1.pdf}
+
+
+
+\section*{ABSZTRAKT}
+Absztrakt magyarul.
+
+\newpage
+\section*{ABSTRACT}
+Abstract in english.
+
+
+
+% TARTALOMJEGYZÉK
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+\newpage
+
+
+% -----------------------------------------------------
+
+% ITT KELL HOZZÁADNI A FEJEZETEKET, CÍM NAGYBETŰVEL:
+
+\clearpage
+\section{BEVEZETÉS}
+\input{chapters/1_Bevezetes}
+
+\clearpage
+\section{PÉLDA FEJEZET}
+\input{chapters/2_Pelda_Fejezet}
+
+
+
+
+
+
+
+
+
+
+% ------------------------------------------------------
+
+% JEGYZÉKEK, INNEN KI LEHET KOMMENTEZNI AMELYIK ESETLEG NEM KELL (de ha van ábra/táblázat akkor kötelező, irodalomjegyzék kötelező, rövidítések opcionális)
+
+\clearpage
+\section{IRODALOMJEGYZÉK}
+\printbibliography[heading=none]
+
+\clearpage
+\renewcommand{\listfigurename}{ÁBRAJEGYZÉK}
+\listoffigures
+
+\clearpage
+\renewcommand{\listtablename}{TÁBLAJEGYZÉK}
+\listoftables
+
+\clearpage
+\section{RÖVIDÍTÉSEK}
+\input{acronyms}
+
+
+
+
+
+\end{document}

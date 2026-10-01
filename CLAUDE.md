@@ -18,6 +18,27 @@ az irányadó.
 - Mérési eredményt (számokat, táblázatokat) mindig a `results/` mappába írj.
 - Személyes adat (Neptun-kód, törzskönyvi szám, a feladatlap fájlja) nem kerül a gitbe (D15).
 
+## 0/A. A dolgozat szövege: csak a szerző írhatja (D16, 2026-10-01) – KÖTELEZŐ
+
+A dolgozat plágiumvizsgálaton megy át, és a hallgatói nyilatkozat szerint saját munka. Ezért:
+
+- **A dolgozat szövegét (`thesis/chapters/*.tex`, absztrakt, összefoglaló) kizárólag a szerző írja.**
+  Claude nem ír bele folyó szöveget, mondatot, bekezdést, és nem fogalmazza át a szerző szövegét.
+- Claude **javaslatot** adhat (vázlat, gondolatmenet, mit érdemes kifejteni, hol hiányzik hivatkozás,
+  nyelvi vagy logikai hiba jelzése), de ezt **a beszélgetésben vagy a `docs/` mappában**, nem a dolgozat
+  fájljaiban. Kész, bemásolható mondatokat sem javasol.
+- Claude elkészítheti: **ábrákat, diagramokat, táblázatokat** (a `thesis/img/` mappába, illetve
+  táblázatot külön `.tex`-fájlba, pl. `thesis/tables/`), a LaTeX technikai részeit (sablon, formázás,
+  fordítás), a hivatkozások BibTeX-bejegyzéseit. A táblázatok és ábrák feliratát, szöveges celláit a
+  szerző hagyja jóvá.
+- **Csak a szerző által engedélyezett információ kerülhet a dolgozatba.** Minden új ábra, táblázat,
+  hivatkozás és adat előbb javaslat; a `thesis/` mappába csak a szerző kifejezett jóváhagyása után kerül.
+- **Hivatkozás és idézés a kari útmutató szerint** (`thesis/utmutato/`, 1. melléklet): szögletes
+  zárójeles sorszám ([n]), az irodalomjegyzék az első szerző szerint betűrendben, szó szerinti idézet
+  idézőjelben, a felhasznált ábrák, képek, adatok forrása mindig feltüntetve, internetes forrásnál az
+  URL és a megtekintés dátuma. Minden hivatkozás DOI-ját vagy arXiv-azonosítóját ellenőrizni kell.
+- A saját ábrák és táblázatok alá is oda kell írni, ha más forrás adatán alapulnak („Forrás: [n] alapján”).
+
 ## 1. Kiről és miről szól
 
 | | |
@@ -203,4 +224,7 @@ beszámoló fejezetvázlata: `docs/diplomamunka-2.md`.
 - Konzulensi diasor: https://claude.ai/artifact/E7GeaF5VNKwYvBVX2cmcGr
 - „Kutatási eredmények – döntések kutatási kérdésenként” (doksi): https://claude.ai/code/artifact/d0c6b0a6-6dc5-49ef-b30d-a26adc52479e – a tárolóban: `docs/kutatasi-eredmenyek.md`
 - „AIT-ADS munkaterv” (doksi): https://claude.ai/code/artifact/8c2f6d55-6b09-431f-95d9-f4c3ffe84ceb – a tárolóban: `docs/munkaterv-reszletes.md`
-- Forrásjegyzék: `thesis/references.bib` (61 tétel) és `thesis/forrasok.xlsx`.
+- Forrásjegyzék: `thesis/references.bib` (64 tétel + a sablon példabejegyzései) és `thesis/forrasok.xlsx`.
+- A kari sablon és útmutató: `thesis/` (LaTeX, a `main.tex` a fő fájl), `thesis/utmutato/NIK_SZD_DM_TAJ_20252601_2025.pdf`.
+  Overleafbe kézi átvitellel: `scripts/export_overleaf.sh` → zip → Overleaf: New Project → Upload Project.
+  A verziók git-tagek (`thesis-v0.1`, …).

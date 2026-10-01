@@ -9,11 +9,50 @@ dátumait a Moodle-ben kell ellenőrizni.
 | Tárgy | Mikor | Mi a követelmény |
 | --- | --- | --- |
 | Diplomamunka I. | kész (2026 tavasz) | Téma, konzulens, feladatlap |
-| **Diplomamunka II.** (2026/27. ősz) | **Leadás: a szorgalmi időszak utolsó napja, 23:59 (2026. december, pontos nap: Moodle)** | A 4 fájl egy zipben (lásd lent) |
+| **Diplomamunka II.** (2026/27. ősz) | **Leadás: a kari útmutató szerint a szorgalmi időszak 14. hetének péntekje, 23:59 (2026. december, pontos nap: Moodle)** | A 4 fájl egy zipben (lásd lent) |
 | | Pótlás: kb. egy héttel később, pótlási díj befizetése után | Ha addig sincs hiánytalan anyag: „letiltva” |
 | | **Beszámoló: a vizsgaidőszak 3. hetének péntekje és/vagy szombatja (2027. január)** | 8 perces előadás bizottság előtt, személyesen; a beosztás a beszámoló előtti héten kerül a Moodle-be |
 | Diplomamunka III. (2027 tavasz) | **2027. május 15., 16:00** (nem 23:59!) – nem hosszabbítható | A kész dolgozat mellékletekkel a diplomaportálon: https://diploma.uni-obuda.hu/ |
 | Elévülés | 2029. május 15. | A feladatlap szerint (ÓE HKR 54. § (10)) |
+
+## A kari útmutató szerint (NIK szakdolgozat/diplomamunka készítési tájékoztató, 2025/26/1-től)
+
+Teljes szöveg: `thesis/utmutato/NIK_SZD_DM_TAJ_20252601_2025.pdf`. Kiberbiztonsági mérnöki MSc =
+3 féléves diplomamunka (I.: 2., II.: 3., III.: 4. félév).
+
+| Téma | Előírás | Oldal |
+| --- | --- | --- |
+| DM II. beszámoló feltöltése | **a szorgalmi időszak 14. hetének péntekje, 23:59** (Moodle); a Moodle-kiírás „a szorgalmi időszak utolsó napját” írta – a korábbi dátum a biztos | 6, 8 |
+| DM II. terjedelem | az útmutató szerint legalább 15–20 oldal (a fedlap, feladatlap, napló nélkül); **a tárgy Moodle-kiírása szigorúbb: 30–35 oldal – ezt tartjuk** | 8–9 |
+| DM II. beszámoló | a vizsgaidőszak 3. hetének péntekje, 3 tagú bizottság, személyesen | 9 |
+| Konzulensi javaslat | a konzulens a szorgalmi időszak utolsó hetében dönt, javasolja-e a beszámolóra (a konzultációs naplón) | 9 |
+| **IP SCAN Portál témabejelentés** | **MSc: a szorgalmi időszak 9. hetének utolsó munkanapja**; a Diplomamunka I–III. tárgyakhoz kötelező (2025/26/1-től), a teljesítés feltétele; https://nik.uni-obuda.hu/ipscan/ | 7, 28–29 |
+| Végleges dolgozat | legalább **60 oldal** és legalább **80 000 karakter** (szóközökkel); legfeljebb **80 oldal** mellékletekkel | 14 |
+| Feltöltés | diplomaportál, egyetlen alkalommal, 1 db szövegesen kereshető PDF; a forrás, a tesztadatok és a prezentáció (ppt/pptx) külön zipben | 11, 16 |
+| Plágiumvizsgálat | 20% szövegegyezésig a konzulens dönt, felette dékáni hatáskör | 12 |
+| Formai előírások | lásd a „Formai követelmények” részt lent | 14–15 |
+
+### Formai követelmények (2.3 és a mellékletek)
+
+- A4; margó: **fent 40 mm, lent 25 mm, kívül 25 mm, kötésoldalon 35 mm**; sorköz **1,5**.
+- Oldalszám **fent, középen, a lap szélétől 20 mm-re**; a számozás a tartalomjegyzéknél kezdődik.
+- Times New Roman, 12 pont, sorkizárt; fejezetcím arab számmal, 14 pont, **nagybetűs, középre igazítva,
+  új lap tetején**; alfejezet legfeljebb 3 szintig, 12 pont, félkövér, balra.
+- Ábrák és táblázatok fejezetenként számozva (pl. 3.2. ábra), mindegyiknek címe van, a szövegben
+  hivatkozni kell rájuk; a felhasznált ábrák, képek, adatok forrását fel kell tüntetni.
+- Képletek: csak azokat kell számozni, amelyekre hivatkozunk; fejezetenként újrakezdve.
+- Rövidítések összesítve a dolgozat elején vagy végén.
+- Hivatkozás: szögletes zárójeles sorszám ([4]); az irodalomjegyzék **az első szerző szerint
+  betűrendben**, sorszámozva; szó szerinti idézet idézőjelben; internetes forrásnál URL és a
+  megtekintés dátuma. Javasolt formátum: „Szerző, X.: Cím. *Kiadó*, év” / „Szerző, X.: Cikk címe.
+  *Folyóirat*, kötet (szám), év, kezdő–záró oldal”.
+- Felépítés (3. melléklet): belső borítólap, feladatlap, hallgatói nyilatkozat, konzultációs napló,
+  (titkosítás), absztrakt magyarul és angolul, tartalomjegyzék; 1. bevezetés, 2. a probléma elemzése,
+  specifikáció, 3. szakirodalmi megközelítések, 4. a megoldási módszer kiválasztása és indoklása,
+  5. részletes specifikáció, 6. tervezés, 7. megvalósítás, 8. tesztelés, 9. eredmények és összevetés,
+  10. elemzés, továbbfejlesztés, 11. összefoglaló magyarul (1500–2500 karakter), 12. összefoglaló
+  angolul, 13. irodalomjegyzék, 14. mellékletek.
+- A végleges dolgozatban a feladatlap és a nyilatkozat **aláírva, képként** kerül be.
 
 ## A Diplomamunka II. tartalmi követelményei
 
@@ -92,8 +131,9 @@ A végleges dolgozat ugyanerre a szerkezetre épül, a 8. fejezet helyére a mé
 
 ## Nyitott teendők
 
-- [ ] A kari szakdolgozat-készítési útmutató (formai előírások) feltöltése vagy elérhetővé tétele.
-- [ ] Az Overleaf-sablon forrásának feltöltése (Overleaf: Menu → Download → Source, zip).
+- [x] A kari szakdolgozat-készítési útmutató: `thesis/utmutato/` (2026-10-01).
+- [x] Az Overleaf-sablon forrása: `thesis/` (2026-10-01).
+- [ ] **IP SCAN Portál:** megtörtént-e a témabejelentés (MSc: a 9. hét utolsó munkanapja)?
 - [ ] A konzulens nevének alakja a fájlnevekben.
 - [ ] A 2026/27. őszi félév pontos dátumai (a szorgalmi időszak utolsó napja, a beszámoló hete).
 - [ ] Konzultációs napló: az alkalmak folyamatos vezetése, a végén aláíratás.
