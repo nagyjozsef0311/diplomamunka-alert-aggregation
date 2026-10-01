@@ -60,6 +60,10 @@ ellenőrzőösszeget használnak, hogy a mérések megismételhetők legyenek.
 
 - `docs/dontesek.md` – döntésnapló: mit és miért választottunk
 - `docs/munkaterv.md` – az AIT-ADS munkaterv összefoglalója
+- `docs/munkaterv-reszletes.md` – a teljes AIT-ADS munkaterv
+- `docs/kutatasi-eredmenyek.md` – döntések kutatási kérdésenként, fogalomtárral
+- `docs/metrika-katalogus.md` – mérőszámok és adathalmazok
+- `CLAUDE.md` – a teljes háttér a Claude Code számára
 - `docs/kutatasi-jegyzetek/` – a szakirodalom-kutatás jegyzetei (2026. szeptember)
 
 ## Állapot
