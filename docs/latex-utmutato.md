@@ -137,16 +137,28 @@ Az egyszerű táblázatot én is elkészítem neked külön fájlba (`tables/`),
 - `&` választja el a cellákat, `\\` zárja a sort, `\hline` vízszintes vonal.
 - `l`, `c`, `r`: balra, középre, jobbra igazított oszlop; `p{9cm}`: 9 cm széles, sortörő oszlop.
 
-## 8. Rövidítések
+## 8. Rövidítések (automatikus, v0.6 óta)
 
-Első előfordulásnál írd ki a szövegben, pl. „behatolásérzékelő rendszer (Intrusion Detection System,
-IDS)”. Utána vedd fel az `acronyms.tex`-be:
+1. Vedd fel a rövidítést az `acronyms.tex`-be:
 
-```latex
-\acronym{IDS}{Intrusion Detection System – behatolásérzékelő rendszer}
-```
+   ```latex
+   \DeclareAcronym{SOC}{
+     short = SOC,
+     long  = Security Operations Center
+   }
+   ```
 
-Az első rövidítés felvételekor a `main.tex` végén a „RÖVIDÍTÉSEK” rész elől töröld a `%` jeleket.
+2. A szövegben mindig így hivatkozz rá:
+
+   | Ezt írod | Első előfordulásnál | Később |
+   | --- | --- | --- |
+   | `\ac{SOC}` | Security Operations Center (SOC) | SOC |
+   | `\ac{SOC}-ban` | (az első legyen toldalék nélkül) | SOC-ban |
+   | `\acs{SOC}` | mindig csak: SOC | SOC |
+   | `\acl{SOC}` | mindig a teljes név | – |
+
+3. Az első rövidítés után a `main.tex` végén a „RÖVIDÍTÉSEK” rész elől töröld a `%` jeleket
+   (`\printacronyms[heading=none]`). A jegyzékbe csak a szövegben használt rövidítések kerülnek.
 
 ## 9. Overleaf – hatékony munka
 

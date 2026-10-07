@@ -1,11 +1,12 @@
-\newcommand{\acronym}[2]{
-    \item [\textbf{#1}] #2
-}
-
-\begin{itemize}[labelwidth=3cm,align=left,itemindent=3cm,itemsep=4pt]
-
+% Rövidítések (acro csomag). Minden rövidítés egy bejegyzés, például:
+%
+% \DeclareAcronym{SOC}{
+%   short = SOC,
+%   long  = Security Operations Center
+% }
+%
+% A szövegben: \ac{SOC} (első előfordulásnál teljes név, utána rövidítés), \ac{SOC}-ban (toldalék),
+% \acs{SOC} (mindig rövid), \acl{SOC} (mindig teljes). Az első előfordulás legyen toldalék nélkül.
+%
 % IDE LEHET HOZZÁADNI A RÖVIDÍTÉSEKET:
 
-    % példa: \acronym{IDS}{Intrusion Detection System – behatolásérzékelő rendszer}
-
-\end{itemize}
