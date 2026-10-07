@@ -18,28 +18,27 @@ az irányadó.
 - Mérési eredményt (számokat, táblázatokat) mindig a `results/` mappába írj.
 - Személyes adat (Neptun-kód, törzskönyvi szám, a feladatlap fájlja) nem kerül a gitbe (D15).
 
-## 0/A. A dolgozat szövege: csak a szerző írhatja (D16, 2026-10-01) – KÖTELEZŐ
+## 0/A. A dolgozat szövege (D16, módosítva: D20, 2026-10-07) – KÖTELEZŐ
 
-A dolgozat plágiumvizsgálaton megy át, és a hallgatói nyilatkozat szerint saját munka. Ezért:
+A dolgozat plágiumvizsgálaton megy át. A mesterséges intelligencia használata megengedett (D20).
 
-- **A dolgozat szövegét (`thesis/chapters/*.tex`, absztrakt, összefoglaló) kizárólag a szerző írja.**
-  Claude nem ír bele folyó szöveget, mondatot, bekezdést, és nem fogalmazza át a szerző szövegét.
-- Claude **javaslatot** adhat (vázlat, gondolatmenet, mit érdemes kifejteni, hol hiányzik hivatkozás,
-  nyelvi vagy logikai hiba jelzése), de ezt **a beszélgetésben vagy a `docs/` mappában**, nem a dolgozat
-  fájljaiban. Kész, bemásolható mondatokat sem javasol. Kivétel (D19): az írási csomagokban a szerző
-  kérésére pontonként 4–5 mondatos forrásjegyzet és gondolatébresztő kérdések állhatnak, jegyzetstílusban,
-  az ellenőrzöttség jelölésével és azzal a figyelmeztetéssel, hogy a dolgozatba nem vehetők át.
-- Claude elkészítheti: **ábrákat, diagramokat, táblázatokat** (a `thesis/img/` mappába, illetve
-  táblázatot külön `.tex`-fájlba, pl. `thesis/tables/`), a LaTeX technikai részeit (sablon, formázás,
-  fordítás), a hivatkozások BibTeX-bejegyzéseit. A táblázatok és ábrák feliratát, szöveges celláit a
-  szerző hagyja jóvá.
-- **Csak a szerző által engedélyezett információ kerülhet a dolgozatba.** Minden új ábra, táblázat,
-  hivatkozás és adat előbb javaslat; a `thesis/` mappába csak a szerző kifejezett jóváhagyása után kerül.
-- **Hivatkozás és idézés a kari útmutató szerint** (`thesis/utmutato/`, 1. melléklet): szögletes
-  zárójeles sorszám ([n]), az irodalomjegyzék az első szerző szerint betűrendben, szó szerinti idézet
-  idézőjelben, a felhasznált ábrák, képek, adatok forrása mindig feltüntetve, internetes forrásnál az
-  URL és a megtekintés dátuma. Minden hivatkozás DOI-ját vagy arXiv-azonosítóját ellenőrizni kell.
-- A saját ábrák és táblázatok alá is oda kell írni, ha más forrás adatán alapulnak („Forrás: [n] alapján”).
+- **A fejezetfájlokat (`thesis/chapters/*.tex`, absztrakt, összefoglaló) a szerző írja és tartja karban.**
+  Claude a szerző szövegét nem írja át; a hibákat (nyelvi, tartalmi, hivatkozási, formai) jelzi, sorszámmal,
+  a beszélgetésben vagy a `docs/atnezesek/` mappában.
+- **Az írási csomagok (`docs/irasi-csomagok/`) átvehető szöveget is tartalmaznak** (D20):
+  - LaTeX-kódként, készen (`\cite{}`, `\ac{}`, `\enquote{}`, `~`), a szerző szabadon átveheti és átírhatja;
+  - **a forrásoktól független, saját megfogalmazásban**: a forrás mondatait nem fordítjuk és nem
+    követjük szorosan; a forrásból csak szakszó, tény/szám (hivatkozással) és fontos szerkezet kerülhet át;
+  - csak ellenőrzött forrásállítás, hivatkozással; számot csak forrással;
+  - a szerzőnek szóló megjegyzéseket élesen el kell választani az átvehető szövegtől (soha ne legyen
+    megszólítás vagy ellenőrzési megjegyzés az átvehető blokkban).
+- Claude elkészítheti: **ábrákat, diagramokat, táblázatokat** (`thesis/img/`, `thesis/tables/`), a LaTeX
+  technikai részeit, a BibTeX-bejegyzéseket. Ezek a szerző jóváhagyásával kerülnek a `thesis/`-be.
+- **Hivatkozás és idézés a kari útmutató szerint** (`thesis/utmutato/`, 1. melléklet): [n] sorszám, az
+  irodalomjegyzék az első szerző szerint betűrendben, szó szerinti idézet idézőjelben, a felhasznált ábrák,
+  képek, adatok forrása mindig feltüntetve, internetes forrásnál URL és megtekintési dátum. Minden
+  hivatkozás DOI-ját vagy arXiv-azonosítóját ellenőrizni kell.
+- A dolgozatba nem kerül MI-használati nyilatkozat (a szerző döntése, D20).
 
 ## 0/B. Új munkamenet indítása – így folytasd
 
