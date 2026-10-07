@@ -48,6 +48,7 @@ A dolgozat plágiumvizsgálaton megy át, és a hallgatói nyilatkozat szerint s
 3. A dolgozat fordítása: `cd thesis && latexmk -pdf main.tex`. Overleafbe: `scripts/export_overleaf.sh vX.Y`,
    majd új sor a `thesis/VALTOZASOK.md`-ben. A szerző Overleafben módosított változatát zipben tölti fel;
    ezt a `thesis/` mappába kell behozni (a `chapters/*.tex` a szerzőé, azokat nem írjuk át).
+   A szerzőnek szóló LaTeX-útmutató: `docs/latex-utmutato.md`.
 4. Ellenőrzés: `ruff check <fájl>`, `python3 -m pytest -q`.
 5. A feladatlap és a borítólap PDF-je (személyes adat) nincs a tárolóban; a fordítás jelzőoldalt tesz
    a helyükre. Overleafben megvannak.
