@@ -20,6 +20,7 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 - [ ] 2026-10-07 – Még ellenőrizendő: Jalalvand 2025 tartalmi számai (89 cikk, 5 szempontcsoport) és a
   Hámornik–Krasznay-cikk tartalma (Springer, könyvtári hozzáféréssel).
 - [x] 2026-10-07 – A szerző első Bevezetés-vázlata a tárolóban; átnézés: `docs/atnezesek/01_bevezetes_2026-10-07.md`.
+- [x] 2026-10-07 – Az írási csomag 3. változata: átvehető, forrásfüggetlen LaTeX-blokkok (D20), lefordítva ellenőrizve.
 - [ ] 2026-10-07 – **A szerző átdolgozza** a Bevezetést (elsőként a csomagból átvett megfogalmazásokat).
 - [ ] 2026-10-01 – Döntés: kell-e a két ábra (a riasztások útja; a dolgozat felépítése) és a kutatási
   kérdések táblázata az 1. fejezetbe.
