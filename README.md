@@ -65,6 +65,8 @@ ellenőrzőösszeget használnak, hogy a mérések megismételhetők legyenek.
 - `docs/metrika-katalogus.md` – mérőszámok és adathalmazok
 - `docs/diplomamunka-2.md` – a Diplomamunka II. követelményei, leadandói és a beszámoló fejezetvázlata
 - `docs/atadas.md` – feladatlista
+- `docs/latex-utmutato.md` – LaTeX-útmutató a dolgozat sablonjához (fejezetek, hivatkozás, ábrák, Overleaf)
+- `docs/irasi-csomagok/` – fejezetenkénti javaslatok a szerzőnek (kész mondatok nélkül)
 - `CLAUDE.md` – a teljes háttér a Claude Code számára
 - `docs/kutatasi-jegyzetek/` – a szakirodalom-kutatás jegyzetei (2026. szeptember)
 
