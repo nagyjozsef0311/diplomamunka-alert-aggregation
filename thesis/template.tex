@@ -24,7 +24,10 @@
 \usepackage{titletoc}
 
 % lista elemek közti hely, és vonal mint lista elem előtti jel beállítása
-\setlist{nosep, label={--}}
+% (a gondolatjel csak a sima felsorolásra vonatkozik; minden listára beállítva a számozott
+% felsorolás elvesztette a számait, és a rövidítésjegyzék sem fordult le)
+\setlist{nosep}
+\setlist[itemize]{label={--}}
 
 % tartalomjegyzék formázása
 \dottedcontents{section}[1.5em]{}{1.5em}{1pc}
@@ -110,3 +113,9 @@
     \@starttoc{lot}%
     }
 \makeatother
+% rövidítések automatikus kezelése (acro): a szövegben \ac{SOC} – első előfordulásnál
+% „Security Operations Center (SOC)”, utána „SOC”; a jegyzékbe csak a használtak kerülnek.
+% A rövidítéseket az acronyms.tex sorolja fel.
+\usepackage{acro}
+\acsetup{first-style=long-short}
+\input{acronyms}
