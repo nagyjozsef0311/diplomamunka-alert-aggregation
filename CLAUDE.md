@@ -26,7 +26,9 @@ A dolgozat plágiumvizsgálaton megy át, és a hallgatói nyilatkozat szerint s
   Claude nem ír bele folyó szöveget, mondatot, bekezdést, és nem fogalmazza át a szerző szövegét.
 - Claude **javaslatot** adhat (vázlat, gondolatmenet, mit érdemes kifejteni, hol hiányzik hivatkozás,
   nyelvi vagy logikai hiba jelzése), de ezt **a beszélgetésben vagy a `docs/` mappában**, nem a dolgozat
-  fájljaiban. Kész, bemásolható mondatokat sem javasol.
+  fájljaiban. Kész, bemásolható mondatokat sem javasol. Kivétel (D19): az írási csomagokban a szerző
+  kérésére pontonként 4–5 mondatos forrásjegyzet és gondolatébresztő kérdések állhatnak, jegyzetstílusban,
+  az ellenőrzöttség jelölésével és azzal a figyelmeztetéssel, hogy a dolgozatba nem vehetők át.
 - Claude elkészítheti: **ábrákat, diagramokat, táblázatokat** (a `thesis/img/` mappába, illetve
   táblázatot külön `.tex`-fájlba, pl. `thesis/tables/`), a LaTeX technikai részeit (sablon, formázás,
   fordítás), a hivatkozások BibTeX-bejegyzéseit. A táblázatok és ábrák feliratát, szöveges celláit a
