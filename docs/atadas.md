@@ -14,6 +14,11 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 
 ## Diplomamunka II.
 
+- [x] 2026-10-01 – Az 1. fejezet (Bevezetés) írási csomagja: `docs/irasi-csomagok/01_bevezetes.md`.
+- [ ] 2026-10-01 – **A szerző megírja** az 1. fejezetet; utána átnézés (megjegyzések a beszélgetésben).
+- [ ] 2026-10-01 – Döntés: kell-e a két ábra (a riasztások útja; a dolgozat felépítése) és a kutatási
+  kérdések táblázata az 1. fejezetbe.
+
 - [x] 2026-10-01 – Követelmények, leadandók és fejezetvázlat: `docs/diplomamunka-2.md`.
 - [x] 2026-10-01 – Új ütemterv a decemberi leadásig (D13): `docs/munkaterv.md`.
 - [x] 2026-10-01 – A kari sablon és az útmutató a `thesis/` mappában (v0.1, javítások nélkül).
