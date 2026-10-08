@@ -54,6 +54,8 @@ Ezek a döntések készek, és megvalósíthatók.
 
 - [x] 2026-10-08 – Írási csomag: `docs/irasi-csomagok/02_ids_es_soc.md` (6 alfejezet, táblázat, lefordítva ellenőrizve).
 - [ ] 2026-10-08 – Ellenőrizendő: Denning 1987 DOI-ja; a NIST SP 800-94 érvényessége a CSRC-oldalon.
+- [x] 2026-10-08 – A csomag 2. változata: 2.2 behatolásérzékelő eszközök, 2.3 SIEM-eszközök (összehasonlító táblázatokkal), 2.4 SOC-szervezeti modellek.
+- [ ] 2026-10-08 – A kutatási rés pontosítása a Bevezetésben: a Splunk kockázatalapú riasztása már használ eszköz- és felhasználói adatot; a rés a *nyilvánosan mért* hozzáadott érték.
 - [ ] 2026-10-08 – Döntés: kell-e a két ábra (az IDS-ek csoportosítása; a riasztások útja a SOC-ban).
 
 ## Kódolásból a kutatásnak
