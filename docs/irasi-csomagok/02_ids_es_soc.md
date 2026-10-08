@@ -5,8 +5,10 @@ megfogalmazás), a blokkokon kívüli „Megjegyzés” sorok neked szólnak.
 
 - **Feladatlap:** F1 – az IDS és SOC rendszerek működésének és kihívásainak áttekintése.
 - **Útmutató:** 2. pont – a probléma elemzése (elméleti háttér).
-- **Diplomamunka II.:** 1. pont – az elméleti háttér elmélyítése. Terjedelem: kb. **6 oldal** (a végleges
-  dolgozatban 8–10).
+- **Diplomamunka II.:** 1. pont – az elméleti háttér elmélyítése; 3. pont – hasonló megoldások
+  (eszközök) összehasonlítása. Terjedelem: kb. **9–10 oldal** a két összehasonlító táblázattal.
+- **2026-10-08, 2. változat:** a szerző kérésére külön alfejezet a behatolásérzékelő eszközökről (2.2)
+  és a SIEM-eszközökről (2.3), összehasonlító táblázatokkal; a SOC-rész a szervezeti modellekkel bővült (2.4).
 - **Fájl:** `chapters/2_IDS_es_SOC.tex`; a `main.tex`-ben a Bevezetés után:
 
 ```latex
@@ -28,6 +30,10 @@ Megjegyzés: a fejezetcím munkacím, írd át nyugodtan (csupa nagybetűvel).
   short = NIST,
   long  = National Institute of Standards and Technology
 }
+\DeclareAcronym{MSSP}{
+  short = MSSP,
+  long  = Managed Security Service Provider
+}
 ```
 
 Megjegyzés: a SOC, SIEM, IDS és RBA már az 1. fejezetből megvan.
@@ -40,7 +46,15 @@ Megjegyzés: a SOC, SIEM, IDS és RBA már az 1. fejezetből megvan.
 | `scarfone2007nist` | Az IDS-ek csoportosítása és a felismerési módszerek | NIST CSRC-oldal; a módszerek leírása a dokumentum másolataiból. **Nézd meg a CSRC-oldalon, hogy a dokumentum még érvényes-e** (egy forrás szerint 2022-ben visszavonták). |
 | `axelsson2000` | Miért sok a téves riasztás (alapgyakoriság-hiba) | ACM TISSEC 3(3), 186–205, DOI 10.1145/357830.357849; a kivonat alapján |
 | `strom2018attack` | A MITRE ATT\&CK tudásbázis | MITRE-oldal (MP180360R1, 2020-as átdolgozás) |
-| `suricatadocs`, `wazuhrules` | A két eszköz működése | Hivatalos dokumentáció (OISF, illetve Wazuh) |
+| `suricatadocs`, `wazuhrules`, `zeekdocs`, `ossec`, `wazuhossec` | Az eszközök működése | Hivatalos dokumentációk és projektoldalak |
+| `roesch1999snort` | A Snort | USENIX LISA '99, 229–238 |
+| `paxson1999bro` | A Zeek (Bro) | Computer Networks 31(23–24), 2435–2463; **DOI nem található, kimaradt** |
+| `shah2018snort` | Snort és Suricata összehasonlítása | FGCS 80, 157–170; a kivonat és az arXiv-változat alapján |
+| `gonzalez2021siem` | A SIEM-ek áttekintése | Sensors 21(14), 4759, DOI 10.3390/s21144759; nyílt hozzáférésű |
+| `knerler2022mitre` | SOC-szervezeti modellek | MITRE, 2022; a kivonat és másodlagos összefoglaló alapján |
+| `splunkrba`, `sentinelkql`, `elasticsecurity` | SIEM-termékek jellemzői | Gyártói dokumentáció |
+| `splunkmq2025`, `microsoftmq2025`, `googlemq2025` | A Gartner 2025-ös értékelése | A gyártók saját közleményei (a jelentés fizetős) |
+| `ciscosplunk2024`, `paloaltoqradar` | A piac átrendeződése | Cisco befektetői közlemény; Palo Alto Networks oldala |
 | `landauer2024aitads` | Az AIT-ADS adathalmaz | Korábban ellenőrizve |
 | `vielberth2020`, `kokulu2019`, `alahmadi2022`, `tariq2025`, `ndichu2026` | SOC, elemzői munka, riasztási fáradtság | 2026-10-07-én ellenőrizve |
 | `vermeer2023` | A hálózati szabályok kezelése a SOC-okban | ACM CCS 2023, 2770–2784; a kivonat alapján |
@@ -90,45 +104,157 @@ Megjegyzés: a „gépi” helyett a „hosztalapú” is bevett; válassz egyet
 
 ---
 
-## 2.2. A dolgozatban vizsgált eszközök: Suricata és Wazuh
+## 2.2. Behatolásérzékelő eszközök
 
 ```latex
-\subsection{A vizsgált eszközök: Suricata és Wazuh}\label{sec:eszkozok}
+\subsection{Behatolásérzékelő eszközök}\label{sec:ids-eszkozok}
 
-A dolgozat két, széles körben használt, nyílt forráskódú eszköz riasztásaival dolgozik.
-A Suricata hálózati behatolásérzékelő és -megelőző rendszer, amelyet az Open Information Security
-Foundation nevű nonprofit szervezet fejleszt~\cite{suricatadocs}.
-Élő forgalmon és rögzített forgalmi fájlokon is futtatható; működése alapvetően szabályalapú, vagyis
-a beállított szabálykészlet mintázataira illeszkedő forgalomra riasztást ad, emellett részletes
-forgalmi naplót is készít.
-Megfigyelő (passzív) és a forgalomba beépülő (aktív) módban is üzemeltethető.
+A gyakorlatban használt behatolásérzékelő eszközök működési elvük és telepítési helyük alapján is
+jelentősen eltérnek egymástól.
+A következőkben a legelterjedtebb nyílt forráskódú eszközöket mutatom be, mert ezek működése
+nyilvánosan dokumentált, és a kutatások is jellemzően ezekre épülnek; a kereskedelmi termékek egy
+része ugyanezekre az alapokra épül.
 
-A Wazuh gépi oldali biztonsági platform: a megfigyelt gépekre telepített ügynökök gyűjtik és
-továbbítják a napló- és rendszeradatokat egy központi kiszolgálónak, amely szabályok alapján
-riasztásokat állít elő.
-Minden szabálynak van egy szintje, amely a riasztás súlyosságát fejezi ki: a legalacsonyabb szintű
-események nem is jutnak el a felületre, a középső szintek a sikertelen bejelentkezésekhez és
-hasonló, önmagukban ritkán veszélyes eseményekhez tartoznak, a legmagasabb szintek pedig nagy
-valószínűséggel támadásra utalnak~\cite{wazuhrules}.
-A Wazuh más forrásokból is képes riasztásokat fogadni; a dolgozatban használt nyilvános
-adathalmazban (AIT-ADS) a Suricata riasztásai is a Wazuh-n keresztül kerültek
-gyűjtésre~\cite{landauer2024aitads}.
+\subsubsection{Hálózati eszközök}
 
-A két eszköz eltérő módon fejezi ki a súlyosságot: a Suricata néhány prioritási fokozatot, a Wazuh
-egy több fokozatú szintskálát használ.
-Ahhoz, hogy a két forrás riasztásai közösen rangsorolhatók legyenek, ezeket közös skálára kell
-hozni; ez a feladat a 4. fejezetben bemutatott egységesítő lépés egyik része.
+A Snort az egyik első és legismertebb hálózati behatolásérzékelő.
+Roesch 1999-ben könnyűsúlyú, szabályalapú eszközként mutatta be, amely egyszerű szabálynyelvvel írja
+le a keresett forgalmi mintázatokat~\cite{roesch1999snort}.
+Szabálynyelve a terület egyik alapjává vált: a később megjelent eszközök egy része is ehhez hasonló
+szabályokat használ.
+
+A Suricata ugyancsak szabályalapú hálózati behatolásérzékelő és -megelőző rendszer, amelyet az Open
+Information Security Foundation nevű nonprofit szervezet fejleszt~\cite{suricatadocs}.
+Szabálykészlete a Snortéhoz hasonló, a legfontosabb építészeti különbség pedig az volt, hogy a
+Suricata kezdettől fogva több szálon dolgozza fel a forgalmat, míg a Snort hosszú ideig egyetlen
+szálon~\cite{shah2018snort}.
+Shah és Issac azonos hardveren, nagy sebességű forgalommal végzett összehasonlítása szerint a
+Suricata nagyobb forgalmat tudott feldolgozni kevesebb csomagvesztéssel, ennek ára viszont a
+nagyobb erőforrásigény volt~\cite{shah2018snort}.
+A Suricata a riasztások mellett részletes forgalmi naplót is készít, és megfigyelő (passzív) és
+a forgalomba beépülő (aktív) módban is üzemeltethető~\cite{suricatadocs}.
+
+A Zeek (korábbi nevén Bro) eltérő megközelítést képvisel.
+Paxson eredetileg valós idejű behatolásérzékelő rendszerként mutatta be~\cite{paxson1999bro}, a mai
+változat azonban elsősorban hálózati forgalomelemző és -megfigyelő eszköz, amely nem klasszikus
+szignatúraalapú behatolásérzékelő~\cite{zeekdocs}.
+A forgalomból részletes, protokollonkénti naplókat készít, az elemzést pedig egy saját szkriptnyelven
+írt programok végzik, így viselkedés- és anomáliaalapú vizsgálatokra is alkalmas.
+A Zeek ezért inkább kiegészíti a szabályalapú eszközöket, mint helyettesíti őket.
+
+\subsubsection{Gépi eszközök}
+
+Az OSSEC nyílt forráskódú, gépi behatolásérzékelő rendszer, amely a naplóelemzést, a
+fájlintegritás-figyelést és a rootkitek felismerését egyesíti, és ügynökkel, valamint ügynök nélkül
+is képes gépeket megfigyelni~\cite{ossec}.
+A Wazuh 2015-ben az OSSEC továbbfejlesztett változataként (forkjaként) indult, mert az eredeti projekt
+fejlesztése lelassult~\cite{wazuhossec}.
+Azóta a gépi felismerés mellett sérülékenység-felismeréssel, saját webes felülettel és a riasztások
+központi gyűjtésével is bővült, így kisebb környezetekben a \ac{SIEM} szerepét is betölti.
+A Wazuh szabályai súlyossági szinteket kapnak, amelyek a jelentéktelen eseményektől a nagy
+valószínűséggel támadásra utaló riasztásokig terjednek~\cite{wazuhrules}.
+
+\Az{\ref{tab:ids-eszkozok}}. táblázat összefoglalja a bemutatott eszközök fő tulajdonságait.
+
+\begin{table}[H]
+    \centering
+    \caption{Elterjedt nyílt forráskódú behatolásérzékelő eszközök összehasonlítása}
+    \label{tab:ids-eszkozok}
+    \small
+    \begin{tabular}{|L{1.7cm}|L{1.6cm}|L{3.4cm}|L{3.1cm}|L{3.1cm}|}
+        \hline
+        \textbf{Eszköz} & \textbf{Típus} & \textbf{Felismerési elv} & \textbf{Feldolgozás, kimenet} & \textbf{Megjegyzés} \\ \hline
+        Snort & hálózati & szignatúra (szabályalapú) & riasztás; a régebbi változatok egyszálúak & az egyik első nyílt forráskódú hálózati eszköz \\ \hline
+        Suricata & hálózati & szignatúra, protokollelemzés & többszálú; riasztás és forgalmi napló & a Snortéhoz hasonló szabálykészlet; passzív és aktív mód \\ \hline
+        Zeek & hálózati & viselkedés- és anomáliaalapú szkriptek & protokollonkénti naplók & nem klasszikus szignatúraalapú eszköz; kiegészítő szerep \\ \hline
+        OSSEC & gépi & naplóelemzés, fájlintegritás, rootkitfelismerés & ügynökös és ügynök nélküli megfigyelés & a Wazuh elődje \\ \hline
+        Wazuh & gépi & szabályalapú naplóelemzés, sérülékenység-felismerés & ügynökök és központi kiszolgáló; súlyossági szintek & az OSSEC forkja; SIEM-funkciók \\ \hline
+    \end{tabular}
+\end{table}
+
+A dolgozat a Suricata és a Wazuh riasztásaival dolgozik.
+A két eszköz eltérő módon fejezi ki a súlyosságot, ezért a riasztásokat a közös rangsoroláshoz
+egységes formára és közös súlyossági skálára kell hozni.
 ```
 
 Megjegyzések:
-- A Suricata prioritási fokozatainak pontos számát (a szabályokban 1–4, a gyakorlatban 1–3 jellemző)
-  nem ellenőriztem a dokumentációban, ezért a szöveg csak „néhány fokozatot” ír. Ha a dokumentációban
-  megnézed, beírhatod a pontos értéket.
-- A „4. fejezet” utalást igazítsd a végleges számozáshoz.
+- Forrás a táblázat alá nem kell külön, mert a szövegben minden állítás hivatkozva van; ha mégis
+  szeretnéd: „Forrás: [Roesch], [Paxson], [Shah–Issac] és a dokumentációk alapján, saját összeállítás”.
+- A Snort 3-as változata ma már többszálú; ezt csak másodlagos forrás erősítette meg, ezért a
+  szöveg óvatosan fogalmaz („a régebbi változatok egyszálúak”). Ha a hivatalos Snort-dokumentációban
+  megnézed, kiegészítheted.
+- **Kereskedelmi termékek:** ha ezekről is szeretnél írni (pl. a Cisco Snort-alapú megelőző
+  rendszere, a végpontvédelmi EDR-termékek), szólj, és ellenőrzött forrással kiegészítem.
 
 ---
 
-## 2.3. A biztonsági műveleti központ felépítése és a riasztások útja
+## 2.3. SIEM-eszközök
+
+```latex
+\subsection{Biztonsági információ- és eseménykezelő rendszerek}\label{sec:siem}
+
+A \ac{SIEM} a biztonsági műveleti központ legfontosabb eszköze: a különböző érzékelők, köztük a
+behatolásérzékelők eseményeit egy központi platformon gyűjti, egységes formára hozza, összekapcsolja
+és szabályok alapján riasztásokká alakítja~\cite{gonzalez2021siem}.
+González-Granadillo és szerzőtársai áttekintése szerint a \ac{SIEM}-ek az egyszerű naplógyűjtőkből
+átfogó rendszerekké fejlődtek, amelyek a kockázatos területek gyors felismerésével csökkentik az
+incidensek kezelésének idejét, és egyre inkább összeolvadnak a nagy adatmennyiségek elemzésére
+szolgáló platformokkal~\cite{gonzalez2021siem}.
+
+A piacot néhány nagy szereplő uralja.
+A Gartner piacelemző cég 2025-ös értékelésében vezető helyen szerepelt többek között a Splunk, a
+Microsoft Sentinel és a Google Security Operations~\cite{splunkmq2025,microsoftmq2025,googlemq2025}.
+A piac az utóbbi években jelentősen átrendeződött: a Splunkot 2024-ben felvásárolta a
+Cisco~\cite{ciscosplunk2024}, az IBM pedig QRadar termékének felhőszolgáltatását a Palo Alto Networks
+cégnek adta el, amely a felhőügyfeleket saját platformjára költöztette~\cite{paloaltoqradar}.
+
+A termékek közötti különbségek közül a dolgozat szempontjából három lényeges: hol fut a rendszer
+(saját infrastruktúrán vagy felhőben), milyen nyelven fogalmazhatók meg a lekérdezések és a
+felismerési szabályok, és milyen eszközt kínál a riasztások rangsorolására.
+A Microsoft Sentinel felhőalapú rendszer, amely adatait az Azure naplóelemző tárolójában tartja, és a
+lekérdezésekhez, valamint a felismerési szabályokhoz a Kusto lekérdezőnyelvet használja~\cite{sentinelkql}.
+Az Elastic Security az Elasticsearch keresőmotorra és a Kibana felületre épül, és egységes
+adatsémát vár el a különböző forrásoktól~\cite{elasticsecurity}.
+A Splunk Enterprise Security saját lekérdezőnyelvvel dolgozik, és beépített kockázatalapú riasztást
+kínál: az egyes gyanús találatok nem önálló riasztásként jelennek meg, hanem kockázati pontszámként
+gyűlnek az érintett eszközhöz vagy felhasználóhoz, és csak egy küszöb átlépésekor keletkezik belőlük
+kivizsgálandó riasztás~\cite{splunkrba}.
+A pontszám az eszközök és a felhasználók tulajdonságai alapján módosítható, vagyis a kereskedelmi
+gyakorlatban a környezeti információ bevonása már megjelent~\cite{splunkrba}.
+
+\Az{\ref{tab:siem-eszkozok}}. táblázat a jellemző \ac{SIEM}-eszközöket hasonlítja össze.
+
+\begin{table}[H]
+    \centering
+    \caption{Elterjedt SIEM-eszközök összehasonlítása}
+    \label{tab:siem-eszkozok}
+    \small
+    \begin{tabular}{|L{2.6cm}|L{2.6cm}|L{3.4cm}|L{4.2cm}|}
+        \hline
+        \textbf{Eszköz} & \textbf{Üzemeltetés} & \textbf{Lekérdezés, szabályok} & \textbf{Megjegyzés} \\ \hline
+        Splunk Enterprise Security & saját infrastruktúra vagy felhő & saját lekérdezőnyelv & beépített kockázatalapú riasztás; 2024 óta a Cisco tulajdona \\ \hline
+        Microsoft Sentinel & felhő (Azure) & Kusto lekérdezőnyelv & a Microsoft felhőszolgáltatásaihoz illeszkedik \\ \hline
+        IBM QRadar & saját infrastruktúra & -- & a felhőszolgáltatás 2024-ben a Palo Alto Networkshöz került \\ \hline
+        Elastic Security & saját infrastruktúra vagy felhő & Elasticsearch-alapú lekérdezések & egységes adatséma; nyílt fejlesztésű alapokra épül \\ \hline
+        Wazuh & saját infrastruktúra & szabályalapú elemzés & nyílt forráskódú; gépi felismerés és SIEM-funkciók egy rendszerben \\ \hline
+    \end{tabular}
+\end{table}
+```
+
+Megjegyzések:
+- **A kutatási rés pontosítása:** a Splunk kockázatalapú riasztása már használ eszköz- és
+  felhasználói adatokat. A dolgozat rése ezért így pontos: *a nyilvánosan, mérhetően értékelt
+  kockázatalapú pontozás (Uetz és mtsai.) nem használja a környezetet, és nincs nyilvános mérés arról,
+  mennyit ad hozzá.* Ezt a Bevezetésben és a 3. fejezetben is így érdemes megfogalmazni.
+- A Gartner-értékelést a gyártók saját közleményei alapján hivatkozom (a jelentés maga fizetős). Ha
+  hozzáférsz a jelentéshez (pl. egy gyártó ingyenes másolatán keresztül), cseréld arra a hivatkozást.
+- A QRadar lekérdezőnyelvét nem ellenőriztem, ezért szerepel „--” a táblázatban.
+- A „Splunk Enterprise Security … saját infrastruktúra vagy felhő” általános tudás, a Splunk felhős
+  kiadása miatt; ha szigorúan forrással akarod, hagyd el a cellát.
+
+---
+
+## 2.4. A biztonsági műveleti központ felépítése és a riasztások útja
 
 ```latex
 \subsection{A biztonsági műveleti központ felépítése}\label{sec:soc}
@@ -140,8 +266,18 @@ egymásra utalt terület -- az emberek, a folyamatok és a technológia -- együ
 megállapítják, hogy a kutatások jellemzően az emberi és a technológiai oldallal foglalkoznak, a
 kettőt összekötő folyamatokkal kevésbé~\cite{vielberth2020}.
 
-A technológiai oldal központi eleme a \ac{SIEM}, amely a különböző érzékelők és rendszerek
-eseményeit egységes formában tárolja, összekapcsolja és szabályok alapján riasztásokká alakítja.
+A \ac{SOC}-ok szervezeti felépítése is sokféle lehet.
+Knerler és szerzőtársai a MITRE gyakorlati útmutatójában azt hangsúlyozzák, hogy nincs két egyformán
+felépített \ac{SOC}: a szervezeti formát a kiszolgált szervezet mérete, a vállalt feladatok és a
+szükséges rendelkezésre állás határozza meg~\cite{knerler2022mitre}.
+A legfontosabb döntések a következők: a központ egy helyen, egységes irányítás alatt működik-e
+(központosított), vagy a szervezet több részén elosztva; az elemzők feladatait szintekre bontják-e
+(például elsődleges szűrés, mélyebb kivizsgálás), vagy szintek nélkül dolgoznak; és a feladatokat
+saját munkatársak látják-e el, vagy részben vagy egészben külső szolgáltatóhoz kerülnek~\cite{knerler2022mitre}.
+A külső, menedzselt biztonsági szolgáltatók (MSSP) egyszerre több ügyfél riasztásait kezelik, ezért
+náluk a riasztási terhelés és a szabálykezelés különösen fontos kérdés~\cite{vermeer2023}.
+
+A technológiai oldal központi eleme a \ac{SIEM}.
 Egy riasztás útja jellemzően a következő: az érzékelő (például a Suricata vagy a Wazuh) jelez, a
 riasztás a \ac{SIEM}-be kerül, ott egy várakozási sorba áll, majd az elemző a sorból kiválasztja,
 megvizsgálja és eldönti, hogy valódi incidensről vagy téves riasztásról van-e szó.
@@ -159,12 +295,17 @@ technikaiak: a vezetők és az elemzők gyakran eltérően ítélik meg, mi a ha
 eltérés rontja a központ teljesítményét~\cite{kokulu2019}.
 ```
 
-Megjegyzés: ide illik egy **ábra a riasztások útjáról** (lásd lent). A „triázs” szó helyett
-„elsődleges szűrés” is írható; ha a triázst használod, első előfordulásnál magyarázd meg.
+Megjegyzések:
+- A szervezeti modellek (központosított, elosztott, szintekre bontott, kiszervezett) a MITRE-könyv 3.
+  stratégiájából valók; a részleteket csak a könyv kivonatából és másodlagos összefoglalóból tudtam
+  ellenőrizni. A könyv ingyenesen letölthető a MITRE oldaláról – ha belenézel, egy táblázatba is
+  összefoglalhatjuk a modelleket (előnyök, hátrányok, kinek való).
+- Az MSSP rövidítést első előfordulásnál vedd fel az `acronyms.tex`-be (Managed Security Service Provider).
+- Ide illik az **ábra a riasztások útjáról**.
 
 ---
 
-## 2.4. Miért sok a téves riasztás?
+## 2.5. Miért sok a téves riasztás?
 
 ```latex
 \subsection{A téves riasztások okai}\label{sec:teves}
@@ -199,7 +340,7 @@ riasztással (a 9999 ártalmatlan esemény 1%-a). Ha a pontos arányt is meg aka
 
 ---
 
-## 2.5. A riasztási fáradtság és kezelésének irányai
+## 2.6. A riasztási fáradtság és kezelésének irányai
 
 ```latex
 \subsection{A riasztási fáradtság}\label{sec:faradtsag}
@@ -223,7 +364,7 @@ információval egészíti ki.
 
 ---
 
-## 2.6. Összegzés: a kihívásokból adódó követelmények
+## 2.7. Összegzés: a kihívásokból adódó követelmények
 
 ```latex
 \subsection{A fejezet összegzése}\label{sec:ids-soc-osszegzes}
@@ -236,7 +377,7 @@ Ezeket \az{\ref{tab:kihivasok}}. táblázat foglalja össze.
     \centering
     \caption{A riasztáskezelés kihívásai és az ezekből adódó követelmények}
     \label{tab:kihivasok}
-    \begin{tabular}{|p{4cm}|p{4.4cm}|p{4.8cm}|}
+    \begin{tabular}{|L{4cm}|L{4.4cm}|L{4.8cm}|}
         \hline
         \textbf{Kihívás} & \textbf{Következmény} & \textbf{Követelmény a megoldással szemben} \\ \hline
         Sok riasztás, kevés valódi támadás & Az elemző ideje nagyrészt téves riasztásokra megy el & A valószínűleg valódi riasztások kerüljenek a lista elejére \\ \hline
@@ -262,13 +403,14 @@ csökkentsd (összesen kb. 14–15 cm fér el a szövegtükörben).
 | Ábra | Hova | Mit mutat |
 | --- | --- | --- |
 | A behatolásérzékelők csoportosítása | 2.1 | Hálózati és gépi típus × szignatúra-, anomália- és protokollállapot-alapú felismerés (Forrás: \cite{scarfone2007nist} alapján) |
-| A riasztások útja a SOC-ban | 2.3 | Suricata és Wazuh → \ac{SIEM} → várakozási sor → elemző (triázs) → incidens vagy lezárás; jelölve, hol avatkozik be a dolgozat |
+| A riasztások útja a SOC-ban | 2.4 | Suricata és Wazuh → \ac{SIEM} → várakozási sor → elemző (triázs) → incidens vagy lezárás; jelölve, hol avatkozik be a dolgozat |
 
 Mindkettőt elkészítem PDF-ben a `thesis/img/` mappába, ha kéred.
 
 ## Átvételkor figyelj
 
+- A táblázatok `L{…}` oszlopai balra igazított, sortörő oszlopok; ehhez a v0.8-as `template.tex` kell.
 - A blokkokat a fenti sorrendben másold be a `2_IDS_es_SOC.tex`-be; átírhatod őket.
 - A hivatkozási kulcsok és a számok ellenőrzöttek, ne változtasd meg őket.
 - Az `ATT\&CK` írásmódban a `\&` kötelező.
-- Terjedelem: a hat blokk együtt kb. 5–6 oldal a sablonban (ábrák nélkül).
+- Terjedelem: a hét blokk együtt kb. 9–10 oldal a sablonban (ábrák nélkül).

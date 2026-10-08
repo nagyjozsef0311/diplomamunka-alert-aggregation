@@ -78,6 +78,10 @@
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
 
+% táblázatokhoz: L{szélesség} = balra igazított, sortörő oszlop (keskeny cellákban nincs nagy szóköz)
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
 % ábra, táblázat cím formázás
 \captionsetup[figure]{labelfont={it, small},textfont={it, small},labelsep=colon}
 \captionsetup[table]{labelfont={it, small},textfont={it, small},labelsep=colon}
