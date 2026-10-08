@@ -58,6 +58,14 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-08 – A kutatási rés pontosítása a Bevezetésben: a Splunk kockázatalapú riasztása már használ eszköz- és felhasználói adatot; a rés a *nyilvánosan mért* hozzáadott érték.
 - [ ] 2026-10-08 – Döntés: kell-e a két ábra (az IDS-ek csoportosítása; a riasztások útja a SOC-ban).
 
+## 3. fejezet
+
+- [x] 2026-10-08 – Írási csomag: `docs/irasi-csomagok/03_szakirodalom.md` (6 alfejezet, 4 összehasonlító táblázat, köztük a rések és a saját rendszer megfeleltetése; lefordítva ellenőrizve, kb. 10 oldal).
+- [x] 2026-10-08 – `references.bib`: Njogu 2013, 6(1), 15–27; Anuar évszáma 2013 (a kulcsok nem változtak). `acronyms.tex`: AHP, CVSS, AUROC, MCP, RAG.
+- [ ] 2026-10-08 – Ellenőrizendő: Hmimou 2025 (csak a kivonat alapján), AgentSOC pontos kísérleti adatai, Wilkens/Nadeem/Shittu tartalma (most szám nélkül szerepelnek).
+- [ ] 2026-10-08 – Döntés: kell-e ábra a Valeur-féle feldolgozási lépésekről a saját agentek hozzárendelésével.
+- [ ] 2026-10-08 – **A szerző megírja** a `chapters/3_Modszerek.tex`-et a csomag alapján.
+
 ## Kódolásból a kutatásnak
 
 Ide kerülnek a kódolás közben felmerült kérdések, meglepő adatok és mérési eredmények.
