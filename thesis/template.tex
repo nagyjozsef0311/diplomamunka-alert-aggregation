@@ -90,6 +90,10 @@
 \addbibresource{references.bib}
 % az útmutató 1. mellékletének szóhasználata: „URL”, „utoljára megtekintve”
 \DefineBibliographyStrings{magyar}{url={URL}, urlseen={utoljára megtekintve}}
+% a hosszú URL-ek bárhol törhetők legyenek, ne lógjanak ki a margóból
+\setcounter{biburlnumpenalty}{9000}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
 
 % bekezdés behúzása
 \setlength{\parindent}{5 mm}

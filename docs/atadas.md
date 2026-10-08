@@ -50,6 +50,12 @@ Ezek a döntések készek, és megvalósíthatók.
   tömeges (pandas) feldolgozással. A LangGraph-vezérlés az AIT-mérések után jön, az MCP opcionális.
   Részletek: `CLAUDE.md` 3. pont és `docs/kutatasi-jegyzetek/kutatasi_jegyzet_05.md`.
 
+## 2. fejezet
+
+- [x] 2026-10-08 – Írási csomag: `docs/irasi-csomagok/02_ids_es_soc.md` (6 alfejezet, táblázat, lefordítva ellenőrizve).
+- [ ] 2026-10-08 – Ellenőrizendő: Denning 1987 DOI-ja; a NIST SP 800-94 érvényessége a CSRC-oldalon.
+- [ ] 2026-10-08 – Döntés: kell-e a két ábra (az IDS-ek csoportosítása; a riasztások útja a SOC-ban).
+
 ## Kódolásból a kutatásnak
 
 Ide kerülnek a kódolás közben felmerült kérdések, meglepő adatok és mérési eredmények.
