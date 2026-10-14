@@ -66,6 +66,10 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-08 – Döntés: kell-e ábra a Valeur-féle feldolgozási lépésekről a saját agentek hozzárendelésével.
 - [ ] 2026-10-08 – **A szerző megírja** a `chapters/3_Modszerek.tex`-et a csomag alapján.
 
+## Előadások
+
+- [x] 2026-10-14 – Kutatási eredmények diasor a NIK-sablonban: `docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx` (címdia + 6 tartalmi dia, jegyzetekkel: probléma és rés, adathalmazok, módszerek, hét agent, különbségek, várt eredmények). Előállítás: `scripts/build_kutatasi_deck.py`.
+
 ## Kódolásból a kutatásnak
 
 Ide kerülnek a kódolás közben felmerült kérdések, meglepő adatok és mérési eredmények.
