@@ -66,6 +66,15 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-08 – Döntés: kell-e ábra a Valeur-féle feldolgozási lépésekről a saját agentek hozzárendelésével.
 - [ ] 2026-10-08 – **A szerző megírja** a `chapters/3_Modszerek.tex`-et a csomag alapján.
 
+## 4. fejezet
+
+- [x] 2026-10-23 – A szerző v0.3-as zipje behozva (1–3. fejezet, main.tex, acronyms.tex); a references.bib javításai (Njogu, Anuar) megmaradtak, `saaty1990` új. Átnézés: `docs/atnezesek/03_modszerek_2026-10-23.md`.
+- [x] 2026-10-23 – Írási csomag: `docs/irasi-csomagok/04_megoldas_es_metrikak.md` (választás, négy mérőszám, összevonás AHP-val; a mérés terve a 6. fejezetnek előre megírva). Lefordítva ellenőrizve, kb. 6,5 oldal.
+- [ ] 2026-10-23 – **A szerző dönt:** a gép fontosságának szabályai (4.2. táblázat), az alkalmazhatóság négy lépcsője, a megfigyeltség a pontszámba kerüljön-e (D21).
+- [ ] 2026-10-23 – **A szerző elvégzi** a páros összehasonlítást (4 szempont, 6 pár) a mérés előtt; kérésre kitölthető táblázat.
+- [ ] 2026-10-23 – A `saaty1990` DOI-ját a kiadói oldalon ellenőrizni (másodlagos forrásból).
+- [x] 2026-10-23 – A diasor 7. diája javítva (plafonhatás, D22).
+
 ## Előadások
 
 - [x] 2026-10-14 – Kutatási eredmények diasor a NIK-sablonban: `docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx` (címdia + 6 tartalmi dia, jegyzetekkel: probléma és rés, adathalmazok, módszerek, hét agent, különbségek, várt eredmények). Előállítás: `scripts/build_kutatasi_deck.py`.

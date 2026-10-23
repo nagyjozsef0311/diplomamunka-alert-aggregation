@@ -1,0 +1,111 @@
+% 2. fejezet: IDS és SOC
+\subsection{A behatolásérzékelés alapjai}\label{sec:ids-alapok}
+A behatolásérzékelésen a hálózaton történő események megfigyelését értjük, amelyek egy informatikai rendszer biztonságának megsértésére utalnak. Elméleti alapjait Denning 1987-ben megjelent modellje fektette le, amely a rendszer naplóiból felhasználónként és erőforrásonként profilt épít, és a megszokottól eltérő működést tekinti gyanúsnak. \cite{denning1987}
+
+A \ac{NIST} útmutatója a behatolásérzékelő rendszereket elsősorban aszerint csoportosítja, hogy milyen eseményeket figyelnek és hová telepítik őket \cite{scarfone2007nist}. Két fő csoportban oszthatók telepítés módja szerint. A \emph{hálózati} behatolásérzékelő a hálózati forgalmat figyelik egy vagy több monitorozási ponton. A \emph{hoszt-alapú} behatolásérzékelő pedig a végponton fut és annak napló-, fájl-, folyamat- és rendszerkulcs adataiból dolgozik. A két telepítési módszer kiegészíti egymást: a hálózati érzékelő több végpont között a forgalmat monitorozza míg a hoszt-alapú a végponton történő módosításokat figyeli. Ha egy rendszer képes a felismert támadást vagy a behatolás tényét igazolni és ezt megakadályozni, azt behatolásmegelőző - \ac{IPS}-nek nevezzük. A mai modern \ac{IDS} és \ac{IPS} rendszerek hibrid módban működnek vagyis egyszerre tudják a behatolás tényét igazolni és ellenitézkedést is eszközölni.
+
+Az útmutató három fő felismerési módszert különböztet meg. A \emph{szignatúra-alapú} felismerés az ismert támadások jellegzetes mintázatait keresi a forgalomban vagy a naplókban; ismert támadásokra megbízható, de az új vagy álcázott változatokat nem ismeri fel. Az \emph{anomália-alapú} felismerés egy tanulási időszak alatt felépített „normális” működéshez hasonlítja a megfigyelt eseményeket, és a jelentős eltérést jelzi; elvben új támadásokat is észrevehet, de a normális működés változása is riasztást okozhat. A \emph{protokollállapot-elemzés} azt vizsgálja, hogy egy kommunikáció lépései megfelelnek-e a protokoll elvárt viselkedésének. A gyakorlatban a legtöbb termék több módszert is alkalmaz egyszerre.
+
+\subsection{Behatolásérzékelő eszközök}\label{sec:ids-eszkozok}
+A gyakorlatban használt behatolásérzékelő eszközök működési elvük és telepítési helyük alapján is jelentősen eltérnek egymástól.
+A következőkben a legelterjedtebb nyílt forráskódú eszközöket mutatom be, mert ezek működése nyilvánosan dokumentált, és a kutatások is jellemzően ezekre épülnek; a kereskedelmi termékek egy része ugyanezekre az alapokra épül.
+
+\subsubsection{Hálózati eszközök}
+A Snort az egyik első és legismertebb hálózati behatolásérzékelő. Roesch 1999-ben light weight, szabályalapú eszközként mutatta be, amely egyszerű szabálynyelvvel írja le a keresett forgalmi mintázatokat \cite{roesch1999snort}. Szabálynyelve a terület egyik alapjává vált: a később megjelent eszközök egy része is ehhez hasonló szabályokat használ. 
+
+A Suricata ugyancsak szabályalapú hálózati behatolásérzékelő és -megelőző rendszer, amelyet az Open Information Security Foundation nevű nonprofit szervezet fejleszt \cite{suricatadocs}. Szabálykészlete a Snortéhoz hasonló, a legfontosabb architektúrális különbség pedig az volt, hogy a Suricata kezdettől fogva több szálon dolgozza fel a forgalmat, míg a Snort hosszú ideig egyetlen szálon \cite{shah2018snort}. Shah és Issac azonos hardveren, nagy sebességű forgalommal végzett összehasonlítása szerint a Suricata nagyobb forgalmat tudott feldolgozni kevesebb csomagvesztéssel, ennek ára viszont a nagyobb erőforrásigény volt \cite{shah2018snort}. A Suricata a riasztások mellett részletes forgalmi naplót is készít, és megfigyelő (passzív) és a forgalomba beépülő (aktív) módban is üzemeltethető\cite{suricatadocs}.
+
+A Zeek (korábbi nevén Bro) eltérő megközelítést képvisel. Paxson eredetileg valós idejű behatolásérzékelő rendszerként mutatta be \cite{paxson1999bro}, a mai változat azonban elsősorban hálózati forgalomelemző és -megfigyelő eszköz, amely nem klasszikus
+szignatúraalapú behatolásérzékelő \cite{zeekdocs}. A forgalomból részletes, protokollonkénti naplókat készít, az elemzést pedig egy saját szkriptnyelven írt programok végzik, így viselkedés- és anomáliaalapú vizsgálatokra is alkalmas. A Zeek ezért inkább kiegészíti a szabályalapú eszközöket, mint helyettesíti őket.
+
+\subsubsection{Gépi eszközök}
+Az OSSEC nyílt forráskódú, gépi behatolásérzékelő rendszer, amely a naplóelemzést, a fájlintegritás-figyelést és a rootkitek felismerését egyesíti, és ügynökkel, valamint ügynök nélkül is képes gépeket megfigyelni \cite{ossec}.
+
+A Wazuh 2015-ben az OSSEC továbbfejlesztett változataként (forkjaként) indult, mert az eredeti projekt fejlesztése lelassult \cite{wazuhossec}. Azóta a gépi felismerés mellett sérülékenység-felismeréssel, saját webes felülettel és a riasztások központi gyűjtésével is bővült, így kisebb környezetekben a \ac{SIEM} szerepét is betölti. A Wazuh szabályai súlyossági szinteket kapnak, amelyek a jelentéktelen eseményektől a nagy valószínűséggel támadásra utaló riasztásokig terjednek \cite{wazuhrules}.
+
+\Az{\ref{tab:ids-eszkozok}}. táblázat összefoglalja a bemutatott eszközök fő tulajdonságait.
+
+\begin{table}[H]
+    \centering
+    \caption{Elterjedt nyílt forráskódú behatolásérzékelő eszközök összehasonlítása}
+    \label{tab:ids-eszkozok}
+    \small
+    \begin{tabular}{|L{1.7cm}|L{1.6cm}|L{3.4cm}|L{3.1cm}|L{3.1cm}|}
+        \hline
+        \textbf{Eszköz} & \textbf{Típus} & \textbf{Felismerési elv} & \textbf{Feldolgozás, kimenet} & \textbf{Megjegyzés} \\ \hline
+        Snort & hálózati & szignatúra (szabályalapú) & riasztás; a régebbi változatok egyszálúak & az egyik első nyílt forráskódú hálózati eszköz \\ \hline
+        Suricata & hálózati & szignatúra, protokollelemzés & többszálú; riasztás és forgalmi napló & a Snortéhoz hasonló szabálykészlet; passzív és aktív mód \\ \hline
+        Zeek & hálózati & viselkedés- és anomáliaalapú szkriptek & protokollonkénti naplók & nem klasszikus szignatúraalapú eszköz; kiegészítő szerep \\ \hline
+        OSSEC & gépi & naplóelemzés, fájlintegritás, rootkitfelismerés & ügynökös és ügynök nélküli megfigyelés & a Wazuh elődje \\ \hline
+        Wazuh & gépi & szabályalapú naplóelemzés, sérülékenység-felismerés & ügynökök és központi kiszolgáló; súlyossági szintek & az OSSEC forkja; SIEM-funkciók \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Biztonsági információ- és eseménykezelő rendszerek}\label{sec:siem}
+A \ac{SIEM} a biztonsági műveleti központ legfontosabb eszköze: a különböző érzékelők, köztük a behatolásérzékelők eseményeit egy központi platformon gyűjti, egységes formára hozza, összekapcsolja és szabályok alapján riasztásokká alakítja \cite{gonzalez2021siem}. González-Granadillo áttekintése szerint a \ac{SIEM}-ek az egyszerű naplógyűjtőkből átfogó rendszerekké fejlődtek, amelyek a kockázatos területek gyors felismerésével csökkentik az incidensek kezelésének idejét, és egyre inkább összeolvadnak a nagy adatmennyiségek elemzésére szolgáló platformokkal \cite{gonzalez2021siem}.
+
+A piacot néhány nagy szereplő uralja. A Gartner piacelemző cég 2025-ös értékelésében vezető helyen szerepelt többek között a Splunk, a Microsoft Sentinel és a Google Security Operations \cite{splunkmq2025,microsoftmq2025,googlemq2025}. A piac az utóbbi években jelentősen átrendeződött: a Splunkot 2024-ben felvásárolta a Cisco \cite{ciscosplunk2024}, az IBM pedig QRadar termékének felhőszolgáltatását a Palo Alto Networks cégnek adta el, amelyet saját platformjára költöztette \cite{paloaltoqradar}.
+
+A termékek közötti különbségek közül a diplomamunka szempontjából három lényeges: hol fut a rendszer (saját infrastruktúrán vagy felhőben), milyen nyelven fogalmazhatók meg a lekérdezések és a felismerési szabályok, és milyen eszközt kínál a riasztások rangsorolására. A Microsoft Sentinel felhőalapú rendszer, amely adatait az Azure naplóelemző tárolójában tartja, és a lekérdezésekhez, valamint a felismerési szabályokhoz a Kusto lekérdezőnyelvet használja \cite{sentinelkql}. Az Elastic Security az Elasticsearch keresőmotorra és a Kibana felületre épül, és egységes adatsémát vár el a különböző forrásoktól \cite{elasticsecurity}. A Splunk Enterprise Security saját lekérdezőnyelvvel dolgozik, és beépített kockázatalapú riasztástkínál: az egyes gyanús találatok nem önálló riasztásként jelennek meg, hanem kockázati pontszámként gyűlnek az érintett eszközhöz vagy felhasználóhoz, és csak egy küszöb átlépésekor keletkezik belőlük kivizsgálandó riasztás \cite{splunkrba}. A pontszám az eszközök és a felhasználók tulajdonságai alapján módosítható, vagyis a kereskedelmi gyakorlatban a környezeti információ bevonása már megjelent \cite{splunkrba}.
+
+\Az{\ref{tab:siem-eszkozok}}. táblázat a jellemző \ac{SIEM}-eszközöket hasonlítja össze.
+
+\begin{table}[H]
+    \centering
+    \caption{Elterjedt SIEM-eszközök összehasonlítása}
+    \label{tab:siem-eszkozok}
+    \small
+    \begin{tabular}{|L{2.6cm}|L{2.6cm}|L{3.4cm}|L{4.2cm}|}
+        \hline
+        \textbf{Eszköz} & \textbf{Üzemeltetés} & \textbf{Lekérdezés, szabályok} & \textbf{Megjegyzés} \\ \hline
+        Splunk Enterprise Security & saját infrastruktúra vagy felhő & saját lekérdezőnyelv & beépített kockázatalapú riasztás; 2024 óta a Cisco tulajdona \\ \hline
+        Microsoft Sentinel & felhő (Azure) & Kusto lekérdezőnyelv & a Microsoft felhőszolgáltatásaihoz illeszkedik \\ \hline
+        IBM QRadar & saját infrastruktúra & -- & a felhőszolgáltatás 2024-ben a Palo Alto Networkshöz került \\ \hline
+        Elastic Security & saját infrastruktúra vagy felhő & Elasticsearch-alapú lekérdezések & egységes adatséma; nyílt fejlesztésű alapokra épül \\ \hline
+        Wazuh & saját infrastruktúra & szabályalapú elemzés & nyílt forráskódú; gépi felismerés és SIEM-funkciók egy rendszerben \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{A biztonsági műveleti központ felépítése}\label{sec:soc}
+A biztonsági műveleti központ a szervezet biztonsági eseményeinek folyamatos megfigyelésére, kivizsgálására és kezelésére létrehozott egység. Vielberth szisztematikus irodalmi áttekintésében a \ac{SOC} működését három, egymásra utalt terület -- az emberek, a folyamatok és a technológia -- együtteseként írják le, és megállapítják, hogy a kutatások jellemzően az emberi és a technológiai oldallal foglalkoznak, a kettőt összekötő folyamatokkal kevésbé \cite{vielberth2020}.
+
+A \ac{SOC}-ok szervezeti felépítése is sokféle lehet. Knerler a MITRE gyakorlati útmutatójában azt hangsúlyozzák, hogy nincs két egyformán felépített \ac{SOC}: a szervezeti formát a kiszolgált szervezet mérete, a vállalt feladatok és a szükséges rendelkezésre állás határozza meg \cite{knerler2022mitre}. A legfontosabb döntések a következők: a központ egy helyen, egységes irányítás alatt működik-e (központosított), vagy a szervezet több részén elosztva; az elemzők feladatait szintekre bontják-e (például elsődleges szűrés, mélyebb kivizsgálás), vagy szintek nélkül dolgoznak; és a feladatokat saját munkatársak látják-e el, vagy részben vagy egészben külső szolgáltatóhoz kerülnek \cite{knerler2022mitre}. A külső, menedzselt biztonsági szolgáltatók (MSSP) egyszerre több ügyfél riasztásait kezelik, ezért a riasztási terhelés és a szabálykezelés különösen fontos kérdés \cite{vermeer2023}.
+
+A technológiai oldal központi eleme a \ac{SIEM}. Egy riasztás útja jellemzően a következő: az érzékelő jelez vagy a logokból származtatva készítünk riasztást, a riasztás a \ac{SIEM}-be kerül, ott egy várakozási sorba áll, majd az elemző a sorból kiválasztja, megvizsgálja és eldönti, hogy valódi incidensről vagy téves riasztásról van-e szó. Ez az első szűrés a triázs, és a riasztási terhelés legnagyobb része itt jelentkezik.
+
+A támadások leírásához és a riasztások egységes értelmezéséhez a \ac{SOC}-ok egyre gyakrabban használják a MITRE ATT\&CK tudásbázist, amely valós megfigyelések alapján rendszerezi a támadók céljait (taktikák) és az ezek eléréséhez használt módszereket (technikák) \cite{strom2018attack}. Ha egy riasztáshoz ismert a hozzá tartozó technika, az elemző könnyebben elhelyezi a támadás folyamatában, és több riasztás összefüggése is jobban látszik.
+
+Az emberi oldal legalább ilyen fontos. Kokulu interjús vizsgálata szerint a \ac{SOC}-ok problémái jelentős részben nem technikaiak: a vezetők és az elemzők gyakran eltérően ítélik meg, mi a hatékony működés, és ez az eltérés rontja a központ teljesítményét \cite{kokulu2019}.
+
+\subsection{A téves riasztások okai}\label{sec:teves}
+A téves riasztások nagy aránya nem csupán a rosszul beállított szabályok következménye, hanem a feladat természetéből is adódik. Axelsson az alapgyakoriság-hibára (base-rate fallacy) vezette vissza a jelenséget: mivel a valódi támadások a teljes eseményforgalomhoz képest nagyon ritkák, egy érzékelő riasztásainak nagy része akkor is téves lesz, ha az érzékelő önmagában pontosnak tűnik~\cite{axelsson2000}. Ahhoz, hogy a riasztások többsége valódi legyen, a téves riasztási aránynak olyan alacsonynak kellene lennie, amely a gyakorlatban alig érhető el.
+
+A hatás egy egyszerű számpéldán is látható. Ha tízezer eseményből egy támadás, és az érzékelő minden támadást észrevesz, de a többi esemény egy százalékára is téves riasztást ad, akkor nagyjából száz riasztásból csak egy lesz valódi. A riasztások mennyiségét tehát nem elég az érzékelő pontosításával csökkenteni; a már kiadott riasztásokat is rangsorolni kell, hogy az elemző figyelme a valószínűleg valódiakra jusson.
+
+A szabálykezelés is hozzájárul a problémához. Vermeer hálózatmegfigyelést végző szakemberekkel készített interjúi szerint a szabályok kezelését a szabályok pontossága, a riasztások összmennyisége és a téves riasztások aránya egyszerre befolyásolja; a szerzők pontosabb szabályokat és a felismeréstől a szabályfejlesztésig visszavezető, kifejezett visszacsatolást javasolnak~\cite{vermeer2023}. Végül a téves riasztások egy része technikailag nem is hibás: a szabály helyesen működik, de a kiváltó esemény a szervezet ártalmatlan, megszokott működéséből ered~\cite{alahmadi2022}. Ezek megkülönböztetéséhez a riasztás önmagában kevés, a környezetre vonatkozó információ is kell.
+
+\subsection{A riasztási fáradtság}\label{sec:faradtsag}
+Riasztási fáradtságnak azt az állapotot nevezzük, amikor a riasztások mennyisége és ismétlődése miatt az elemzők figyelme és döntéseik minősége tartósan csökken. Tariq áttekintése szerint a jelenség több, egymást erősítő okra vezethető vissza, amelyek között a szakemberhiány és a tartós túlterhelés is szerepel~\cite{tariq2025}. A következmények biztonsági kockázatot is jelentenek: a túlterhelt csapatok gyakran általános elnyomó szabályokkal vagy kizárólag a súlyosság alapján szűrnek, ami vakfoltokat hagy~\cite{ndichu2026}.
+
+A kezelés lehetséges irányait Baruwal Chhetri és szerzőtársai három működési módba rendezik~\cite{chhetri2024}. Az \emph{automatizálás} a rutinszerű riasztásokat emberi beavatkozás nélkül kezeli, a \emph{kiegészítés} az elemző döntését gyorsítja további információval, az \emph{együttműködés} pedig az összetett, új típusú esetek közös feltárását jelenti.
+
+\subsection{A fejezet összegzése}\label{sec:ids-soc-osszegzes}
+A fejezetben bemutatott kihívások közvetlenül meghatározzák, mit kell teljesítenie egy riasztásokat összevonó és rangsoroló megoldásnak. Ezeket \az{\ref{tab:kihivasok}}. táblázat foglalja össze.
+
+\begin{table}[H]
+    \centering
+    \caption{A riasztáskezelés kihívásai és az ezekből adódó követelmények}
+    \label{tab:kihivasok}
+    \begin{tabular}{|L{4cm}|L{4.4cm}|L{4.8cm}|}
+        \hline
+        \textbf{Kihívás} & \textbf{Következmény} & \textbf{Követelmény a megoldással szemben} \\ \hline
+        Sok riasztás, kevés valódi támadás & Az elemző ideje nagyrészt téves riasztásokra megy el & A valószínűleg valódi riasztások kerüljenek a lista elejére \\ \hline
+        Ártalmatlan okú, de helyes riasztások & A riasztás önmagában nem dönti el, hogy veszélyes-e & A riasztás egészüljön ki a környezetére vonatkozó információval \\ \hline
+        Két érzékelő eltérő formátummal és súlyossági skálával & A riasztások nem hasonlíthatók össze közvetlenül & Közös riasztásforma és közös súlyossági skála \\ \hline
+        Összetartozó riasztások külön tételként & Egy támadás sok tételként jelenik meg & Az összetartozó riasztások csoportosítása \\ \hline
+        Elnyomó szabályok, csak súlyosság szerinti szűrés & Vakfoltok, elveszett valódi riasztások & A riasztások ne tűnjenek el, csak hátrébb kerüljenek; a hátra kerülő valódi riasztások aránya legyen mérhető \\ \hline
+        Az elemző felelőssége megmarad & Az automatikus döntés bizalmi és felelősségi kérdést vet fel & Átlátható, megismételhető pontszám és rövid magyarázat; a döntés az elemzőé \\ \hline
+    \end{tabular}
+\end{table}
+
+A következő fejezet azt vizsgálja, hogy a szakirodalomban javasolt módszerek mennyiben teljesítik ezeket a követelményeket.
