@@ -14,4 +14,4 @@ Minden Overleafbe átvitt változat egy sort kap. Az exportált zip neve: `diplo
 | v0.7 | 2026-10-08 | 8176340 | A hosszú URL-ek törhetők az irodalomjegyzékben; references.bib: 6 új forrás a 2. fejezethez (Denning 1987, Axelsson 2000, NIST SP 800-94, MITRE ATT\&CK, Suricata- és Wazuh-dokumentáció), Vermeer, Baruwal Chhetri, Hámornik adatai pótolva |
 | v0.8 | 2026-10-08 | c7e6e03 | Balra igazított táblázatoszlop (`L{szélesség}`, array csomag); references.bib: 16 új forrás az eszközökhöz (Snort, Zeek, Snort–Suricata összehasonlítás, SIEM-áttekintés, MITRE SOC-könyv, gyártói dokumentációk és közlemények) |
 | v0.9 | 2026-10-08 | 5305aa2 | A 3. fejezethez: rövidítések (AHP, CVSS, AUROC, MCP, RAG); references.bib: Njogu évszáma, kötete és oldalai, Anuar évszáma (2013) |
-| v0.10 | 2026-10-23 | (lásd a git-naplót) | A szerző v0.3-as Overleaf-változata behozva (1–3. fejezet); references.bib: Saaty 1990; acronyms.tex: CVE, CPE |
+| v0.10 | 2026-10-23 | d935efa | A szerző v0.3-as Overleaf-változata behozva (1–3. fejezet); references.bib: Saaty 1990; acronyms.tex: CVE, CPE |
