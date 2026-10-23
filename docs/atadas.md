@@ -75,6 +75,14 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-23 – A `saaty1990` DOI-ját a kiadói oldalon ellenőrizni (másodlagos forrásból).
 - [x] 2026-10-23 – A diasor 7. diája javítva (plafonhatás, D22).
 
+## 5. fejezet
+
+- [x] 2026-10-23 – Írási csomag: `docs/irasi-csomagok/05_rendszerterv.md` (agent-fogalom, felépítés, hét agent, közös riasztásforma, gépnyilvántartás, eszközválasztás). Lefordítva ellenőrizve, kb. 8 oldal.
+- [x] 2026-10-23 – Három ábra (TikZ, vektoros): `thesis/img/agent_architektura.pdf`, `adatmodell.pdf`, `magyarazo.pdf`; forrásuk `thesis/img/src/`. **A szerző jóváhagyására vár.**
+- [x] 2026-10-23 – Új források: Wooldridge–Jennings 1995, AutoGen (Wu és mtsai. 2023), CrewAI-dokumentáció, Ollama.
+- [ ] 2026-10-23 – Az agent-meghatározást (5.1) megmutatni a konzulensnek.
+- [ ] 2026-10-23 – Ha a laborban a Wazuh sérülékenység-észlelőjét használjuk: dokumentáció a `.bib`-be.
+
 ## Előadások
 
 - [x] 2026-10-14 – Kutatási eredmények diasor a NIK-sablonban: `docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx` (címdia + 6 tartalmi dia, jegyzetekkel: probléma és rés, adathalmazok, módszerek, hét agent, különbségek, várt eredmények). Előállítás: `scripts/build_kutatasi_deck.py`.
