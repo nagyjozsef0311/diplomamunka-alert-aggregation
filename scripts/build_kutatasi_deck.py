@@ -175,7 +175,7 @@ s = content_slide(
 )
 cards = [
     ("0,5%", "a Suricata-riasztások közül ennyi jelzett valódi támadást (44 / 9186, AIT-ADS)", NAVY, WHITE),
-    ("0,72 → 0,92", "rangsor-pontosság (AUROC): csak súlyosság vs. kockázatalapú pontozás", AMBER, NAVY),
+    ("0,72 → 0,92", "rangsor-pontosság (AUROC), 8 adathalmaz átlaga: súlyosság vs. kockázatalapú pontozás", AMBER, NAVY),
     ("9 / 87", "tanulmány alapult éles SOC-adaton a riasztási fáradtság irodalmában", SKY, NAVY),
 ]
 cw, gap, x0, y0 = 2.95, 0.3, 0.3, 1.95
@@ -332,10 +332,14 @@ s = content_slide(
     "Milyen eredményt várok?",
     "Az értékelés lépésenként bővül. A 0. lépés a nyers riasztáslista, az 1. a súlyosság szerinti sorrend, "
     "a 2. a csoportosítás. A 3. lépésben újra előállítom a kockázatalapú pontozást; ha jól dolgozom, a "
-    "rangsor-pontosságnak a közölt 0,92 körül kell lennie. Ez a hiteles kiindulópont.\n\n"
+    "rangsor-pontosságnak az AIT-ADS-en a közölt 0,98–0,99 körül kell lennie. Ez a hiteles kiindulópont, "
+    "de egyben nehézség is: ilyen magas értéknél a rangsor-pontosság alig javulhat (plafonhatás). Ezért "
+    "mind a nyolc forgatókönyvön mérek – a szerzők csak egyet vizsgáltak –, és a lista elejére érzékeny "
+    "mérőszámokat, az átlagos pontosságot és a terheléscsökkentést helyezem előtérbe.\n\n"
     "Ezután egyenként adom hozzá a gép fontosságát, a sérülékenységet és a megfigyeltséget. Azt várom, hogy "
     "a javulás főleg a lista elején jelentkezik: a fontos gépeket érintő valódi támadások előrébb kerülnek. "
-    "Az AIT-ADS-en a sérülékenység hatása várhatóan kisebb, mert ott csak szolgáltatás szintjén illeszthető, "
+    "Egy ellenpróbával azt is ellenőrzöm, hogy véletlenszerűen összekevert gépfontossággal nem jön-e ki "
+    "ugyanez a javulás. Az AIT-ADS-en a sérülékenység hatása várhatóan kisebb, mert ott csak szolgáltatás szintjén illeszthető, "
     "a laborban viszont CVE szintjén is, ezért ott nagyobb hatást várok.\n\n"
     "Sikeresnek akkor tekintem, ha legfeljebb két százalék valódi támadás csúszik hátra, miközben az elemző "
     "elé kerülő tételek száma csökken, és a különbség a nyolc forgatókönyvön Wilcoxon-próbával is "
@@ -344,10 +348,10 @@ s = content_slide(
 table(s, 0.3, 1.85, [0.7, 2.45, 2.95, 3.3], [
     ["Lépés", "Mit rangsorolunk", "Mit adunk hozzá", "Várakozás"],
     ["0", "nyers riasztások", "–", "kiindulópont"],
-    ["1", "súlyosság szerint", "szabály szintje", "≈ 0,72 rangsor-pontosság (közölt)"],
+    ["1", "súlyosság szerint", "szabály szintje", "AIT-ADS: 0,81 hálózati / 0,99 gépi (közölt)"],
     ["2", "csoportosítás után", "összetartozók összevonása", "kevesebb tétel az elemző előtt"],
-    ["3", "kockázatalapú pontozás", "5 részpontszám", "≈ 0,92 visszamérve – az erős alap"],
-    ["4", "+ gép fontossága", "kritikus gépek előre", "javulás a lista első 10%-ában"],
+    ["3", "kockázatalapú pontozás", "5 részpontszám", "AIT-ADS: 0,98–0,99 – erős alap, plafonhatás"],
+    ["4", "+ gép fontossága", "kritikus gépek előre", "javulás a lista elején (átlagos pontosság)"],
     ["5", "+ sérülékenység", "működhet-e a támadás", "AIT-en kisebb, laborban nagyobb hatás"],
     ["6", "+ megfigyeltség", "vakfoltok figyelembevétele", "kisebb, de mérhető hatás"],
 ], size=11, row_h=0.4, name="Lépés-táblázat")
@@ -366,7 +370,7 @@ for k, (h, d, fill) in enumerate(cards):
     x = 0.3 + k * (cw + 0.3)
     box(s, x, 5.3, cw, 1.3, fill, name=f"Várakozás-kártya {k+1}")
     txt(s, x + 0.15, 5.38, cw - 0.3, 1.15, [[(h, {"bold": True, "size": 13})], d], size=11)
-source(s, "A 0,72 és a 0,92 közölt érték: Uetz és mtsai. 2026. A 4–6. lépés várakozása hipotézis, mérés még nincs.", y=6.68)
+source(s, "Közölt értékek: Uetz és mtsai. 2026 (AIT-ADS, 1 forgatókönyv). A 4–6. lépés várakozása hipotézis, mérés még nincs.", y=6.68)
 
 prs.save(OUT)
 print("ok", len(prs.slides))
