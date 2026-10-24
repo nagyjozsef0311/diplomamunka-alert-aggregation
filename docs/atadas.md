@@ -83,6 +83,13 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-23 – Az agent-meghatározást (5.1) megmutatni a konzulensnek.
 - [ ] 2026-10-23 – Ha a laborban a Wazuh sérülékenység-észlelőjét használjuk: dokumentáció a `.bib`-be.
 
+## 6. fejezet
+
+- [x] 2026-10-24 – Írási csomag: `docs/irasi-csomagok/06_teszteles_es_ertekeles.md` (AIT-ADS, labor, mérési terv, magyarázó agent értékelése, programtesztelés, érvényességi korlátok). A mérési terv a 4. csomagból ide került. Lefordítva ellenőrizve, kb. 7 oldal.
+- [x] 2026-10-24 – Laborábra (TikZ): `thesis/img/labor.pdf`, forrása `thesis/img/src/labor.tex`. **A szerző jóváhagyására vár.**
+- [ ] 2026-10-24 – **A szerző dönt:** a háttérzaj tartalma; legyen-e levelező kiszolgáló a laborban.
+- [ ] 2026-10-24 – Ha a CVE-2020-24186-ra hivatkozunk: NVD-oldal a `.bib`-be.
+
 ## Előadások
 
 - [x] 2026-10-14 – Kutatási eredmények diasor a NIK-sablonban: `docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx` (címdia + 6 tartalmi dia, jegyzetekkel: probléma és rés, adathalmazok, módszerek, hét agent, különbségek, várt eredmények). Előállítás: `scripts/build_kutatasi_deck.py`.
