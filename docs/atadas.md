@@ -90,6 +90,12 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-24 – **A szerző dönt:** a háttérzaj tartalma; legyen-e levelező kiszolgáló a laborban.
 - [ ] 2026-10-24 – Ha a CVE-2020-24186-ra hivatkozunk: NVD-oldal a `.bib`-be.
 
+## Szerkezet (D24)
+
+- [x] 2026-10-24 – A DM II. az 1–6. fejezettel zárul; a végleges szerkezet 7–10. fejezete a `docs/dolgozat-szerkezet.md`-ben.
+- [ ] 2026-10-24 – **A szerző javítja** az `1_Bevezetes.tex` 24. sorát (a „7. fejezet…” mondat), a `docs/irasi-csomagok/01_bevezetes.md` 5. pontja szerint.
+- [ ] 2026-10-24 – Összefoglalás (magyar, 1500–2500 karakter) és Summary: írási csomag, benne a további munka iránya néhány mondatban.
+
 ## Előadások
 
 - [x] 2026-10-14 – Kutatási eredmények diasor a NIK-sablonban: `docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx` (címdia + 6 tartalmi dia, jegyzetekkel: probléma és rés, adathalmazok, módszerek, hét agent, különbségek, várt eredmények). Előállítás: `scripts/build_kutatasi_deck.py`.

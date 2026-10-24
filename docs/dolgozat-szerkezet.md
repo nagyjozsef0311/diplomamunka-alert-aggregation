@@ -31,10 +31,15 @@ diplomamunkának tartalmaznia kell” F1–F6) és a Diplomamunka II. tárgyleí
 | 3 | Riasztás-összevonási és rangsorolási megoldások | Szakirodalmi áttekintés: korreláció, csoportosítás, rangsorolás (kockázatalapú pontozás, környezetfüggő módszerek, gépi tanulás, nyelvi modelles agentek); **összehasonlító táblázat és értékelés** | 3. | **F2** | **igen** (DM II. 2–3) | 8 / 12–14 |
 | 4 | A megoldás kiválasztása és a mérőszámrendszer | Miért ez a megközelítés (a választás indoklása); a mérőszámok (riasztás, gép, sérülékenység, megfigyeltség) és az összevonás módja (páros összehasonlítás); **részletes specifikáció** | 4–5. | **F3** | **igen** (DM II. 4) | 6 / 8–10 |
 | 5 | A rendszer felépítése és tervezése | Az agent-alapú modell (7 agent), a felépítés ábrája, adatfolyam, gépnyilvántartás; **eszközválasztás indoklással** (Python, LangGraph, MCP, SQLite, Ollama) | 6. | **F4** (terv) | **igen** (DM II. 4–6) | 5 / 6–8 |
-| 6 | Megvalósítás | A modulok és a vezérlés megvalósítása, a labor felépítése | 7. | **F4** | nem (csak terv szinten az 5. fejezetben) | – / 6–8 |
-| 7 | Tesztelési és értékelési módszertan | Adathalmazok (AIT-ADS, labor), **tesztkörnyezet**, mérőszámok (rangsor-pontosság, terhelés-csökkenés), az értékelés lépcsői, statisztikai próba | 8. | **F5** | **igen** (DM II. 5, 7) | 4 / 5–6 |
-| 8 | Eredmények és értékelés | Mérési eredmények, összevetés a kockázatalapú pontozással és más rendszerekkel | 9. | **F6** | DM II.-ben: **első eredmények** (ha van) **és ütemterv a III. félévre** | 2 / 8–10 |
-| 9 | Elemzés és továbbfejlesztés | Korlátok, alkalmazhatóság, továbbfejlesztési lehetőségek | 10. | **F6** | nem | – / 3–4 |
+| 6 | Tesztkörnyezet és értékelési módszertan | AIT-ADS, labor (ábra), a mérés terve (lépések, mérőszámok, Wilcoxon, plafonhatás, torzítás), programtesztelés, érvényességi korlátok | 8. (terv) | **F5** (terv) | **igen** (DM II. 5, 7) – **itt zárul a DM II.** | 7 / 6–8 |
+| 7 | Megvalósítás | Az agentek és a vezérlés tényleges megvalósítása, az agent-architektúra a kód szintjén | 7. | **F4** | nem (D24) | – / 6–8 |
+| 8 | Eredmények az AIT-ADS-en | A lépésenként bővített (ablációs) modellváltozatok eredményei, összevetés a kockázatalapú pontozással, ellenpróba, érzékenységvizsgálat | 9. | **F6** | nem (D24) | – / 8–10 |
+| 9 | Laboratóriumi tesztek | A labor megvalósítása, a támadási forgatókönyvek, az alkalmazhatóság és a megfigyeltség hatása, a magyarázó agent értékelése | 8–9. | **F5–F6** | nem (D24) | – / 6–8 |
+| 10 | Elemzés és továbbfejlesztés | Korlátok, alkalmazhatóság, továbbfejlesztési lehetőségek | 10. | **F6** | nem | – / 3–4 |
+
+**D24 (2026-10-24):** a Diplomamunka II. beszámoló az 1–6. fejezetből áll; az „első eredmények és
+ütemezés” fejezet kimarad, a további munka iránya az Összefoglalásba kerül néhány mondatban. A
+DM II. hét tartalmi követelményét az 1–6. fejezet lefedi.
 
 ## Záró részek
 

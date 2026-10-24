@@ -158,7 +158,22 @@ hasonlítja össze.
 A 4. fejezet a választott megközelítést indokolja, és részletesen ismerteti a mérőszámrendszert.
 Az 5. fejezet az agent-alapú rendszer felépítését és a felhasznált eszközök kiválasztását írja le.
 A 6. fejezet a tesztkörnyezetet, valamint a tesztelés és az értékelés módszertanát tárgyalja.
-A 7. fejezet az első eredményeket és a további munka ütemezését foglalja össze.
+A dolgozat végén az összefoglalás a Diplomamunka II. eredményeit és a további munka irányát foglalja össze.
+```
+
+**Frissítés (2026-10-24, D24):** a Diplomamunka II. beszámoló a 6. fejezettel zárul, a „7. fejezet: első
+eredmények és ütemezés” kimarad. A fenti blokk utolsó mondata ezt már így írja. A te
+`1_Bevezetes.tex`-edben (24. sor) még a régi mondat áll („A 7. fejezet az első eredményeket…”) – ezt cseréld.
+
+A **végleges dolgozathoz** (2027 tavasza) ez a változat lesz érvényes:
+
+```latex
+A 6. fejezet a tesztkörnyezetet, valamint a tesztelés és az értékelés módszertanát tárgyalja.
+A 7. fejezet a rendszer megvalósítását, az agentek tényleges felépítését mutatja be.
+A 8. fejezet a nyilvános adathalmazon végzett mérések eredményeit ismerteti a lépésenként bővített
+modellváltozatok összevetésével.
+A 9. fejezet a laboratóriumi tesztkörnyezetben végzett vizsgálatokat és azok eredményeit írja le.
+A 10. fejezet az eredményeket értékeli, és a továbbfejlesztés lehetőségeit veszi sorra.
 ```
 
 Megjegyzés: a fejezetszámokat a végleges szerkezethez igazítsd (`docs/dolgozat-szerkezet.md`). Ha a
