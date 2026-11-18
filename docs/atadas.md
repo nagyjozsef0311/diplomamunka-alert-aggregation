@@ -101,6 +101,9 @@ Ezek a döntések készek, és megvalósíthatók.
 - [x] 2026-11-18 – A szerző döntése: nincs feltáró elemzés, a tervet követjük. Kész: a 2. lépés (csoportosító agent, időköz-szabály D26, `results/05_…`).
 - [x] 2026-11-18 – Az alkalmazhatóság megfeleltetése jóváhagyva és rögzítve (42036e1); sérülékenységi agent kész; az 5. lépés megmérve (`results/06_…`): Wazuh-on gyakorlatilag nincs hatása (a riasztások 97%-a a=0,75), Suricatán ront (AUROC 0,991 → 0,944, átnézendő 14% → 46%), és nem jobb az ellenpróbánál.
 - [ ] 2026-11-18 – Mind a 8 forgatókönyv: a munkamenetet a `diplomamunka-alert-aggregation` környezetben kell indítani; előtte a 7 új forgatókönyv gépnyilvántartását a szerepszabályokkal előre rögzíteni.
+- [x] 2026-11-18 – A teljes AIT-ADS letöltve (MD5 rendben). Az egységesítő az eredeti formátumot is olvassa (`load_ait_wazuh_json`, D27); a russellmitchell eredetijéből ugyanaz a 32 302 riasztás jön ki, mint a CATS-változatból, egyetlen eltérés 3 Horde-riasztás gépneve (`results/07_…`, teszt). Az időszak-alapú címke semmit nem hagy ki, de Suricatán 169, Wazuh-on 450 háttérriasztást is támadásnak jelöl (főleg a DNS-kiszivárogtatás órájában).
+- [ ] 2026-11-18 – **A szerző dönt:** a 8 forgatókönyves mérés címkéje (tiszta időszak-alapú, vagy szűkítve) – lásd a beszélgetést / `results/07_…`.
+- [ ] 2026-11-18 – **A szerző jóváhagyja** a 7 új forgatókönyv gépnyilvántartását (javaslat), utána önálló commit a mérés előtt.
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).
 - [ ] 2026-10-24 – (eredeti TODO) a kódolás indulása a munkaterv szerint – a letöltő szkriptek (ehhez a `zenodo.org` engedélyezése a hálózati beállításban), adatfeltárás, majd az egységesítő agent (`src/alertagg/normalizer.py`) teszttel.

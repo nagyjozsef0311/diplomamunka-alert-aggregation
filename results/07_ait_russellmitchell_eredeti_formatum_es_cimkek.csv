@@ -1,0 +1,3 @@
+érzékelő,riasztás,CATS: támadás,időszak: támadás,mindkettő,csak időszak (zaj a támadás alatt),csak CATS (kimaradna),időszak-címke pontossága,időszak-címke teljessége
+suricata,9186,44,213,44,169,0,0.20657276995305165,1.0
+wazuh,23116,7661,8111,7661,450,0,0.9445197879423006,1.0
