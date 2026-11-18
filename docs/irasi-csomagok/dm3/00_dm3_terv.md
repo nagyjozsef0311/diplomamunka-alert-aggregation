@@ -34,6 +34,12 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
   megtörtént; a 6.3 torzítás elleni védekezésénél a rögzítés commitazonosítóinak megadása (lásd 7.7).
 - **6.3:** a csoportosító időközének kiválasztási szabálya (D26) és a tisztaság kétértékű volta.
 - **5. fejezet:** ha a LangGraph- vagy az MCP-réteg kimarad, az 5.5 igazítása.
+- **6.1:** a gépnyilvántartás IP-címei nem a közzétett leírásból, hanem a riasztások szerkezetéből,
+  rögzített szabályokkal (G1–G9) származnak – egy félmondat; a címkéknél a számok a 7.2-ben (D28).
+- **6.3:** a mérési terv dolgozatban nem előírt részletei (D29): Holm-korrekció, a hiányos
+  nyilvántartás 20 ismétlése, a tanult súlyok 0,05-ös rácsa és AP-célfüggvénye.
+- **4.2.1 / 7.3:** a kockázati pontszám a nagy forgatókönyveken a CATS képleteinek vektoros
+  megvalósításával készült, a CATS kódjával riasztásonként egyezően (D29).
 
 ## Mérések és eredményfájlok (a 8. fejezethez)
 
@@ -43,5 +49,9 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
 | 2. (csoportosítás) | `experiments/05_…` | `results/05_…` | kész, russellmitchell (hangoló forgatókönyv) |
 | 4. (+ gép fontossága) | `experiments/04_…` | `results/04_…` | kész, russellmitchell |
 | 5. (+ alkalmazhatóság) | `experiments/06_…` | `results/06_…` | kész, russellmitchell |
-| 1–5. mind a 8 forgatókönyvön, Wilcoxon, tanult súlyok | – | – | a `zenodo.org`-os környezetben |
+| eredeti formátum, időszak-címke (russellmitchell) | `experiments/07_…` | `results/07_…` | kész (D27, D28) |
+| a 7 új forgatókönyv nyilvántartása (G1–G9) | `experiments/08_…` | `results/08_…`, `config/elozetes_rogzites/ait_<f>_*.yaml` | jóváhagyva, rögzítve (398c581) |
+| a gyors kockázati pontszám egyezése a CATS-szal | `experiments/09_…` | `results/09_…` | fut / kész (D29) |
+| 1–5. mind a 8 forgatókönyvön (+ ellenpróba, ±20%, hiányos nyilvántartás, rács) | `experiments/10_…` | `results/10_…` | terv rögzítve (47cfb7a), mérés |
+| Wilcoxon, hatásnagyság, tanult súlyok, címke-érzékenység | `experiments/11_…` | `results/11_…` | a 10-es után |
 | 6. (megfigyeltség), magyarázó agent | – | – | labor |
