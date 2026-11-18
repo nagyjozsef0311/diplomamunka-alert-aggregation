@@ -105,6 +105,10 @@ Ezek a döntések készek, és megvalósíthatók.
 - [x] 2026-11-18 – A 8 forgatókönyves mérés címkéje: időszak-alapú, a russellmitchellen a CATS-címkével is (D28, a dolgozat 6.1 szerint). A gépnév nélküli gépi riasztás a beküldő ügynök IP-címe alapján (D28, 5.2. táblázat), teszttel; a russellmitchell eredményei változatlanok.
 - [ ] 2026-11-18 – A 6.1 szövegébe (szerző): a gépnyilvántartás IP-címei nem a közzétett leírásból, hanem a riasztások szerkezetéből, rögzített szabályokkal (G1–G9) származnak.
 - [ ] 2026-11-18 – **A szerző jóváhagyja** a 7 új forgatókönyv gépnyilvántartását (javaslat: `results/08_ait_mind8_nyilvantartas_javaslat.md`, szabályok G1–G9 és 20 új szabályazonosító megfeleltetése), utána önálló commit a mérés előtt.
+- [x] 2026-11-18 – A 7 új forgatókönyv nyilvántartása jóváhagyva és rögzítve (398c581). A mérési terv rögzítve (47cfb7a, D29). Az 1–5. lépés mind a 8 forgatókönyvön megmérve (`results/10_…`, `results/11_…`): a kockázati pontszám minden forgatókönyvön csökkenti a terhelést; a gép fontossága a Suricatánál javít (AP 7/8, Holm-p 0,031, az ellenpróba megerősíti), a Wazuh-nál mind a 8-on ront; az alkalmazhatóság hatása elhanyagolható; a tanult súlyok a Wazuh-nál a gép fontosságát ~0-ra veszik. 8. fejezet írási csomagja: 1. változat.
+- [ ] 2026-11-18 – A 7.3 kiegészítése a gyors pontozással, amint a `results/09_…` elkészül.
+- [ ] 2026-11-18 – Még a dolgozat 6.3 szerint: mérés a zajjal kiegészített AIT-ADS-en (Karner 2026) – az adat elérhetőségét ellenőrizni.
+- [ ] 2026-11-18 – **A szerző választ:** a következő irány (A: DM II. befejezése – ajánlott; B: LangGraph + magyarázó agent; C: labor; D: zajos AIT-ADS).
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).
 - [ ] 2026-10-24 – (eredeti TODO) a kódolás indulása a munkaterv szerint – a letöltő szkriptek (ehhez a `zenodo.org` engedélyezése a hálózati beállításban), adatfeltárás, majd az egységesítő agent (`src/alertagg/normalizer.py`) teszttel.

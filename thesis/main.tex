@@ -23,11 +23,13 @@
 
 \section*{ABSZTRAKT}
 % Absztrakt magyarul – a szerző írja.
+A dolgozat a biztonsági műveleti központokat terhelő riasztási fáradtság csökkentésével foglalkozik. Olyan agent-alapú rendszert tervezek, amely a Suricata hálózati és a Wazuh gépi riasztásait csoportosítja és rangsorolja. A rangsor alapja a nyilvánosan mért legerősebb, tanítás nélküli módszer, a kockázatalapú riasztás-pontozás, amelyet a gép fontosságával, a támadás alkalmazhatóságával és a gép megfigyeltségével egészítek ki. A mérőszámokat páros összehasonlítással súlyozott összeg vonja össze, a nyelvi modell csak ellenőrzött magyarázatot ír. A hatást lépésenkénti bővítéssel, nyilvános adathalmazon és laboratóriumi környezetben mérem.
+
 
 \newpage
 \section*{ABSTRACT}
 % Abstract in English – a szerző írja.
-
+This thesis addresses alert fatigue in security operations centres. It designs an agent-based system that groups and ranks network alerts from Suricata and host alerts from Wazuh. The ranking builds on risk-based alert scoring, the strongest publicly evaluated method that needs no training data, and extends it with host importance, attack applicability and monitoring coverage. The metrics are combined in a weighted sum derived by pairwise comparison, and a language model only writes verified explanations. The effect is measured step by step on a public alert dataset and in a laboratory environment.
 
 
 % TARTALOMJEGYZÉK
@@ -46,13 +48,24 @@
 \input{chapters/1_Bevezetes}
 
 \clearpage
-\section{IDS ÉS SOC BEMUTATÁSA}
+\section{IDS ÉS SOC BEMUTATÁSA}\label{sec:ids-soc}
 \input{chapters/2_IDS_es_SOC}
 
 \clearpage
 \section{A RIASZTÁSOK CSOPORTOSÍTÁSA ÉS RANGSOROLÁSA}\label{sec:modszerek}
 \input{chapters/3_Modszerek}
 
+\clearpage
+\section{A MEGOLDÁS KIVÁLASZTÁSA ÉS A MÉRŐSZÁMRENDSZER}\label{sec:megoldas}
+\input{chapters/4_Megoldas}
+
+\clearpage
+\section{AZ AGENT-ALAPÚ RENDSZER FELÉPÍTÉSE}\label{sec:rendszer}
+\input{chapters/5_Rendszerterv}
+
+\clearpage
+\section{TESZTKÖRNYEZET ÉS ÉRTÉKELÉSI MÓDSZERTAN}\label{sec:ertekeles}
+\input{chapters/6_Teszteles}
 % A további fejezeteket a szerző veszi fel (a kari útmutató 3. melléklete szerinti felépítésben).
 
 
