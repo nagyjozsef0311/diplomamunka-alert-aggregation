@@ -103,6 +103,8 @@
 % az irodalomjegyzék balra zárt: a sorkizárás így nem nyújtja szét a DOI-k és URL-ek karaktereit
 % (eddig „10 . 1145 /” alakban jelentek meg), és a hosszú URL-ek sem lógnak ki a margóból
 \renewcommand*{\bibfont}{\raggedright}
+% a megtekintés dátuma URL nélkül (csak DOI) is szóközzel kövesse az előző adatot, ne „. (” alakban
+\renewbibmacro*{url+urldate}{\usebibmacro{url}\iffieldundef{urlyear}{}{\setunit{\addspace}\usebibmacro{urldate}}}
 \appto\biburlsetup{\Urlmuskip=0mu plus 0.2mu\relax}
 
 % bekezdés behúzása
