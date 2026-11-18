@@ -103,7 +103,7 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-11-18 – Mind a 8 forgatókönyv: a munkamenetet a `diplomamunka-alert-aggregation` környezetben kell indítani; előtte a 7 új forgatókönyv gépnyilvántartását a szerepszabályokkal előre rögzíteni.
 - [x] 2026-11-18 – A teljes AIT-ADS letöltve (MD5 rendben). Az egységesítő az eredeti formátumot is olvassa (`load_ait_wazuh_json`, D27); a russellmitchell eredetijéből ugyanaz a 32 302 riasztás jön ki, mint a CATS-változatból, egyetlen eltérés 3 Horde-riasztás gépneve (`results/07_…`, teszt). Az időszak-alapú címke semmit nem hagy ki, de Suricatán 169, Wazuh-on 450 háttérriasztást is támadásnak jelöl (főleg a DNS-kiszivárogtatás órájában).
 - [ ] 2026-11-18 – **A szerző dönt:** a 8 forgatókönyves mérés címkéje (tiszta időszak-alapú, vagy szűkítve) – lásd a beszélgetést / `results/07_…`.
-- [ ] 2026-11-18 – **A szerző jóváhagyja** a 7 új forgatókönyv gépnyilvántartását (javaslat), utána önálló commit a mérés előtt.
+- [ ] 2026-11-18 – **A szerző jóváhagyja** a 7 új forgatókönyv gépnyilvántartását (javaslat: `results/08_ait_mind8_nyilvantartas_javaslat.md`, szabályok G1–G9 és 20 új szabályazonosító megfeleltetése), utána önálló commit a mérés előtt.
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).
 - [ ] 2026-10-24 – (eredeti TODO) a kódolás indulása a munkaterv szerint – a letöltő szkriptek (ehhez a `zenodo.org` engedélyezése a hálózati beállításban), adatfeltárás, majd az egységesítő agent (`src/alertagg/normalizer.py`) teszttel.
