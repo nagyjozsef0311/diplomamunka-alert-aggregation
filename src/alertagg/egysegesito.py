@@ -327,3 +327,19 @@ def ait_idoszak_cimkek(alerts: pd.DataFrame, idoszakok: pd.DataFrame) -> pd.Seri
     for row in idoszakok.itertuples(index=False):
         lab |= (ts >= row.start) & (ts <= row.end)
     return pd.Series(lab.to_numpy(), index=alerts["alert_id"].to_numpy(), name="label")
+
+
+def ait_idoszak_fazis(alerts: pd.DataFrame, idoszakok: pd.DataFrame,
+                      normal: str = "normál") -> pd.Series:
+    """A támadási lépés neve riasztásonként (az első illeszkedő időszak), különben ``normal``.
+
+    Csak az értékeléshez (csoporttisztaság a támadási lépés szerint, 6.3); ``alert_id`` indexű.
+    """
+    ts = alerts["timestamp"]
+    out = pd.Series(normal, index=alerts.index, dtype=object)
+    szabad = pd.Series(True, index=alerts.index)
+    for row in idoszakok.itertuples(index=False):
+        m = szabad & (ts >= row.start) & (ts <= row.end)
+        out[m] = row.attack
+        szabad &= ~m
+    return pd.Series(out.to_numpy(), index=alerts["alert_id"].to_numpy(), name="fazis")

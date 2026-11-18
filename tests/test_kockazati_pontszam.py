@@ -36,3 +36,26 @@ def test_components_on_small_synthetic_set():
     assert list(comp.columns) == kockazati_pontszam.MODULES
     assert len(comp) == 30
     assert comp.to_numpy().min() >= 0 and comp.to_numpy().max() <= 1
+
+
+def test_vektoros_szamitas_egyezik_a_cats_kodjaval():
+    """A gyors számítás riasztásonként ugyanazt adja, mint a CATS eredeti kódja (egy részhalmazon)."""
+    from pathlib import Path
+
+    import pytest
+
+    from alertagg import kockazati_pontszam as kp
+    from alertagg.egysegesito import load_cats_jsonl
+
+    p = Path(__file__).resolve().parents[1] / "data/external/cats_datasets/ait_suricata.jsonl"
+    try:
+        kp._cats()
+    except FileNotFoundError:
+        pytest.skip("a CATS nincs letöltve")
+    if not p.exists():
+        pytest.skip("a CATS-adat nincs letöltve")
+    alerts, _ = load_cats_jsonl(p)
+    alerts = alerts.iloc[:3000].reset_index(drop=True)
+    ref = kp.component_scores(alerts)
+    gyors = kp.component_scores_vektoros(alerts)
+    assert (gyors - ref.to_numpy()).abs().max().max() < 1e-9
