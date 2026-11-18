@@ -96,7 +96,9 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-10-24 – **A szerző javítja** az `1_Bevezetes.tex` 24. sorát (a „7. fejezet…” mondat), a `docs/irasi-csomagok/01_bevezetes.md` 5. pontja szerint.
 - [x] 2026-10-24 – Írási csomag: `docs/irasi-csomagok/07_osszefoglalas.md` – absztrakt és abstract, Összefoglalás (1832 karakter) és Summary; lefordítva ellenőrizve.
 - [x] 2026-11-17 – Kódolás elindult: egységesítő agent, CATS-adapter, mérőszámok; a cikk eredményei visszamérve (`results/01_rba_visszameres.md`), gépek feltárva (`results/02_gepek_feltarasa.md`). Új környezet `zenodo.org`-gal (`diplomamunka-alert-aggregation`) – a teljes AIT-ADS letöltéséhez **ezt kell választani a következő munkamenetben**.
-- [ ] 2026-11-17 – **A szerző rögzíti** a russellmitchell gépeinek fontossági fokozatát (a 4.2. táblázat szabályai szerint, a címkék ismerete nélkül); utána: gépnyilvántartás (SQLite) és a 4. lépés mérése.
+- [x] 2026-11-18 – A gépfontosság előzetesen rögzítve (1. változat 5c63392; javítva a 2. változatban 7c6ceed, D25). Gépnyilvántartás, környezeti agent, AHP-számító kész (`experiments/README.md`); a gépazonosítás mindkét érzékelőnél 100%.
+- [ ] 2026-11-18 – **A szerző kitölti** a páros összehasonlítást: `config/elozetes_rogzites/ahp_rangsorolo_itelet.yaml` (6 pár), ellenőrzés: `python experiments/03_rangsorolo_ahp_sulyok_szamitasa.py` (CR < 0,10). Utána: a 4. lépés mérése (`04_ait_russellmitchell_lepes4_gepfontossag.py`) ellenpróbával.
+- [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).
 - [ ] 2026-10-24 – (eredeti TODO) a kódolás indulása a munkaterv szerint – a letöltő szkriptek (ehhez a `zenodo.org` engedélyezése a hálózati beállításban), adatfeltárás, majd az egységesítő agent (`src/alertagg/normalizer.py`) teszttel.
 - [ ] 2026-10-24 – **TODO (a szerző kérte, ne maradjon el):** a teljes dolgozat átnézése, amikor a szerző behozza a legfrissebb Overleaf-zipet (az átvett 4–6. fejezettel és az összefoglalóval): nyelvi, hivatkozási és formai hibák, a fejezetek közti egyezés, terjedelem (min. 30–35 oldal), a rövidítésjegyzék.
 
