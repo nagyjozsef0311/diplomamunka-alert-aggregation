@@ -253,11 +253,12 @@ Ez a gyakorlat a tesztadatból származó információ beszivárgása ellen véd
         gépfontosság, 2. változat & 7c6ceed & 2026-11-18 11:59 & 4. lépés \\ \hline
         páros összehasonlítás (súlyok) & 650abd0 & 2026-11-18 12:19 & 4. lépés \\ \hline
         a csoportosítás időközének szabálya & dc23189 & 2026-11-18 12:34 & 2. lépés \\ \hline
+        az alkalmazhatóság megfeleltetése & 42036e1 & 2026-11-18 12:46 & 5. lépés \\ \hline
     \end{tabular}
 \end{table}
 ```
 
-Megjegyzés: az alkalmazhatóság megfeleltetése (5. lépés) a jóváhagyásod után kerül ide új sorként.
+Megjegyzés: a táblázat az 5. lépés rögzítésével (42036e1) teljes a russellmitchellre; a 8 forgatókönyv gépnyilvántartásai új sorokat kapnak.
 
 ---
 

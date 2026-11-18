@@ -14,7 +14,7 @@ véglegesnek tekinthető részeket rögzítjük. D20 szerint a kódblokkok átve
 | 8.1 Az összehasonlítási alap | A visszamérés röviden (a részletek a 7.3-ban) | `results/01_…` | kész |
 | 8.2 A csoportosítás (2. lépés) | tételszám-csökkenés, tisztaság, csoportszintű terhelés | `results/05_…` + 8 forgatókönyv | russellmitchell kész (mintán belüli) |
 | 8.3 A gép fontossága (4. lépés) | rangsor- és terhelésmérőszámok, ellenpróba, érzékenység | `results/04_…` + 8 forgatókönyv | russellmitchell kész |
-| 8.4 Az alkalmazhatóság (5. lépés) | ugyanígy | – | a megfeleltetés jóváhagyásra vár |
+| 8.4 Az alkalmazhatóság (5. lépés) | ugyanígy | `results/06_…` + 8 forgatókönyv | russellmitchell kész |
 | 8.5 Statisztikai összevetés | páros Wilcoxon-próba a 8 forgatókönyvön, hatásnagyság | – | a 8 forgatókönyv után |
 | 8.6 Szakértői és tanult súlyok | egy-kihagyásos tanult súlyok vs. AHP | – | a 8 forgatókönyv után |
 | 8.7 Összegzés | | | a végén |

@@ -99,7 +99,7 @@ Ezek a döntések készek, és megvalósíthatók.
 - [x] 2026-11-18 – A gépfontosság előzetesen rögzítve (1. változat 5c63392; javítva a 2. változatban 7c6ceed, D25). Gépnyilvántartás, környezeti agent, AHP-számító kész (`experiments/README.md`); a gépazonosítás mindkét érzékelőnél 100%.
 - [x] 2026-11-18 – AHP-ítéletek rögzítve (650abd0; 2. kör, CR = 0,084). A 4. lépés megmérve a russellmitchellen (`results/04_ait_russellmitchell_lepes4_gepfontossag.md`): Suricatán javulás (AP 0,81 → 0,86, átnézendő 29% → 14%, az ellenpróbák 0%-a éri el), Wazuh-on romlás (AUROC 0,99 → 0,86; az ellenpróbák 57%-a legalább ilyen jó).
 - [x] 2026-11-18 – A szerző döntése: nincs feltáró elemzés, a tervet követjük. Kész: a 2. lépés (csoportosító agent, időköz-szabály D26, `results/05_…`).
-- [ ] 2026-11-18 – **A szerző jóváhagyja** az alkalmazhatóság megfeleltetését: `config/elozetes_rogzites/ait_russellmitchell_alkalmazhatosag.yaml` (`allapot: javaslat` → `jovahagyva`); utána az 5. lépés mérése.
+- [x] 2026-11-18 – Az alkalmazhatóság megfeleltetése jóváhagyva és rögzítve (42036e1); sérülékenységi agent kész; az 5. lépés megmérve (`results/06_…`): Wazuh-on gyakorlatilag nincs hatása (a riasztások 97%-a a=0,75), Suricatán ront (AUROC 0,991 → 0,944, átnézendő 14% → 46%), és nem jobb az ellenpróbánál.
 - [ ] 2026-11-18 – Mind a 8 forgatókönyv: a munkamenetet a `diplomamunka-alert-aggregation` környezetben kell indítani; előtte a 7 új forgatókönyv gépnyilvántartását a szerepszabályokkal előre rögzíteni.
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).

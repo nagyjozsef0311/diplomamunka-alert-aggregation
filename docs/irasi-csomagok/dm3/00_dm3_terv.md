@@ -42,6 +42,6 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
 | 1., 3. (visszamérés) | `experiments/01_…` | `results/01_…` | kész, russellmitchell |
 | 2. (csoportosítás) | `experiments/05_…` | `results/05_…` | kész, russellmitchell (hangoló forgatókönyv) |
 | 4. (+ gép fontossága) | `experiments/04_…` | `results/04_…` | kész, russellmitchell |
-| 5. (+ alkalmazhatóság) | – | – | a megfeleltetés jóváhagyásra vár |
+| 5. (+ alkalmazhatóság) | `experiments/06_…` | `results/06_…` | kész, russellmitchell |
 | 1–5. mind a 8 forgatókönyvön, Wilcoxon, tanult súlyok | – | – | a `zenodo.org`-os környezetben |
 | 6. (megfigyeltség), magyarázó agent | – | – | labor |
