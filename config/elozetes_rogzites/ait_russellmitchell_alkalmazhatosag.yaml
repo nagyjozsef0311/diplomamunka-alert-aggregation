@@ -1,7 +1,7 @@
 # ELŐZETES RÖGZÍTÉS – a támadás alkalmazhatósága (5. lépés), AIT-ADS russellmitchell
 #
-# ÁLLAPOT: JAVASLAT – A SZERZŐ JÓVÁHAGYÁSÁRA VÁR. Amíg az állapot nem „jóváhagyva”, mérés ezzel a
-# fájllal nem végezhető (az 5. lépés szkriptje ellenőrzi).
+# ÁLLAPOT: JÓVÁHAGYVA (a szerző, 2026-11-18), változtatás nélkül a 8a05037 commit javaslatához képest.
+# Mérés csak „jovahagyva” állapotban végezhető (az 5. lépés szkriptje ellenőrzi).
 #
 # Dolgozat: 4.2.3 (alkalmazhatóság), 5.4 (szoftver és szabály_hivatkozas tábla), 6.3 (előzetes
 # rögzítés). A javaslat a szabályok nevén és csoportjain, valamint a gépek dokumentált
@@ -14,7 +14,9 @@
 #   0,25 – a gép szoftverkészlete ismert, és a szabály szolgáltatása nem fut rajta
 #   0,5  – a szabály nem köthető szolgáltatáshoz („altalanos”), vagy a gép szoftverkészlete ismeretlen
 
-allapot: javaslat
+allapot: jovahagyva
+jovahagyta: szerző
+jovahagyas_datuma: 2026-11-18
 forras_szoftverkeszlet: "Landauer és mtsai. 2023, AIT-LDSv2 (arXiv:2203.08580), 3.2.1 pont, 12. o. lábjegyzetei és 7. táblázat"
 
 # A gépeken futó szolgáltatások (szolgáltatás-kategóriák). Minden gép Ubuntu Linux (3.2.1), ezért a
