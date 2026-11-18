@@ -1,0 +1,73 @@
+# ELŐZETES RÖGZÍTÉS – a támadás alkalmazhatósága (5. lépés), AIT-ADS russellmitchell
+#
+# ÁLLAPOT: JAVASLAT – A SZERZŐ JÓVÁHAGYÁSÁRA VÁR. Amíg az állapot nem „jóváhagyva”, mérés ezzel a
+# fájllal nem végezhető (az 5. lépés szkriptje ellenőrzi).
+#
+# Dolgozat: 4.2.3 (alkalmazhatóság), 5.4 (szoftver és szabály_hivatkozas tábla), 6.3 (előzetes
+# rögzítés). A javaslat a szabályok nevén és csoportjain, valamint a gépek dokumentált
+# szoftverkészletén alapul; A TÁMADÁSI CÍMKÉKET NEM NÉZTÜK.
+#
+# Értékek (4.2.3):
+#   1    – a szabály a gépen futó szoftver ismert sérülékenységére (CVE) hivatkozik
+#          (az AIT-ADS riasztásaiban nincs CVE-hivatkozás, ezért itt nem fordul elő)
+#   0,75 – a szabály szolgáltatása fut a gépen (termék- vagy szolgáltatásegyezés)
+#   0,25 – a gép szoftverkészlete ismert, és a szabály szolgáltatása nem fut rajta
+#   0,5  – a szabály nem köthető szolgáltatáshoz („altalanos”), vagy a gép szoftverkészlete ismeretlen
+
+allapot: javaslat
+forras_szoftverkeszlet: "Landauer és mtsai. 2023, AIT-LDSv2 (arXiv:2203.08580), 3.2.1 pont, 12. o. lábjegyzetei és 7. táblázat"
+
+# A gépeken futó szolgáltatások (szolgáltatás-kategóriák). Minden gép Ubuntu Linux (3.2.1), ezért a
+# „linux” (helyi bejelentkezés, PAM, sshd, sudo, auditd) mindenhol szerepel.
+szoftverkeszlet:
+  intranet-server: [linux, web, tls]          # Apache + WordPress 5.8.2 (wpDiscuz)
+  internal-share:  [linux, smb]               # Samba 4.5.9
+  mail:            [linux, web, tls, imap, smtp]  # Horde Groupware 5.2.17, Exim, Dovecot
+  vpn:             [linux, vpn, tls]          # OpenVPN 2.4.4
+  cloud-share:     [linux, web, tls]          # OwnCloud 10.5.0
+  webserver:       [linux, web, tls]          # webkiszolgáló
+  proxy-server:    [linux, web, tls]          # proxy (HTTP/HTTPS forgalom)
+  inet-firewall:   [linux, dns]               # Shorewall 5.1.12.2, Dnsmasq 2.79 (belső DNS)
+  inet-dns:        [linux, dns]               # MaraDNS 2.0.13 (globális DNS)
+  davey-mail:      [linux, imap, smtp]        # külső levelezőkiszolgáló
+  morris-mail:     [linux, imap, smtp]        # külső levelezőkiszolgáló
+
+# Szabály -> szolgáltatás. „altalanos”: nem támadás- vagy nem szolgáltatásspecifikus jelzés.
+szabalyok:
+  wazuh:
+    "9701":  imap     # Dovecot Authentication Success
+    "9705":  imap     # Dovecot Invalid User Login Attempt
+    "9751":  imap     # Dovecot brute force attack
+    "31101": web      # Web server 400 error code
+    "31151": web      # Multiple web server 400 error codes from same source ip
+    "31104": web      # Common web attack
+    "31516": web      # Suspicious URL access
+    "31122": web      # Web server 500 error code
+    "30305": web      # Apache: Attempt to access forbidden file or directory
+    "30306": web      # Apache: Attempt to access forbidden directory index
+    "2501":  linux    # syslog: User authentication failure
+    "5501":  linux    # PAM: Login session opened
+    "5502":  linux    # PAM: Login session closed
+    "5503":  linux    # PAM: User login failed
+    "5706":  linux    # sshd: insecure connection attempt (scan)
+    "5715":  linux    # sshd: authentication success
+    "5402":  linux    # Successful sudo to ROOT executed
+    "5304":  linux    # User successfully changed UID
+    "80730": linux    # Auditd: SELinux permission check
+    "52507": altalanos  # ClamAV database update (karbantartás)
+  suricata:
+    "2230010": tls        # SURICATA TLS invalid record/traffic
+    "2230003": tls        # SURICATA TLS invalid handshake message
+    "2230000": tls        # SURICATA TLS invalid SSLv2 header
+    "2230002": tls        # SURICATA TLS invalid record type
+    "2221010": web        # SURICATA HTTP unable to match response to request
+    "2221001": web        # SURICATA HTTP gzip decompression failed
+    "2221004": web        # SURICATA HTTP invalid response chunk len
+    "2024364": web        # ET SCAN Possible Nmap User-Agent Observed (HTTP)
+    "2220006": smtp       # SURICATA SMTP no server welcome message
+    "2220000": smtp       # SURICATA SMTP invalid reply
+    "2013504": altalanos  # ET POLICY GNU/Linux APT User-Agent Outbound (csomagkezelés)
+    "2027865": altalanos  # ET INFO Observed DNS Query to .cloud TLD
+    "2027863": altalanos  # ET INFO Observed DNS Query to .biz TLD
+
+# Ismeretlen szabály (nincs a listában): „altalanos” -> 0,5.
