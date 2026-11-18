@@ -24,6 +24,8 @@ mappában vannak (dolgozat 6.3).
 | `05_ait_russellmitchell_lepes2_csoportositas.py` | 2. lépés (+ a 3–4. csoportszinten) | Az időköz kiválasztása a rögzített szabállyal (D26), csoportok rangsorolása, tisztaság, tételszám-csökkenés | 5.3, 6.2. táblázat, 6.3 |
 | `06_ait_russellmitchell_lepes5_alkalmazhatosag.py` | 5. lépés | Kockázati pontszám + gép fontossága + alkalmazhatóság; riasztás- és csoportszinten, ellenpróba (a szolgáltatáskészletek keverése), ±20% | 4.2.3, 4.3, 6.2. táblázat, 6.3 |
 | `04_ait_russellmitchell_lepes4_gepfontossag.py` | 4. lépés | Kockázati pontszám + gép fontossága; összevetés az 1. és 3. lépéssel, ellenpróba (100 keverés), ±20%-os érzékenység | 4.3, 6.2. táblázat, 6.3 |
+| `07_ait_russellmitchell_eredeti_formatum_es_cimkek.py` | a 8 forgatókönyves mérés előkészítése | Az eredeti AIT-ADS formátum egységesítése és összevetése a CATS-változattal; az időszak-alapú címke eltérése a CATS riasztásonkénti címkéjétől | 5.3, 6.1 |
+| `08_ait_mind8_nyilvantartas_javaslat.py` | a 8 forgatókönyves mérés előkészítése | A 7 új forgatókönyv gépnyilvántartásának és szoftverkészletének levezetése rögzített szabályokkal (G1–G9), **címkék nélkül**; ellenőrzés: a russellmitchellen visszaadja a jóváhagyott nyilvántartást. `--rogzites`: jóváhagyás után a YAML-ok a `config/elozetes_rogzites/`-be | 5.4, 6.1, 6.3 |
 
 ## A csomag moduljai (`src/alertagg/`) – az agentek szerint
 

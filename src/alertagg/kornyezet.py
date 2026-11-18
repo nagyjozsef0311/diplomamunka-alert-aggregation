@@ -11,7 +11,9 @@ Kimenet riasztásonként:
 
 Az érintett gép meghatározása (D25):
 
-* gépi érzékelő (Wazuh): a riasztásban szereplő gépnév;
+* gépi érzékelő (Wazuh): a riasztásban szereplő gépnév; ha hiányzik vagy nem ismert, a riasztást
+  beküldő Wazuh-ügynök IP-címéhez tartozó gép (5.2. táblázat: „ha hiányzik, az IP-cím alapján
+  kikeresve”; D28);
 * hálózati érzékelő (Suricata): ha a cél-IP-cím ismert gépé, az; különben ha a forrás-IP-cím ismert
   gépé, az; különben ismeretlen. A célt azért vesszük előre, mert a támadás a célgépen okozhat kárt.
 """
@@ -26,12 +28,26 @@ from alertagg.gepnyilvantartas import Gepnyilvantartas
 SEMLEGES = 0.5
 
 
+def ugynok_ip(raw: dict | None) -> str | None:
+    """A riasztást beküldő Wazuh-ügynök IP-címe az eredeti rekordból (mindkét formátumban)."""
+    if not isinstance(raw, dict):
+        return None
+    if raw.get("ugynok_ip"):
+        return raw["ugynok_ip"]
+    return ((raw.get("full_alert") or {}).get("agent") or {}).get("ip")
+
+
 def erintett_gep(alerts: pd.DataFrame, nyilv: Gepnyilvantartas) -> pd.Series:
     """Riasztásonként az érintett gép neve a nyilvántartásban (vagy ``None``)."""
     out = []
-    for row in alerts[["sensor", "hostname", "src_ip", "dst_ip"]].itertuples(index=False):
+    raw = alerts["raw"] if "raw" in alerts.columns else pd.Series([None] * len(alerts))
+    cols = alerts[["sensor", "hostname", "src_ip", "dst_ip"]].itertuples(index=False)
+    for row, r in zip(cols, raw, strict=True):
         if row.sensor == "wazuh":
-            out.append(row.hostname if nyilv.ismert_gep(row.hostname) else None)
+            if nyilv.ismert_gep(row.hostname):
+                out.append(row.hostname)
+            else:
+                out.append(nyilv.gep_ip_alapjan(ugynok_ip(r)))
         else:
             out.append(nyilv.gep_ip_alapjan(row.dst_ip) or nyilv.gep_ip_alapjan(row.src_ip))
     return pd.Series(out, index=alerts["alert_id"], name="erintett_gep", dtype=object)
