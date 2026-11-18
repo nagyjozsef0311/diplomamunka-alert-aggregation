@@ -51,7 +51,7 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
 | 5. (+ alkalmazhatóság) | `experiments/06_…` | `results/06_…` | kész, russellmitchell |
 | eredeti formátum, időszak-címke (russellmitchell) | `experiments/07_…` | `results/07_…` | kész (D27, D28) |
 | a 7 új forgatókönyv nyilvántartása (G1–G9) | `experiments/08_…` | `results/08_…`, `config/elozetes_rogzites/ait_<f>_*.yaml` | jóváhagyva, rögzítve (398c581) |
-| a gyors kockázati pontszám egyezése a CATS-szal | `experiments/09_…` | `results/09_…` | fut (eddig egyezik), D29 |
+| a gyors kockázati pontszám egyezése a CATS-szal | `experiments/09_…` | `results/09_…` | **kész**: eltérés ≤ 6·10⁻¹¹, 25–280× gyorsabb (D29) |
 | 1–5. mind a 8 forgatókönyvön (+ ellenpróba, ±20%, hiányos nyilvántartás, rács) | `experiments/10_…` | `results/10_…` | **kész** (terv: 47cfb7a) |
 | Wilcoxon, hatásnagyság, tanult súlyok, címke-érzékenység | `experiments/11_…` | `results/11_…` | **kész** |
 | 6. (megfigyeltség), magyarázó agent | – | – | labor |
