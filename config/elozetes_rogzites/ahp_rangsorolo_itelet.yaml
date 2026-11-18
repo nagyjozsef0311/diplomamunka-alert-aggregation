@@ -1,0 +1,31 @@
+# ELŐZETES RÖGZÍTÉS – a rangsoroló súlyai páros összehasonlítással (AHP)
+#
+# Dolgozat: 4. fejezet, 4.3 (képlet: S = w_r·r + w_g·g + w_a·a + w_m·m); 4.4. táblázat (skála);
+# 6. fejezet, 6.3 (a súlyokat a mérés ELŐTT rögzítjük).
+#
+# KITÖLTI: a szerző, szakértőként. Minden sorban az „ertek” azt mondja meg, mennyivel fontosabb az
+# „a” szempont a „b”-nél, amikor egy riasztás sorrendjéről döntesz:
+#   1 = egyformán fontos, 3 = valamivel, 5 = lényegesen, 7 = sokkal, 9 = rendkívül fontosabb
+#   2, 4, 6, 8 = köztes értékek
+#   Ha a „b” a fontosabb: törtet írj, pl. "1/3" (= a b valamivel fontosabb, mint az a).
+# Ellenőrzés: python experiments/03_rangsorolo_ahp_sulyok_szamitasa.py
+#   – kiírja a súlyokat és a következetességi arányt (CR); CR < 0,10 kell, különben az ítéleteket
+#     felül kell vizsgálni.
+# A kitöltés után a fájlt commitolni kell, és utána nem módosítható (git-napló = előzetes rögzítés).
+
+kitoltotte: null          # a szerző neve
+kitoltes_datuma: null     # ÉÉÉÉ-HH-NN
+
+szempontok: [r, g, a, m]
+# r – kockázati pontszám (a riasztások folyamából: súlyosság, halmozódás, változatosság, …)
+# g – a gép fontossága
+# a – a támadás alkalmazhatósága a gépen
+# m – a gép megfigyeltsége (vakfolt)
+
+iteletek:
+  - {a: r, b: g, ertek: null}
+  - {a: r, b: a, ertek: null}
+  - {a: r, b: m, ertek: null}
+  - {a: g, b: a, ertek: null}
+  - {a: g, b: m, ertek: null}
+  - {a: a, b: m, ertek: null}
