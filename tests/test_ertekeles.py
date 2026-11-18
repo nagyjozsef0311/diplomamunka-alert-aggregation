@@ -31,3 +31,23 @@ def test_workload_at_recall():
 def test_workload_is_pessimistic_on_ties():
     y = [1, 0, 0, 0]
     assert ertekeles.workload_at_recall(y, [1, 1, 1, 1], 1.0) == 1.0
+
+
+def test_fazis_tisztasag_es_wilcoxon_holm():
+    import numpy as np
+
+    from alertagg.ertekeles import csoport_tisztasag_fazis, holm, paros_wilcoxon
+
+    # két csoport: az elsőben 2 scan + 1 normál, a másodikban 2 webshell
+    assert csoport_tisztasag_fazis(["scan", "scan", "normál", "webshell", "webshell"],
+                                   [1, 1, 1, 2, 2]) == 4 / 5
+    uj = np.array([0.9, 0.8, 0.7, 0.95, 0.6, 0.85, 0.9, 0.75])
+    regi = uj - np.array([0.1, 0.05, 0.02, 0.2, 0.01, 0.03, 0.04, 0.06])
+    r = paros_wilcoxon(uj, regi)
+    assert r["javult"] == 8 and r["rang_biszerialis"] == 1.0
+    assert abs(r["p"] - 1 / 2**8) < 1e-12  # a legkisebb elérhető p-érték 8 párnál (6.3)
+    # kisebb = jobb irány (terhelés)
+    assert paros_wilcoxon(regi, uj, nagyobb_jobb=False)["javult"] == 8
+    # nulla különbség
+    assert paros_wilcoxon(uj, uj)["p"] == 1.0
+    assert list(holm([0.01, 0.04, 0.03])) == [0.03, 0.06, 0.06]

@@ -118,3 +118,52 @@ def csoport_terheles_98(y_true, csoport, csoport_pontszam, recall: float = 0.98)
     s = g["s"].to_numpy()
     last_tied = int(np.searchsorted(-s, -s[idx], side="right"))
     return last_tied / len(g)
+
+
+def csoport_tisztasag_fazis(fazis, csoport) -> float:
+    """A csoportok tisztasága a támadási lépés szerint (6.3: egy csoportba csak egy támadási lépés
+    riasztásai kerüljenek): a csoportokban a leggyakoribb lépéshez (vagy a „normál”-hoz) tartozó
+    riasztások aránya, riasztásszámmal súlyozva."""
+    import pandas as pd
+
+    df = pd.DataFrame({"f": np.asarray(fazis, dtype=object), "c": np.asarray(csoport)})
+    tobbseg = df.groupby(["c", "f"]).size().groupby(level=0).max()
+    return float(tobbseg.sum() / len(df))
+
+
+# --- statisztika a forgatókönyvek között (6.3) ---------------------------------------------------
+
+def paros_wilcoxon(uj, regi, nagyobb_jobb: bool = True) -> dict[str, float]:
+    """Páros, egyoldali Wilcoxon-próba (H1: az új jobb) és hatásnagyság.
+
+    A nulla különbségű párok kimaradnak (Wilcoxon eredeti eljárása). Hatásnagyság: a különbségek
+    mediánja és átlaga (a „jobb” irányba előjelezve), valamint a párosított rang-biszeriális
+    korreláció (+1: minden pár az új javára, −1: mind a régi javára).
+    """
+    from scipy.stats import rankdata, wilcoxon
+
+    uj, regi = np.asarray(uj, float), np.asarray(regi, float)
+    d = (uj - regi) if nagyobb_jobb else (regi - uj)
+    nz = d[d != 0]
+    out = {"n": len(d), "n_nem_nulla": len(nz), "javult": int((d > 0).sum()),
+           "romlott": int((d < 0).sum()), "kulonbseg_median": float(np.median(d)),
+           "kulonbseg_atlag": float(np.mean(d))}
+    if len(nz) == 0:
+        return {**out, "W_plusz": 0.0, "p": 1.0, "rang_biszerialis": 0.0}
+    r = rankdata(np.abs(nz))
+    wp, wm = float(r[nz > 0].sum()), float(r[nz < 0].sum())
+    res = wilcoxon(nz, alternative="greater", zero_method="wilcox")
+    return {**out, "W_plusz": wp, "p": float(res.pvalue), "rang_biszerialis": (wp - wm) / (wp + wm)}
+
+
+def holm(p) -> np.ndarray:
+    """Holm–Bonferroni-korrekció (a korrigált p-értékek, eredeti sorrendben)."""
+    p = np.asarray(p, float)
+    m = len(p)
+    order = np.argsort(p)
+    adj = np.empty(m)
+    run = 0.0
+    for k, i in enumerate(order):
+        run = max(run, min(1.0, (m - k) * p[i]))
+        adj[i] = run
+    return adj

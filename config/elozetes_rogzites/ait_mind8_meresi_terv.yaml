@@ -1,0 +1,66 @@
+# ELŐZETES RÖGZÍTÉS – a 8 forgatókönyves AIT-ADS mérés terve (1–5. lépés, Wilcoxon, tanult súlyok)
+#
+# Dolgozat: 6.3 (a mérés terve, a plafonhatás kezelése, a torzítás elleni védekezés), 6.2. táblázat.
+# A tervet a mérés ELŐTT rögzítjük (git-napló). Ahol a dolgozat nem rendelkezik, az ajánlott,
+# szokásos megoldást választottuk (a szerző utasítása, 2026-11-18); ezek „kiegeszites”-ként jelölve.
+# A 7 új forgatókönyvön a címkéket eddig sem a nyilvántartáshoz, sem a beállításokhoz nem néztük.
+
+adat:
+  forras: AIT-ADS eredeti formátum (Zenodo 8263181), D27 – a russellmitchell is ebből
+  forgatokonyvek: [fox, harrison, russellmitchell, santos, shaw, wardbeck, wheeler, wilson]
+  erzekelok: [wazuh, suricata]          # külön adathalmazként (6.1)
+  nyilvantartas: "config/elozetes_rogzites/ait_<forgatókönyv>_gepfontossag.yaml (russellmitchell: _v2)"
+  alkalmazhatosag: "config/elozetes_rogzites/ait_<forgatókönyv>_alkalmazhatosag.yaml"
+
+cimke:
+  fo: "időszak-alapú: a labels.csv támadási időszakai, zárt időszak (D28)"
+  erzekenyseg: "russellmitchell: a CATS riasztásonkénti címkéjével is (6.1)"
+  fazis: "a csoporttisztasághoz a támadási lépés neve (az időszak), különben „normál” (6.3)"
+
+pontszamok:
+  kockazati: "Uetz és mtsai. 2026, az öt részpontszám átlagos súlyokkal 12/24/44/10/10 (mint a 3–5. lépésben eddig)"
+  szamitas: "a CATS képletei vektorosan (kockazati_pontszam.component_scores_vektoros); egyezés: results/09_…"
+  ahp: "config/elozetes_rogzites/ahp_rangsorolo_itelet.yaml, a lépés szempontjaira újranormálva (4.3)"
+  csoportositas: "gép + időköz, 60 perc mindkét érzékelőn (D26, a russellmitchellen választva, változatlanul)"
+  csoport_pontszam: "a tagok maximuma (4.3)"
+
+lepesek:
+  lepes1: "súlyosság (a CATS szabályszint-részpontszáma)"
+  lepes2: "csoportosítás, csoportpontszám = a legnagyobb súlyosság"
+  lepes3: "kockázati pontszám r"
+  lepes4: "r + gép fontossága g (AHP)"
+  lepes5: "r + g + alkalmazhatóság a (AHP)"
+  lepes6: "a megfigyeltség csak a laborban (6.2. táblázat)"
+
+meroszamok:
+  rangsor: [auroc, ap, recall_top10, workload_98]
+  csoport: [tisztasag_fazis, tisztasag_ketertek, tetelszam_csokkenes, csoport_terheles_98]
+  elsodleges: [ap, workload_98]         # a plafonhatás miatt (6.3)
+
+statisztika:
+  proba: "páros, egyoldali Wilcoxon-próba a 8 forgatókönyvön, érzékelőnként és mérőszámonként (6.3)"
+  irany: "AUROC, AP, első 10%: nagyobb a jobb; workload_98, csoport_terheles_98: kisebb a jobb"
+  nulla_kulonbseg: "a nulla különbségű párok kimaradnak (Wilcoxon eredeti eljárása); pontos p-érték"
+  osszehasonlitasok:
+    - {uj: lepes3, regi: lepes1, szint: riasztas}
+    - {uj: lepes4, regi: lepes3, szint: riasztas}
+    - {uj: lepes5, regi: lepes4, szint: riasztas}
+    - {uj: lepes5, regi: lepes3, szint: riasztas}
+    - {uj: lepes2, regi: lepes1, szint: "csoport (csoport_terheles_98) kontra riasztás (workload_98)"}
+  hatasnagysag: "a különbségek mediánja és átlaga, valamint a párosított rang-biszeriális korreláció (6.4. táblázat: hatásnagyság közlése)"
+  tobbszoros_osszevetes: "kiegeszites: Holm-korrekció érzékelőnként és mérőszámonként a négy riasztásszintű összevetésre; a nyers p-értéket is közöljük"
+  szignifikancia: 0.05
+
+torzitas_elleni:
+  ellenproba: "100 véletlen keverés forgatókönyvenként (kezdőérték 0–99): a fokozatok (4. lépés), a szolgáltatáskészletek (5. lépés)"
+  erzekenyseg: "±20% a lépés új szempontjának súlyán, újranormálva"
+  hianyos_nyilvantartas: "a gépek 20, illetve 50%-a véletlenszerűen kimarad (kiegeszites: 20 ismétlés, kezdőérték 0–19); a kimaradt gép g = a = 0,5"
+  tanult_sulyok: >
+    kiegeszites: (r, g, a) súlyok a szimplexen 0,05-ös rácson (231 pont), érzékelőnként; a 7 tanító
+    forgatókönyv átlagos AP-jét maximalizálva (holtversenynél az AHP-súlyokhoz legközelebbi), a
+    kihagyott forgatókönyvön mérve, mind a 8-ra (6.3). Összevetés az AHP-súlyokkal a kihagyott
+    forgatókönyveken: AP és workload_98, kétoldali páros Wilcoxon-próba.
+
+hangolo_forgatokonyv: "russellmitchell (a csoportosító időköze): ott a 2. lépés eredménye mintán belüli"
+
+rogzitette: "Claude a szerző utasítására (2026-11-18: a dolgozat szerint, ahol nincs kitétel, az ajánlott), a mérés előtt"

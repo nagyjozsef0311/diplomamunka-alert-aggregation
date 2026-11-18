@@ -109,3 +109,205 @@ def risk_score(components: pd.DataFrame, weights=WEIGHTS["mean"]) -> pd.Series:
     w = np.asarray(weights, float)
     w = w / w.sum()
     return pd.Series(components[MODULES].to_numpy() @ w, index=components.index, name="r")
+
+
+# ---------------------------------------------------------------------------------------------
+# Vektoros (gyors) számítás – ugyanaz a matematika, mint a CATS moduljaiban
+# ---------------------------------------------------------------------------------------------
+#
+# A CATS minden riasztásnál végigjárja az időablak összes riasztását. A nagy AIT-ADS
+# forgatókönyvekben (450–500 ezer gépi riasztás, órás csúcsokkal) ez négyzetes futásidőt jelent.
+# Az alábbi függvények ugyanazokat a képleteket számolják (``modules/src/*.py`` és a modulok
+# ``process`` függvényei, CATS 628cf48a) rendezett időbélyegeken, prefixösszegekkel és bináris
+# kereséssel. Az egyezést a russellmitchell teljes adatán a CATS saját kódjával ellenőrizzük
+# (``tests/test_kockazati_pontszam.py`` és ``experiments/09_…``).
+
+_EULER_GAMMA = 0.5772156649015329
+_MIN_REL_WINDOW_LENGTH = 1 / (2 * 365 * 24 * 60)
+_ABLAK_US = {"accumulation": 60 * 10**6, "variety": 3600 * 10**6, "rarity": 86400 * 10**6,
+             "aperiodicity": 86400 * 10**6}
+
+
+def _ido_us(alerts: pd.DataFrame) -> np.ndarray:
+    """Időbélyegek egész mikroszekundumban (a CATS ezredmásodperces időbélyegéből)."""
+    return alerts["timestamp"].dt.tz_convert("UTC").astype("datetime64[us, UTC]").astype("int64") \
+        .to_numpy()
+
+
+def _csoportok(kulcs: pd.Series) -> list[np.ndarray]:
+    """A nem hiányzó kulcsú riasztások indexei csoportonként, időrendben."""
+    k = kulcs.to_numpy(dtype=object)
+    ok = np.array([v is not None and not (isinstance(v, float) and np.isnan(v)) for v in k])
+    idx = np.flatnonzero(ok)
+    if len(idx) == 0:
+        return []
+    codes, _ = pd.factorize(pd.Series(k[idx]))
+    order = np.argsort(codes, kind="stable")
+    bounds = np.flatnonzero(np.diff(codes[order])) + 1
+    return np.split(idx[order], bounds)
+
+
+def _ablak_hatarok(t: np.ndarray, h: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """[t-h, t] és (t, t+h] határindexei egy rendezett csoporton belül."""
+    lo = np.searchsorted(t, t - h, side="left")
+    mid = np.searchsorted(t, t, side="right")
+    hi = np.searchsorted(t, t + h, side="right")
+    return lo, mid, hi
+
+
+def _haromszog_osszeg(t: np.ndarray, h: int) -> np.ndarray:
+    """Σ_j (1 - |t_i - t_j| / h) az ablakban (|t_i - t_j| <= h)."""
+    lo, mid, hi = _ablak_hatarok(t, h)
+    tf = (t - t[0]).astype(np.float64)
+    cs = np.concatenate([[0.0], np.cumsum(tf)])
+    n_l, n_r = mid - lo, hi - mid
+    s_l, s_r = cs[mid] - cs[lo], cs[hi] - cs[mid]
+    return n_l - (n_l * tf - s_l) / h + n_r - (s_r - n_r * tf) / h
+
+
+def _atlagos_tavolsag(t: np.ndarray, w: int, ds0: int, ds1: int) -> np.ndarray:
+    """calculate_average_distance_for_triangle (include_future=True)."""
+    ws, we = t - w / 2, t + w / 2
+    ol = (t - np.maximum(ws, ds0)) / (w * 0.5)
+    orr = (np.minimum(we, ds1) - t) / (w * 0.5)
+    return ((1 - 0.5 * ol) * ol + (1 - 0.5 * orr) * orr) / (ol + orr)
+
+
+def _tobblet_vart(t: np.ndarray, w: int, ds0: int, ds1: int, n: int) -> np.ndarray:
+    """additional_alerts_expected (include_future=True)."""
+    eff = np.minimum(t + w / 2, ds1) - np.maximum(t - w / 2, ds0)
+    return eff / (ds1 - ds0) * (n - 1)
+
+
+def _halmozodas_ritkasag(t_all: np.ndarray, csoportok: list[np.ndarray], w: int,
+                         ritkasag: bool) -> np.ndarray:
+    n = len(t_all)
+    ds0, ds1 = t_all[0], t_all[-1]
+    out = np.full(n, 0.5)
+    ng = len(csoportok)
+    for idx in csoportok:
+        t = t_all[idx]
+        s = _haromszog_osszeg(t, w // 2)
+        avg = _atlagos_tavolsag(t, w, ds0, ds1)
+        add = _tobblet_vart(t, w, ds0, ds1, n) / ng
+        if ritkasag:
+            norm = 1 + avg * add
+            with np.errstate(divide="ignore", invalid="ignore"):
+                sc = np.where(norm == 1, 1.0, (norm - 1) / (s + norm - 2))
+        else:
+            sc = 1 - 0.5 ** (s / (1 + avg * add))
+        out[idx] = np.clip(sc, 0.0, 1.0)
+    return out
+
+
+def _valtozatossag(t_all: np.ndarray, rule: np.ndarray, csoportok: list[np.ndarray],
+                   w: int) -> np.ndarray:
+    n = len(t_all)
+    ds0, ds1 = t_all[0], t_all[-1]
+    out = np.full(n, 0.5)
+    tipusok, tip_kod = np.unique(rule, return_inverse=True)
+    darab = np.bincount(tip_kod, minlength=len(tipusok)).astype(np.float64)
+    ng = len(csoportok)
+    lam = darab / ng                                  # típusonként várt darab csoportonként
+    h = w // 2
+    for idx in csoportok:
+        t, kod = t_all[idx], tip_kod[idx]
+        # Σ_típus (1 - a típus legközelebbi riasztásának relatív távolsága), ha az ablakban van
+        s = np.zeros(len(idx))
+        for k in np.unique(kod):
+            tk = t[kod == k]
+            pos = np.searchsorted(tk, t)
+            bal = np.where(pos > 0, t - tk[np.maximum(pos - 1, 0)], np.iinfo(np.int64).max)
+            jobb = np.where(pos < len(tk), tk[np.minimum(pos, len(tk) - 1)] - t,
+                            np.iinfo(np.int64).max)
+            d = np.minimum(bal, jobb)
+            s += np.where(d <= h, 1 - np.minimum(d, h) / h, 0.0)
+        eff = np.minimum(t + h, ds1) - np.maximum(t - h, ds0)
+        rel = eff / (ds1 - ds0)
+        # várt további változatosság és várt relatív távolság (modules/src/variety.py)
+        L = np.outer(rel, lam)                        # (riasztás × típus)
+        p = 1 - np.exp(-L)
+        exp_add = p.sum(axis=1) - p[np.arange(len(idx)), kod]
+        with np.errstate(divide="ignore", invalid="ignore"):
+            cev = np.where(L < _MIN_REL_WINDOW_LENGTH, 0.5 * rel[:, None],
+                           (1 - np.exp(-L) * (1 + L)) / (lam[None, :] * p))
+            erd = np.where(rel == 0, 0.0, (p * cev).sum(axis=1) / p.sum(axis=1) / rel)
+        sc = 1 - 0.5 ** (s / (1 + exp_add * (1 - erd)))
+        out[idx] = np.clip(sc, 0.0, 1.0)
+    return out
+
+
+def _aperiodicitas_egy(ev_us: np.ndarray, sulyok: np.ndarray, small_n: float) -> float:
+    """modules/src/aperiodicity.py aperiodicity_score, súlyozott (azonos időpontú) eseményekkel."""
+    db = sulyok.sum()
+    if db <= 2:
+        return 1.0
+    off = (ev_us - ev_us[0]) / 1e6
+    span = off[-1]
+    if span <= 0 or span <= 1:
+        return 1.0
+    n_bins = int(np.ceil(span))
+    b = np.minimum(off.astype(np.int64), n_bins - 1)
+    c = np.bincount(b, weights=sulyok, minlength=n_bins).astype(np.float64)
+    c -= c.mean()
+    power = np.abs(np.fft.rfft(c)) ** 2
+    power = power[1:]
+    if len(power) == 0:
+        return 1.0
+    am = np.mean(power)
+    if am <= 0:
+        return 1.0
+    sf = np.exp(np.mean(np.log(np.maximum(power, np.finfo(np.float64).tiny)))) / am
+    sf = float(np.clip(sf / np.exp(-_EULER_GAMMA), 0.0, 1.0))
+    conf = 1.0 - np.exp(-db / small_n)
+    return sf * conf + (1.0 - conf)
+
+
+def _aperiodicitas(t_all: np.ndarray, csoportok: list[np.ndarray], w: int,
+                   small_n: float = 5) -> np.ndarray:
+    n = len(t_all)
+    nyers = np.full(n, np.nan)
+    h = w // 2
+    for idx in csoportok:
+        t = t_all[idx]
+        u, inv, cnt = np.unique(t, return_inverse=True, return_counts=True)
+        lo = np.searchsorted(u, u - h, side="left")
+        hi = np.searchsorted(u, u + h, side="right")
+        cache: dict[tuple[int, int], float] = {}
+        su = np.empty(len(u))
+        for i in range(len(u)):
+            key = (lo[i], hi[i])
+            if key not in cache:
+                cache[key] = _aperiodicitas_egy(u[lo[i]:hi[i]], cnt[lo[i]:hi[i]], small_n)
+            su[i] = cache[key]
+        nyers[idx] = su[inv]
+    ertekelt = ~np.isnan(nyers)
+    mean = nyers[ertekelt].mean()
+    out = np.full(n, 0.5)
+    if mean in (0, 1):
+        out[ertekelt] = nyers[ertekelt]
+    else:
+        out[ertekelt] = nyers[ertekelt] ** (np.log(0.5) / np.log(mean))
+    return out
+
+
+def component_scores_vektoros(alerts: pd.DataFrame, sensor: str | None = None) -> pd.DataFrame:
+    """Az öt részpontszám, ugyanazzal a matematikával, mint :func:`component_scores`, gyorsan."""
+    sensor = sensor or alerts["sensor"].iloc[0]
+    if alerts["sensor"].nunique() != 1:
+        raise ValueError("Egyszerre csak egy érzékelő riasztásai pontozhatók (a cikk is így mér).")
+    if not alerts["timestamp"].is_monotonic_increasing:
+        raise ValueError("A riasztásoknak időrendben kell lenniük.")
+    t = _ido_us(alerts)
+    gep = alerts["hostname"] if sensor == "wazuh" else alerts["src_ip"]
+    gep_cs = _csoportok(gep.reset_index(drop=True))
+    rule = alerts["rule_id"].astype(str).to_numpy()
+    tip_cs = _csoportok(pd.Series(rule, dtype=object))
+    res = {
+        "level": alerts["severity"].to_numpy(dtype=float),
+        "accumulation": _halmozodas_ritkasag(t, gep_cs, _ABLAK_US["accumulation"], False),
+        "variety": _valtozatossag(t, rule, gep_cs, _ABLAK_US["variety"]),
+        "rarity": _halmozodas_ritkasag(t, tip_cs, _ABLAK_US["rarity"], True),
+        "aperiodicity": _aperiodicitas(t, tip_cs, _ABLAK_US["aperiodicity"]),
+    }
+    return pd.DataFrame(res, index=pd.Index(alerts["alert_id"], name="alert_id"))[MODULES]
