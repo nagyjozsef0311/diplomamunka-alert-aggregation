@@ -1,0 +1,13 @@
+adathalmaz,valtozat,idokoz_perc,auroc,ap,recall_top10,true_in_top10,workload_98,csoportok,tetelszam_csokkenes,tisztasag,csoport_terheles_98
+ait_wazuh,lepes1_sulyossag_riasztasszint,60,0.9934,0.9760,0.2942,2253.9236,0.3395,,,,
+ait_wazuh,lepes2_csoportositas,60,0.9995,0.9992,0.3017,2311.6974,0.3305,29.0000,0.9987,0.9990,0.0345
+ait_wazuh,lepes3_kockazati_riasztasszint,60,0.9866,0.9208,0.2753,2109.0000,0.3343,,,,
+ait_wazuh,lepes3_kockazati_csoportszint,60,0.9977,0.9981,0.3017,2311.6974,0.3305,29.0000,0.9987,0.9990,0.0345
+ait_wazuh,lepes4_kockazati+gep_riasztasszint,60,0.8613,0.5860,0.0743,569.0000,0.4238,,,,
+ait_wazuh,lepes4_kockazati+gep_csoportszint,60,0.5804,0.5409,0.0000,0.0000,0.6107,29.0000,0.9987,0.9990,0.1379
+ait_suricata,lepes1_sulyossag_riasztasszint,60,0.8064,0.6155,0.6506,28.6254,1.0000,,,,
+ait_suricata,lepes2_csoportositas,60,0.9826,0.7828,0.8409,37.0000,0.1130,79.0000,0.9914,0.9995,0.1392
+ait_suricata,lepes3_kockazati_riasztasszint,60,0.9909,0.8085,0.9773,43.0000,0.2896,,,,
+ait_suricata,lepes3_kockazati_csoportszint,60,0.9828,0.8418,0.8409,37.0000,0.1127,79.0000,0.9914,0.9995,0.1139
+ait_suricata,lepes4_kockazati+gep_riasztasszint,60,0.9911,0.8628,0.9545,42.0000,0.1429,,,,
+ait_suricata,lepes4_kockazati+gep_csoportszint,60,0.9815,0.7511,1.0000,44.0000,0.0784,79.0000,0.9914,0.9995,0.1013
