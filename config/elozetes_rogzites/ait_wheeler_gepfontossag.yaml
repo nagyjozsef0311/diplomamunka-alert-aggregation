@@ -1,0 +1,89 @@
+# ELŐZETES RÖGZÍTÉS – AIT-ADS wheeler. Levezetve: experiments/08_ait_mind8_nyilvantartas_javaslat.py (G1–G9),
+# a russellmitchell jóváhagyott szabályaival; A TÁMADÁSI CÍMKÉKET NEM NÉZTÜK (6.3).
+forgatokonyv: wheeler
+jovahagyta: szerző
+jovahagyas_datuma: '2026-11-18'
+szabalyok: results/08_ait_mind8_nyilvantartas_javaslat.md (G1–G9)
+minta: config/elozetes_rogzites/ait_russellmitchell_gepfontossag_v2.yaml
+gepek:
+- nev: mail
+  ip:
+  - 10.38.242.195
+  zona: DMZ
+  szerep: levelező kiszolgáló (Horde)
+  fokozat: 5
+- nev: vpn
+  ip:
+  - 10.38.243.125
+  zona: DMZ
+  szerep: VPN-átjáró (OpenVPN)
+  fokozat: 5
+- nev: webserver
+  ip:
+  - 10.38.243.24
+  zona: DMZ
+  szerep: webkiszolgáló
+  fokozat: 5
+- nev: cloud-share
+  ip:
+  - 10.38.242.230
+  zona: DMZ
+  szerep: felhős fájlmegosztás (OwnCloud)
+  fokozat: 5
+- nev: proxy-server
+  ip:
+  - 10.38.243.24
+  zona: DMZ
+  szerep: proxy
+  fokozat: 4
+- nev: intranet-server
+  ip:
+  - 192.168.2.114
+  zona: intranet
+  szerep: belső webkiszolgáló (WordPress)
+  fokozat: 4
+- nev: internal-share
+  ip:
+  - 192.168.3.116
+  zona: intranet
+  szerep: belső fájlmegosztás (Samba)
+  fokozat: 4
+- nev: inet-firewall
+  ip:
+  - 172.27.180.4
+  - 10.38.242.1
+  - 192.168.0.1
+  zona: határ
+  szerep: tűzfal és belső DNS (Shorewall)
+  fokozat: 4
+- nev: inet-dns
+  ip:
+  - 172.27.183.254
+  zona: internet
+  szerep: globális DNS
+  fokozat: 1
+- nev: fischer-mail
+  ip:
+  - 172.27.181.174
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+- nev: khanwood-mail
+  ip:
+  - 172.27.182.4
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+- nev: sanchez-mail
+  ip:
+  - 172.27.183.191
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+- nev: williams-mail
+  ip:
+  - 172.27.181.253
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+kozos_ip_szabaly: max

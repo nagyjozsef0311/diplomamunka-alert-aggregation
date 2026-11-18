@@ -1,0 +1,76 @@
+# ELŐZETES RÖGZÍTÉS – AIT-ADS wilson. Levezetve: experiments/08_ait_mind8_nyilvantartas_javaslat.py (G1–G9),
+# a russellmitchell jóváhagyott szabályaival; A TÁMADÁSI CÍMKÉKET NEM NÉZTÜK (6.3).
+forgatokonyv: wilson
+jovahagyta: szerző
+jovahagyas_datuma: '2026-11-18'
+szabalyok: results/08_ait_mind8_nyilvantartas_javaslat.md (G1–G9)
+minta: config/elozetes_rogzites/ait_russellmitchell_gepfontossag_v2.yaml
+gepek:
+- nev: mail
+  ip:
+  - 10.182.193.181
+  zona: DMZ
+  szerep: levelező kiszolgáló (Horde)
+  fokozat: 5
+- nev: vpn
+  ip:
+  - 10.182.193.78
+  zona: DMZ
+  szerep: VPN-átjáró (OpenVPN)
+  fokozat: 5
+- nev: webserver
+  ip:
+  - 10.182.194.5
+  zona: DMZ
+  szerep: webkiszolgáló
+  fokozat: 5
+- nev: cloud-share
+  ip:
+  - 10.182.194.196
+  zona: DMZ
+  szerep: felhős fájlmegosztás (OwnCloud)
+  fokozat: 5
+- nev: proxy-server
+  ip:
+  - 10.182.194.5
+  zona: DMZ
+  szerep: proxy
+  fokozat: 4
+- nev: intranet-server
+  ip:
+  - 172.26.243.167
+  zona: intranet
+  szerep: belső webkiszolgáló (WordPress)
+  fokozat: 4
+- nev: internal-share
+  ip:
+  - 172.26.240.200
+  zona: intranet
+  szerep: belső fájlmegosztás (Samba)
+  fokozat: 4
+- nev: inet-firewall
+  ip:
+  - 10.182.192.1
+  - 192.168.224.4
+  zona: határ
+  szerep: tűzfal és belső DNS (Shorewall)
+  fokozat: 4
+- nev: inet-dns
+  ip:
+  - 192.168.239.254
+  zona: internet
+  szerep: globális DNS
+  fokozat: 1
+- nev: lane-mail
+  ip:
+  - 192.168.226.198
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+- nev: wilsonahmed-mail
+  ip:
+  - 192.168.224.185
+  zona: internet
+  szerep: külső levelezőkiszolgáló
+  fokozat: 1
+kozos_ip_szabaly: max

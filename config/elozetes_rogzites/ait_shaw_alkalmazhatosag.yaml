@@ -1,0 +1,111 @@
+# ELŐZETES RÖGZÍTÉS – AIT-ADS shaw. Levezetve: experiments/08_ait_mind8_nyilvantartas_javaslat.py (G1–G9),
+# a russellmitchell jóváhagyott szabályaival; A TÁMADÁSI CÍMKÉKET NEM NÉZTÜK (6.3).
+forgatokonyv: shaw
+allapot: jovahagyva
+jovahagyta: szerző
+jovahagyas_datuma: '2026-11-18'
+minta: config/elozetes_rogzites/ait_russellmitchell_alkalmazhatosag.yaml
+szoftverkeszlet:
+  mail:
+  - linux
+  - web
+  - tls
+  - imap
+  - smtp
+  vpn:
+  - linux
+  - vpn
+  - tls
+  webserver:
+  - linux
+  - web
+  - tls
+  cloud-share:
+  - linux
+  - web
+  - tls
+  proxy-server:
+  - linux
+  - web
+  - tls
+  intranet-server:
+  - linux
+  - web
+  - tls
+  internal-share:
+  - linux
+  - smb
+  inet-firewall:
+  - linux
+  - dns
+  inet-dns:
+  - linux
+  - dns
+  butcherrowe-mail:
+  - linux
+  - imap
+  - smtp
+  collinsbecker-mail:
+  - linux
+  - imap
+  - smtp
+  smith-mail:
+  - linux
+  - imap
+  - smtp
+szabalyok:
+  wazuh:
+    '9701': imap
+    '9705': imap
+    '9751': imap
+    '31101': web
+    '31151': web
+    '31104': web
+    '31516': web
+    '31122': web
+    '30305': web
+    '30306': web
+    '2501': linux
+    '5501': linux
+    '5502': linux
+    '5503': linux
+    '5706': linux
+    '5715': linux
+    '5402': linux
+    '5304': linux
+    '80730': linux
+    '52507': altalanos
+    '31509': web
+    '31510': web
+    '5403': linux
+    '5551': linux
+  suricata:
+    '2230010': tls
+    '2230003': tls
+    '2230000': tls
+    '2230002': tls
+    '2221010': web
+    '2221001': web
+    '2221004': web
+    '2024364': web
+    '2220006': smtp
+    '2220000': smtp
+    '2013504': altalanos
+    '2027865': altalanos
+    '2027863': altalanos
+    '2001569': smb
+    '2029340': tls
+    '2230027': tls
+    '2240001': dns
+    '2011802': altalanos
+    '2014169': altalanos
+    '2016778': altalanos
+    '2025105': altalanos
+    '2025109': altalanos
+    '2027757': altalanos
+    '2027758': altalanos
+    '2029706': altalanos
+    '2029707': altalanos
+    '2029709': altalanos
+    '2016149': altalanos
+    '2016150': altalanos
