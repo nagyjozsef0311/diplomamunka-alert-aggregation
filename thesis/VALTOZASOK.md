@@ -17,3 +17,4 @@ Minden Overleafbe átvitt változat egy sort kap. Az exportált zip neve: `diplo
 | v0.10 | 2026-10-23 | d935efa | A szerző v0.3-as Overleaf-változata behozva (1–3. fejezet); references.bib: Saaty 1990; acronyms.tex: CVE, CPE |
 | v0.11 | 2026-10-23 | c2e71b2 | Három ábra az 5. fejezethez (img/: agent_architektura, adatmodell, magyarazo; TikZ-forrás az img/src/-ben); references.bib: Wooldridge–Jennings 1995, AutoGen, CrewAI, Ollama |
 | v0.12 | 2026-10-24 | 2ddd87f | Laborábra a 6. fejezethez (img/labor.pdf, TikZ-forrás az img/src/-ben) |
+| v0.13 | 2026-11-18 | (ez a commit) | A szerző v0.3-as Overleaf-változata behozva (1–6. fejezet, absztrakt, összefoglaló; a személyes előlapok nélkül); javítás: a táblázatok számozása fejezetenként újrakezdődik (`\numberwithin{table}{section}`); átnézés: `docs/atnezesek/dm2_megfeleles_2026-11-18.md` |

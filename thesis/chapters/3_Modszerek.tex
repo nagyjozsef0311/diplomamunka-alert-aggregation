@@ -1,4 +1,4 @@
-% 3. fejezet: Riasztások csoportosítása
+% 3. fejezet: A riasztások csoportosításának és rangsorolásának módszerei
 Az előző fejezet bemutatta, hogy a behatolásérzékelők és a \ac{SIEM} rendszerek több riasztást állítanak elő, mint amennyit az elemzők érdemben fel tudnak dolgozni. Ez a fejezet azokat a módszereket tekinti át, amelyeket a kutatók és a gyártók e probléma kezelésére javasoltak. A módszereket két kérdés mentén vizsgálom: mit nyerünk velük, és milyen feltételezésekre, adatokra vagy erőforrásokra van szükségük. Mivel a dolgozatban tervezett rendszer a meglévő megoldások hiányosságaira épül, minden módszercsaládnál külön kitérek a gyengeségekre is; ezeket a fejezet végén egy összefoglaló táblázat veti össze a saját megközelítés elemeivel.
 
 \subsection{A riasztásfeldolgozás lépései és fogalmai}\label{sec:lepesek}
@@ -13,7 +13,7 @@ A legegyszerűbb és a gyakorlatban legelterjedtebb megoldás azokat a riasztás
 
 Landauer ezt a korlátot olyan, tartománytól független eljárással oldotta fel, amely tetszőleges, félig strukturált riasztások között képes hasonlóságot számolni, és a csoportokat időben egymást átfedő riasztásokból építi fel~\cite{landauer2022}. Kiértékelésük szerint a módszer nagyjából 80\%-kal csökkentette az elemző elé kerülő csoportok számát, és a csoportokhoz rendelt támadástípusokat mintegy 80\%-os találati és 5\%-nál kisebb téves riasztási aránnyal ismerte fel. A megközelítés azonban továbbra is az időbeli közelségre támaszkodik, ezért erősen zajos környezetben vagy egyszerre zajló támadásoknál a csoportok összemosódhatnak.
 
-\subsubsection{Null-feltárás csoportosítással}
+\subsubsection{Ok-feltárás csoportosítással}
 Julisch abból indult ki, hogy a riasztások túlnyomó többségét néhány, tartósan fennálló ok -- például egy hibásan beállított szolgáltatás vagy egy szokatlan, de jóindulatú alkalmazás -- váltja ki~\cite{julisch2003}. Vizsgálatai szerint néhány tucat ilyen kiváltó ok felelt a riasztások több mint 90\%-áért. Ha ezeket az okokat csoportosítással feltárjuk és megszüntetjük, a jövőbeli riasztások száma tartósan csökken. A módszer ereje, hogy nem tüneti kezelést ad, hanem az okot szünteti meg; gyengesége, hogy emberi értelmezést igényel, utólagos (nem valós idejű), és a valódi támadásokat nem rangsorolja, csak a jóindulatú zajt segít eltávolítani.
 
 \subsubsection{Többlépcsős támadások összekapcsolása}
@@ -26,7 +26,7 @@ Ezek a módszerek pontosabbak a kézi szabályoknál, de áruk van. Tanítóadat
 
 \begin{table}[H]
     \centering
-    \caption{A riasztás-csoportosítási módszerek összehasonlítása (Forrás: saját összeállítás)}
+    \caption{A riasztás-csoportosítási módszerek összehasonlítása}
     \label{tab:csoportositas}
     \small
     \begin{tabular}{|L{2.8cm}|L{2.4cm}|L{4.0cm}|L{4.0cm}|}
@@ -68,7 +68,7 @@ E módszerek gyengesége a tanítóadat iránti igény: az elemzők címkéi, vi
 
 \begin{table}[H]
     \centering
-    \caption{A riasztás-rangsorolási módszerek összehasonlítása (Forrás: saját összeállítás)}
+    \caption{A riasztás-rangsorolási módszerek összehasonlítása}
     \label{tab:rangsorolas}
     \small
     \begin{tabular}{|L{2.5cm}|L{2.3cm}|L{1.6cm}|L{1.6cm}|L{4.8cm}|}
@@ -104,7 +104,7 @@ Ezekből a munkákból egy közös irány rajzolódik ki: a nyelvi modell ott ha
 
 \begin{table}[H]
     \centering
-    \caption{Agent-alapú és nyelvimodell-alapú riasztáskezelő rendszerek (Forrás: saját összeállítás)}
+    \caption{Agent-alapú és nyelvimodell-alapú riasztáskezelő rendszerek}
     \label{tab:agentek}
     \small
     \begin{tabular}{|L{2.3cm}|L{3.2cm}|L{3.0cm}|L{4.7cm}|}
@@ -126,7 +126,7 @@ A megismételhető összehasonlításhoz nyilvános, felcímkézett adathalmaz k
 
 \begin{table}[H]
     \centering
-    \caption{A meglévő megoldások hiányosságai és a tervezett rendszer válaszai (Forrás: saját összeállítás)}
+    \caption{A meglévő megoldások hiányosságai és a tervezett rendszer válaszai}
     \label{tab:resek}
     \small
     \begin{tabular}{|L{4.4cm}|L{2.6cm}|L{6.6cm}|}
