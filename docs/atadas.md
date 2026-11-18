@@ -33,7 +33,7 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 - [ ] 2026-10-01 – **A szerző javítja a Word-sablonokban, majd PDF-ben feltölti Overleafbe:** a belső
   borítólapon a mintaszám maradt (T-000123/FI12904 helyett T/0012125/FI12904/N), az évszám a végleges
   dolgozatnál 2027; a konzultációs naplók kitöltése (most GIPSZ JAKAB mintaadat).
-- [ ] 2026-10-01 – `thesis/references.bib`: mind az 55 cikknél hiányzik a kötet és az oldalszám
+- [x] 2026-11-18 – Kötet- és oldalszámok pótolva, minden forrás ellenőrizve (`scripts/forrasok_ellenorzese.py`, v0.16). ~~`thesis/references.bib`: mind az 55 cikknél hiányzik a kötet és az oldalszám
   (az útmutató kéri); pótlás a Crossrefből szkripttel, amint az `api.crossref.org` elérhető.
   Webes forrásoknál (`langgraph2025`, `mcp2026spec`) az `urldate` a tényleges megtekintéskor kerül be.
 
