@@ -126,3 +126,47 @@ class Gepnyilvantartas:
 
     def fokozatok(self) -> dict[str, int]:
         return dict(self.conn.execute("SELECT nev, fokozat FROM gep"))
+
+    # --- szoftverkészlet és szabályhivatkozások (4.2.3, 5. lépés) -------------------------------
+    def alkalmazhatosag_betoltese(self, path: str | Path) -> None:
+        """A gépek szolgáltatásainak és a szabályok szolgáltatás-hivatkozásainak betöltése az
+        előzetesen rögzített YAML-fájlból a ``szoftver`` és a ``szabaly_hivatkozas`` táblába.
+
+        Az AIT-ADS-en a szoftverkészlet szolgáltatás-kategóriákként ismert (pl. ``web``, ``imap``);
+        ezeket a ``szoftver`` tábla ``szolgaltatas`` oszlopa tárolja, a CPE helyén
+        ``szolgaltatas:<kategória>`` azonosítóval. CVE-szintű adat a laborban kerül a táblákba.
+        """
+        cfg = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+        if cfg.get("allapot") != "jovahagyva":
+            raise ValueError(f"A megfeleltetés nincs jóváhagyva (allapot: {cfg.get('allapot')}).")
+        for gep, szolg in cfg["szoftverkeszlet"].items():
+            if not self.ismert_gep(gep):
+                raise ValueError(f"Ismeretlen gép a szoftverkészletben: {gep}")
+            for sz in szolg:
+                self.conn.execute(
+                    "INSERT INTO szoftver (gep, cpe, szolgaltatas) VALUES (?, ?, ?)",
+                    (gep, f"szolgaltatas:{sz}", sz))
+        for forras, szabalyok in cfg["szabalyok"].items():
+            for szabaly_id, sz in szabalyok.items():
+                self.conn.execute(
+                    "INSERT INTO szabaly_hivatkozas (forras, szabaly_id, szolgaltatas) "
+                    "VALUES (?, ?, ?)", (forras, str(szabaly_id), sz))
+        self.conn.commit()
+
+    def szolgaltatasok(self, gep: str | None) -> set[str] | None:
+        """A gépen futó szolgáltatások; ``None``, ha a gép szoftverkészlete nem ismert."""
+        rows = [r[0] for r in self.conn.execute(
+            "SELECT szolgaltatas FROM szoftver WHERE gep = ?", (gep,))]
+        return set(rows) if rows else None
+
+    def szabaly_szolgaltatasa(self, forras: str, szabaly_id: str) -> str | None:
+        row = self.conn.execute(
+            "SELECT szolgaltatas FROM szabaly_hivatkozas WHERE forras = ? AND szabaly_id = ?",
+            (forras, str(szabaly_id))).fetchone()
+        return row[0] if row else None
+
+    def gep_cve_i(self, gep: str | None) -> set[str]:
+        """A gépen futó szoftverek ismert sérülékenységei (CPE-n keresztül)."""
+        return {r[0] for r in self.conn.execute(
+            "SELECT DISTINCT v.cve FROM szoftver s JOIN serulekenyseg v "
+            "ON v.erintett_cpe = s.cpe WHERE s.gep = ?", (gep,))}

@@ -81,3 +81,40 @@ def summary(y_true, scores) -> dict[str, float]:
         "true_in_top10": true_in_top_fraction(y_true, scores, 0.10),
         "workload_98": workload_at_recall(y_true, scores, 0.98),
     }
+
+
+# --- csoportszintű mérőszámok (6.3: a csoportosítás minősége és a tételszám csökkenése) ----------
+
+def csoport_tisztasag(y_true, csoport) -> float:
+    """A csoportok riasztásszámmal súlyozott tisztasága: a csoportokban a többségi címkéhez tartozó
+    riasztások aránya az összes riasztáshoz képest (1 = minden csoport egynemű)."""
+    import pandas as pd
+
+    df = pd.DataFrame({"y": np.asarray(y_true, bool), "c": np.asarray(csoport)})
+    tobbseg = df.groupby("c")["y"].agg(lambda s: max(s.sum(), len(s) - s.sum()))
+    return float(tobbseg.sum() / len(df))
+
+
+def tetelszam_csokkenes(csoport) -> float:
+    """A riasztásszám csökkenése: 1 - csoportok száma / riasztások száma."""
+    c = np.asarray(csoport)
+    return float(1 - len(np.unique(c)) / len(c))
+
+
+def csoport_terheles_98(y_true, csoport, csoport_pontszam, recall: float = 0.98) -> float:
+    """A csoportok hányad részét kell (pontszám szerinti sorrendben) átnézni, hogy a valódi
+    riasztások ``recall`` része meglegyen. Holtversenynél pesszimista, mint a ``workload_at_recall``."""
+    import pandas as pd
+
+    df = pd.DataFrame({"y": np.asarray(y_true, bool), "c": np.asarray(csoport),
+                       "s": np.asarray(csoport_pontszam, float)})
+    g = df.groupby("c").agg(y=("y", "sum"), s=("s", "max"))
+    total = g["y"].sum()
+    if not total:
+        return float("nan")
+    g = g.sort_values("s", ascending=False, kind="stable")
+    cum = g["y"].cumsum().to_numpy()
+    idx = int(np.searchsorted(cum, int(np.ceil(recall * total))))
+    s = g["s"].to_numpy()
+    last_tied = int(np.searchsorted(-s, -s[idx], side="right"))
+    return last_tied / len(g)

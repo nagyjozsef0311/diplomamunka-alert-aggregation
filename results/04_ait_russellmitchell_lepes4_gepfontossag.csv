@@ -1,0 +1,15 @@
+adathalmaz,valtozat,auroc,ap,recall_top10,true_in_top10,workload_98
+ait_wazuh,lepes1_sulyossag,0.9934,0.9760,0.2942,2253.9236,0.3395
+ait_wazuh,lepes3_kockazati,0.9866,0.9208,0.2753,2109.0000,0.3343
+ait_wazuh,lepes4_kockazati+gep,0.8613,0.5860,0.0743,569.0000,0.4238
+ait_wazuh,lepes4_erzekenyseg_g-20%,0.9358,0.7323,0.1716,1315.0000,0.3684
+ait_wazuh,lepes4_erzekenyseg_g+20%,0.7305,0.4400,0.0738,565.0000,0.5182
+ait_wazuh,ellenproba_atlag_100,0.7257,0.6552,0.1535,1176.0600,0.5102
+ait_wazuh,ellenproba_aranya_ami_jobb_vagy_egyenlo,0.5700,0.5700,,,0.5700
+ait_suricata,lepes1_sulyossag,0.8064,0.6155,0.6506,28.6254,1.0000
+ait_suricata,lepes3_kockazati,0.9909,0.8085,0.9773,43.0000,0.2896
+ait_suricata,lepes4_kockazati+gep,0.9911,0.8628,0.9545,42.0000,0.1429
+ait_suricata,lepes4_erzekenyseg_g-20%,0.9958,0.8856,0.9773,43.0000,0.1068
+ait_suricata,lepes4_erzekenyseg_g+20%,0.9853,0.8561,0.9545,42.0000,0.2724
+ait_suricata,ellenproba_atlag_100,0.7963,0.4690,0.6886,30.3000,0.7281
+ait_suricata,ellenproba_aranya_ami_jobb_vagy_egyenlo,0.0000,0.0100,,,0.0000

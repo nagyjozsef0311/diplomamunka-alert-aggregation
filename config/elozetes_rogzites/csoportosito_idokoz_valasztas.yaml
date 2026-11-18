@@ -1,0 +1,23 @@
+# ELŐZETES RÖGZÍTÉS – a csoportosító agent időközének kiválasztási szabálya (D26)
+#
+# Dolgozat: 5.3 („Két riasztás akkor kerül egy csoportba, ha ugyanazt a gépet érintik … és a köztük
+# eltelt idő nem haladja meg a beállított értéket. Az időköz értékét a nyilvános adathalmaz egyik
+# forgatókönyvén választom ki, és a többin már változatlanul alkalmazom.”), 6.2. táblázat (2. lépés),
+# 6.3 (a csoportok tisztasága).
+#
+# A szabályt az időközök kiértékelése ELŐTT rögzítjük (git-napló). A hangolás a russellmitchell
+# forgatókönyvön történik, ezért ott a 2. lépés eredménye mintán belüli; a többi hét forgatókönyvön
+# a kiválasztott időköz változatlanul érvényes.
+
+hangolo_forgatokonyv: russellmitchell
+jeloltek_perc: [1, 5, 15, 60]
+kriterium: >
+  Érzékelőnként (Wazuh, Suricata külön) a legnagyobb jelölt időköz, amelynél a csoportok
+  riasztásszámmal súlyozott tisztasága legalább 0,95 (a csoportban a többségi címkéhez tartozó
+  riasztások aránya). Ha egyik jelölt sem éri el, a legnagyobb tisztaságú jelölt.
+tisztasag_kuszob: 0.95
+megjegyzes: >
+  A CATS-változatban riasztásonként csak kétértékű címke van (támadás / nem támadás), ezért a
+  tisztaság itt kétértékű. A támadási lépések szerinti tisztaság az eredeti AIT-ADS címkéivel mérhető
+  (8 forgatókönyv).
+rogzitette: Claude a szerző megbízásából (2026-11-18), a szerző felülbírálhatja a mérés előtt
