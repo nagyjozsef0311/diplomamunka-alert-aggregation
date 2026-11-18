@@ -20,7 +20,7 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
 | --- | --- | --- | ---: | --- |
 | 1–6 | A DM II. fejezetei | `docs/irasi-csomagok/01–06` | kb. 40–45 | kész, a végleges változathoz igazítandó (lent) |
 | 7 | Megvalósítás | `dm3/07_megvalositas.md` | 8–10 | **folyamatban** – a megvalósítással együtt bővül |
-| 8 | Eredmények az AIT-ADS-en (ablációs vizsgálat) | `dm3/08_eredmenyek_ait.md` | 8–10 | **váz** – a 8 forgatókönyv után véglegesíthető |
+| 8 | Eredmények az AIT-ADS-en (ablációs vizsgálat) | `dm3/08_eredmenyek_ait.md` | 8–10 | **1. változat** (8 forgatókönyv, 2026-11-18) |
 | 9 | Laboratóriumi tesztek | `dm3/09_labor.md` | 6–8 | még nincs (a labor után) |
 | 10 | Elemzés és továbbfejlesztés | `dm3/10_elemzes.md` | 3–4 | még nincs |
 | – | Összefoglalás, Summary, absztrakt | `07_osszefoglalas.md` frissítése | 1–2 | a végén |
@@ -51,7 +51,7 @@ bele semmi ebből (D24); az itteni csomagok a 2027. tavaszi, végleges dolgozath
 | 5. (+ alkalmazhatóság) | `experiments/06_…` | `results/06_…` | kész, russellmitchell |
 | eredeti formátum, időszak-címke (russellmitchell) | `experiments/07_…` | `results/07_…` | kész (D27, D28) |
 | a 7 új forgatókönyv nyilvántartása (G1–G9) | `experiments/08_…` | `results/08_…`, `config/elozetes_rogzites/ait_<f>_*.yaml` | jóváhagyva, rögzítve (398c581) |
-| a gyors kockázati pontszám egyezése a CATS-szal | `experiments/09_…` | `results/09_…` | fut / kész (D29) |
-| 1–5. mind a 8 forgatókönyvön (+ ellenpróba, ±20%, hiányos nyilvántartás, rács) | `experiments/10_…` | `results/10_…` | terv rögzítve (47cfb7a), mérés |
-| Wilcoxon, hatásnagyság, tanult súlyok, címke-érzékenység | `experiments/11_…` | `results/11_…` | a 10-es után |
+| a gyors kockázati pontszám egyezése a CATS-szal | `experiments/09_…` | `results/09_…` | fut (eddig egyezik), D29 |
+| 1–5. mind a 8 forgatókönyvön (+ ellenpróba, ±20%, hiányos nyilvántartás, rács) | `experiments/10_…` | `results/10_…` | **kész** (terv: 47cfb7a) |
+| Wilcoxon, hatásnagyság, tanult súlyok, címke-érzékenység | `experiments/11_…` | `results/11_…` | **kész** |
 | 6. (megfigyeltség), magyarázó agent | – | – | labor |
