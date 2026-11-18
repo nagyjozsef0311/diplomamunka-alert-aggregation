@@ -20,7 +20,7 @@ from alertagg.gepnyilvantartas import Gepnyilvantartas
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "external" / "cats_datasets"
-NYILV = ROOT / "config" / "elozetes_rogzites" / "ait_russellmitchell_gepfontossag.yaml"
+NYILV = ROOT / "config" / "elozetes_rogzites" / "ait_russellmitchell_gepfontossag_v2.yaml"
 KI = ROOT / "results" / "02_ait_russellmitchell_gepek_feltarasa.md"
 
 
@@ -42,7 +42,7 @@ def main() -> None:
                .sort_values("riasztas", ascending=False).reset_index())
         tab["erintett_gep"] = tab["erintett_gep"].fillna("(ismeretlen)")
         sorok += [tab.to_markdown(index=False, floatfmt=".2f"), ""]
-        if nev == "ait_suricata":
+        if nev == "ait_suricata" and k["ismeretlen"].any():
             ism = alerts.loc[k["ismeretlen"].to_numpy()]
             parok = (pd.concat([ism["src_ip"], ism["dst_ip"]]).value_counts().head(8))
             sorok += ["Leggyakoribb IP-címek az azonosítatlan Suricata-riasztásokban:", "",

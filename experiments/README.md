@@ -19,7 +19,7 @@ mappában vannak (dolgozat 6.3).
 | Szkript | Fázis | Mit csinál | Dolgozat |
 | --- | --- | --- | --- |
 | `01_ait_russellmitchell_lepes1_3_alapvonal_visszamerese.py` | 1. és 3. lépés | A súlyosság szerinti rangsor és a kockázatalapú pontozás visszamérése a cikk értékeivel | 6.3, 6.4 (első kiemelt teszt) |
-| `02_ait_russellmitchell_gepek_feltarasa.py` | a 4. lépés előkészítése | A gépek feltárása és a gépnyilvántartás lefedettsége – **címkék nélkül** | 5.4, 6.1, 6.3 |
+| `02_ait_russellmitchell_gepek_feltarasa.py` | a 4. lépés előkészítése | A gépek feltárása és a gépnyilvántartás lefedettsége a fokozatok 2. változatával (D25) – **címkék nélkül** | 5.4, 6.1, 6.3 |
 | `03_rangsorolo_ahp_sulyok_szamitasa.py` | a 4–6. lépés előkészítése | A rangsoroló súlyai a szerző páros összehasonlításából, következetességi aránnyal | 4.3, 6.3 |
 
 ## A csomag moduljai (`src/alertagg/`) – az agentek szerint
