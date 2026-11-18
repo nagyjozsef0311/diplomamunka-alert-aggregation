@@ -23,5 +23,5 @@ def test_no_unescaped_special_characters():
 
 def test_braces_balanced_per_entry():
     text = BIB.read_text(encoding="utf-8")
-    for key, body in re.findall(r"@\w+\{([^,]+),(.*?)\n\}", text, re.S):
+    for key, body in re.findall(r"@\w+\{([^,]+),(.*?)\n\}", text, re.DOTALL):
         assert body.count("{") == body.count("}"), f"Zárójelhiba: {key}"

@@ -203,12 +203,14 @@ hiányos nyilvántartás sem előre, sem hátra nem sorolja a riasztást.
         4 & Belső kiszolgáló, amelytől sok más gép vagy felhasználó működése függ & címtár, levelezés, belső fájlmegosztás \\ \hline
         3 & Belső kiszolgáló korlátozott felhasználói körrel & belső wiki, fejlesztői kiszolgáló \\ \hline
         2 & Felhasználói munkaállomás & irodai kliensgépek \\ \hline
-        1 & Teszt- vagy ideiglenes gép, üzleti adat nélkül & tesztkörnyezet \\ \hline
+        1 & Teszt- vagy ideiglenes gép, üzleti adat nélkül; a szervezeten kívüli gép & tesztkörnyezet; külső levelező- vagy DNS-kiszolgáló \\ \hline
     \end{tabular}
 \end{table}
 ```
 
 Megjegyzés: ez **javaslat**, a fokozatokat a mérés előtt neked kell véglegesítened (szakértőként).
+**Frissítés (2026-11-18, D25):** az 1-es sor kiegészült a szervezeten kívüli gépekkel (az AIT-ADS-ben a külső
+levelezők és a globális DNS). Ha a táblázatot már átvetted, ezt a sort a dolgozatban is igazítsd.
 A szabályokat az AIT-ADS hálózatleírásának **elolvasása
 előtt** érdemes rögzíteni (lásd lent: „A torzítás elleni védekezés”).
 

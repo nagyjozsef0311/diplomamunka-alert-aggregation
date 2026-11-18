@@ -1,0 +1,36 @@
+# ELŐZETES RÖGZÍTÉS – a gépek fontossági fokozata, AIT-ADS russellmitchell
+#
+# Dolgozat: 4. fejezet, 4.2. táblázat (szerep- és zónaszabályok); 6. fejezet, 6.3 (torzítás elleni
+# védekezés). A fokozatokat a szerző hagyta jóvá 2026-11-18-án, a gépek SZEREPE alapján, a támadási
+# címkék vizsgálata nélkül. A rögzítés időpontját a git-napló igazolja: ez a fájl a környezeti
+# mérőszámokkal végzett első mérés ELŐTT került a tárolóba, és utána nem módosítható (ha mégis,
+# új fájl és új döntés kell a docs/dontesek.md-ben).
+#
+# Fokozatok (4.2. táblázat):
+#   5 – internet felől elérhető kiszolgáló, amely üzleti adatot tárol vagy felhasználókat azonosít
+#   4 – belső kiszolgáló, amelytől sok más gép vagy felhasználó működése függ
+#   3 – belső kiszolgáló korlátozott felhasználói körrel
+#   2 – felhasználói munkaállomás
+#   1 – teszt- vagy ideiglenes gép
+# A nyilvántartásban nem szereplő gép a semleges 0,5 értéket kapja (4.2.2).
+
+jovahagyta: szerző
+jovahagyas_datuma: 2026-11-18
+forras_gepnevek: results/02_ait_russellmitchell_gepek_feltarasa.md
+
+gepek:
+  - {nev: mail,            ip: [172.19.130.4],    szerep: levelező kiszolgáló,          fokozat: 5}
+  - {nev: vpn,             ip: [172.19.131.174],  szerep: VPN-átjáró,                   fokozat: 5}
+  - {nev: webserver,       ip: [172.19.130.68],   szerep: webkiszolgáló,                fokozat: 5}
+  - {nev: cloud-share,     ip: [172.19.130.106],  szerep: felhős fájlmegosztás,         fokozat: 5}
+  - {nev: intranet-server, ip: [10.143.2.4],      szerep: belső webkiszolgáló,          fokozat: 4}
+  - {nev: internal-share,  ip: [10.143.0.103],    szerep: belső fájlmegosztás,          fokozat: 4}
+  - {nev: proxy-server,    ip: [172.19.130.68],   szerep: proxy,                        fokozat: 4}
+  - {nev: inet-firewall,   ip: [172.19.128.1],    szerep: határtűzfal,                  fokozat: 4}
+  - {nev: inet-dns,        ip: [192.168.231.254], szerep: DNS,                          fokozat: 4}
+  - {nev: davey-mail,      ip: [192.168.231.56],  szerep: felhasználói munkaállomás,    fokozat: 2}
+  - {nev: morris-mail,     ip: [192.168.231.164], szerep: felhasználói munkaállomás,    fokozat: 2}
+
+# Közös IP-cím: a 172.19.130.68 a webserver és a proxy-server neve alatt is szerepel. IP-cím alapján
+# (Suricata) a magasabb fokozat érvényes – biztonsági szempontból a súlyosabb szerepet feltételezzük.
+kozos_ip_szabaly: max

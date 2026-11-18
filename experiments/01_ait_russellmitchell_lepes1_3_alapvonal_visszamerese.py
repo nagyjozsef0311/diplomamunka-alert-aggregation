@@ -2,8 +2,8 @@
 """1. mérés: a kockázatalapú pontozás (Uetz és mtsai. 2026) visszamérése az AIT-ADS russellmitchell
 forgatókönyvén (CATS-változat). Ez a 3. értékelési lépés hitelességének ellenőrzése.
 
-Futtatás:  python experiments/01_rba_visszameres.py
-Eredmény:  results/01_rba_visszameres.csv és .md
+Futtatás:  python experiments/01_ait_russellmitchell_lepes1_3_alapvonal_visszamerese.py
+Eredmény:  results/01_ait_russellmitchell_lepes1_3_alapvonal_visszamerese.csv és .md
 
 A részpontszámokat a data/ mappában gyorsítótárazzuk (a Wazuh-adathalmazon kb. 4 perc).
 """
@@ -16,8 +16,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from alertagg import metrics, rba
-from alertagg.normalizer import load_cats_jsonl
+from alertagg import ertekeles, kockazati_pontszam
+from alertagg.egysegesito import load_cats_jsonl
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "external" / "cats_datasets"
@@ -36,11 +36,11 @@ PAPER = {
 def components(name: str) -> tuple[pd.DataFrame, pd.Series]:
     alerts, labels = load_cats_jsonl(DATA / f"{name}.jsonl")
     CACHE.mkdir(parents=True, exist_ok=True)
-    cache = CACHE / f"{name}_rba_components.pkl"
+    cache = CACHE / f"{name}_kockazati_reszpontszamok.pkl"
     if cache.exists():
         comp = pd.read_pickle(cache)
     else:
-        comp = rba.component_scores(alerts)
+        comp = kockazati_pontszam.component_scores(alerts)
         comp.to_pickle(cache)
     return comp, labels.loc[comp.index]
 
@@ -50,17 +50,17 @@ def main() -> None:
     for name in ["ait_wazuh", "ait_suricata"]:
         comp, y = components(name)
         sensor = name.split("_")[1]
-        variants = {m: comp[m] for m in rba.MODULES}
-        variants["pipeline_mean"] = rba.risk_score(comp, rba.WEIGHTS["mean"])
-        variants["pipeline_loo"] = rba.risk_score(comp, rba.WEIGHTS[f"loo_{sensor}"])
+        variants = {m: comp[m] for m in kockazati_pontszam.MODULES}
+        variants["pipeline_mean"] = kockazati_pontszam.risk_score(comp, kockazati_pontszam.WEIGHTS["mean"])
+        variants["pipeline_loo"] = kockazati_pontszam.risk_score(comp, kockazati_pontszam.WEIGHTS[f"loo_{sensor}"])
         for variant, scores in variants.items():
             row = {"dataset": name, "variant": variant, "n": len(y), "n_true": int(y.sum())}
-            row.update(metrics.summary(y.to_numpy(), scores.to_numpy()))
+            row.update(ertekeles.summary(y.to_numpy(), scores.to_numpy()))
             row["paper_auroc"] = PAPER[name].get(variant)
             rows.append(row)
     df = pd.DataFrame(rows)
     OUT.mkdir(exist_ok=True)
-    df.to_csv(OUT / "01_rba_visszameres.csv", index=False, float_format="%.4f")
+    df.to_csv(OUT / "01_ait_russellmitchell_lepes1_3_alapvonal_visszamerese.csv", index=False, float_format="%.4f")
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
                             capture_output=True, text=True, check=False).stdout.strip()
@@ -83,7 +83,7 @@ def main() -> None:
         fmt.drop(columns=["n"]).to_markdown(index=False),
         "",
     ]
-    (OUT / "01_rba_visszameres.md").write_text("\n".join(lines), encoding="utf-8")
+    (OUT / "01_ait_russellmitchell_lepes1_3_alapvonal_visszamerese.md").write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
 
 

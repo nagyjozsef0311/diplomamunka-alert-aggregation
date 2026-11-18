@@ -3,8 +3,8 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from alertagg import rba
-from alertagg.normalizer import normalize_records
+from alertagg import kockazati_pontszam
+from alertagg.egysegesito import normalize_records
 
 CATS = Path(__file__).resolve().parents[1] / "data" / "external" / "cats" / "backend"
 needs_cats = pytest.mark.skipif(not (CATS / "modules").is_dir(),
@@ -12,14 +12,14 @@ needs_cats = pytest.mark.skipif(not (CATS / "modules").is_dir(),
 
 
 def test_weights_sum_to_one():
-    for w in rba.WEIGHTS.values():
+    for w in kockazati_pontszam.WEIGHTS.values():
         assert sum(w) == pytest.approx(1.0)
 
 
 def test_risk_score_is_weighted_mean():
-    comp = pd.DataFrame([[1, 0, 0, 0, 0], [0, 0, 1, 0, 0]], columns=rba.MODULES,
+    comp = pd.DataFrame([[1, 0, 0, 0, 0], [0, 0, 1, 0, 0]], columns=kockazati_pontszam.MODULES,
                         index=pd.Index(["a", "b"], name="alert_id"))
-    r = rba.risk_score(comp, (1, 0, 3, 0, 0))
+    r = kockazati_pontszam.risk_score(comp, (1, 0, 3, 0, 0))
     assert r["a"] == pytest.approx(0.25) and r["b"] == pytest.approx(0.75)
 
 
@@ -32,7 +32,7 @@ def test_components_on_small_synthetic_set():
             "rule_name": "x", "rule_level": "5", "hostname": "web" if i % 2 else "mail"},
             "metadata": {"alert_source": "ait_wazuh", "alert_id": f"a{i}", "misuse": i > 25}})
     df, _ = normalize_records(recs)
-    comp = rba.component_scores(df)
-    assert list(comp.columns) == rba.MODULES
+    comp = kockazati_pontszam.component_scores(df)
+    assert list(comp.columns) == kockazati_pontszam.MODULES
     assert len(comp) == 30
     assert comp.to_numpy().min() >= 0 and comp.to_numpy().max() <= 1

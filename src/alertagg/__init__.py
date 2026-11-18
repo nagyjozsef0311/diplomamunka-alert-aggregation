@@ -1,6 +1,6 @@
 """Agent-alapú, metrika-vezérelt IDS riasztásaggregáció – diplomamunka csomag.
 
-Tervezett agentek (lásd docs/dontesek.md):
+Modulok és agentek: experiments/README.md. Tervezett agentek (lásd docs/dontesek.md):
 - egységesítő:     Suricata- és Wazuh-riasztások közös formára hozása
 - csoportosító:    összetartozó riasztások csoportokba rendezése
 - környezet:       a gép fontossága, zónája, megfigyeltsége a gépnyilvántartásból

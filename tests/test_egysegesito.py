@@ -1,6 +1,6 @@
 import pandas as pd
 
-from alertagg.normalizer import COLUMNS, normalize_records, severity_score
+from alertagg.egysegesito import COLUMNS, normalize_records, severity_score
 
 
 def _rec(i, ts, source, level, misuse, **feat):
