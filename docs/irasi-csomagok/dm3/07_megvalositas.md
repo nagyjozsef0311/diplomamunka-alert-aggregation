@@ -13,7 +13,7 @@
 \input{chapters/7_Megvalositas}
 ```
 
-**Állapot:** 7.1–7.7 a már elkészült részekről szól (2026-11-18). Hiányzik: a vezérlőréteg (LangGraph),
+**Állapot:** 7.1–7.9 a már elkészült részekről szól (2026-11-18; a 8 forgatókönyves méréssel bővítve). Hiányzik: a vezérlőréteg (LangGraph),
 a magyarázó agent (Ollama), a laborkörnyezet – ezek a megvalósításuk után kerülnek ide.
 
 ## Források
@@ -70,6 +70,7 @@ nem részei a tárolónak, azokat ellenőrzőösszeggel ellenőrzött letöltő 
         \texttt{csoportosito} & 2. Csoportosító & csoportok gép és időköz szerint; csoportpontszám \\ \hline
         \texttt{gepnyilvantartas} & gépnyilvántartás & öt tábla relációs adatbázisban \\ \hline
         \texttt{kornyezet} & 3. Környezeti & a gép fontossága és megfigyeltsége; ellenpróba \\ \hline
+        \texttt{serulekenysegi} & 4. Sérülékenységi & a támadás alkalmazhatósága; ellenpróba \\ \hline
         \texttt{kockazati\_\allowbreak pontszam} & 5. Rangsoroló (alap) & a kockázati pontszám öt részpontszáma \\ \hline
         \texttt{paros\_\allowbreak osszehasonlitas} & 5. Rangsoroló (súlyok) & súlyok és következetességi arány \\ \hline
         \texttt{ertekeles} & értékelés & rangsor-, terhelés- és csoportmérőszámok \\ \hline
@@ -77,7 +78,7 @@ nem részei a tárolónak, azokat ellenőrzőösszeggel ellenőrzött letöltő 
 \end{table}
 ```
 
-Megjegyzés: a 4. (sérülékenységi), 6. (magyarázó) és 7. (vezérlő) agent sora akkor kerül be, amikor
+Megjegyzés: a 6. (magyarázó) és 7. (vezérlő) agent sora akkor kerül be, amikor
 elkészül. A `\texttt{}` a kódnevek egyenletes szélességű betűje; az alávonás LaTeX-ben `\_`.
 
 ---
@@ -98,7 +99,51 @@ korlátot.
 A támadás-címkét az agent nem a riasztások táblájában, hanem külön adatsorként adja vissza.
 Így a rangsorolást végző részek technikailag sem férhetnek hozzá, a címke csak az értékelés
 lépésében kerül elő; ezt automatikus teszt is ellenőrzi.
+
+Az agent két bemeneti formátumot ismer.
+Az egyik a kockázatalapú pontozás szerzőinek felcímkézett változata, amely csak a russellmitchell
+forgatókönyvet tartalmazza, a másik az AIT-ADS eredeti kiadása, amely mind a nyolc forgatókönyvet.
+Az eredeti kiadásban a hálózati riasztások kétszer szerepelnek: egyszer a Suricata szerkezett
+kimenetéből, egyszer pedig a Wazuh által egy szöveges naplóból újra feldolgozott másolatként.
+A másolatokat az agent elhagyja, mert ugyanazt a hálózati eseményt kétszer számolnák.
+A gépi riasztásoknál a gépnevet elsősorban a naplósor fejlécéből veszi; ha az hiányzik, a
+webkiszolgálói naplók helyéből, végül a riasztást beküldő Wazuh-ügynök címéhez ugyanabban a
+fájlban legtöbbször tartozó gépnévből.
+Ez a szabály egyik forgatókönyv sajátosságaira sem támaszkodik.
+A russellmitchell forgatókönyvön az eredeti kiadásból ugyanaz a 32\,302 riasztás állt elő, mint a
+felcímkézett változatból, és a jellemzők egyetlen kivétellel megegyeztek: három webes levelezési
+riasztásnál a felcímkézett változat kézzel írt, időpont-alapú szabállyal más gépet ad meg.
+
+Az eredeti kiadás címkéje nem riasztásonkénti: a kiadók a támadási lépések kezdő- és záróidejét
+adják meg~\cite{landauer2024aitads}.
+Az agent ezért egy riasztást akkor tekint támadásinak, ha az ideje egy támadási időszakba esik.
+A russellmitchell forgatókönyvön ez a címke egyetlen, a riasztásonkénti címke szerint támadásinak
+számító riasztást sem hagyott ki, de a támadás ideje alatt keletkező jóindulatú riasztásokat is
+támadásinak jelölte: a hálózati riasztásoknál 44 valódi mellett 169, a gépieknél 7661 mellett 450
+ilyen riasztás volt, nagyrészt az adatkiszivárogtatás egyórás időszakában
+(\ref{tab:cimkek}.~táblázat).
 ```
+
+### 7.x. táblázat – a kétféle címke (Claude készítette, átvehető; a számok: `results/07_…`)
+
+```latex
+\begin{table}[H]
+    \centering
+    \caption{Az időszak-alapú és a riasztásonkénti címke a russellmitchell forgatókönyvön (Forrás: saját mérés \cite{landauer2024aitads,uetz2026rba} adatain)}
+    \label{tab:cimkek}
+    \small
+    \begin{tabular}{|L{2.4cm}|L{2.2cm}|L{2.6cm}|L{2.6cm}|L{2.8cm}|}
+        \hline
+        \textbf{Érzékelő} & \textbf{Riasztás} & \textbf{Támadás, riasztásonként} & \textbf{Támadás, időszak szerint} & \textbf{Ebből jóindulatú} \\ \hline
+        Suricata & 9186 & 44 & 213 & 169 \\ \hline
+        Wazuh & 23\,116 & 7661 & 8111 & 450 \\ \hline
+    \end{tabular}
+\end{table}
+```
+
+Megjegyzés: a 6.1 („A riasztásokhoz tartozó címkék két forrásból…”) ezt előre jelzi; itt a számok
+kerülnek mellé. A „kézzel írt szabály” a CATS átalakítójának `ait_wazuh.yml` beállítása (nem kell
+külön forrás, a `uetz2026rba` eszközéről van szó). A döntések: D27, D28.
 
 ---
 
@@ -145,6 +190,8 @@ Ezzel a 6.4. alfejezetben előírt első kiemelt teszt teljesült: az összehaso
 \end{table}
 ```
 
+<!-- 7.3 kiegészítés: a gyors számítás – a 09-es ellenőrzés után kerül ide -->
+
 Megjegyzés: a „teljes pontszám” sor az egy-kihagyásos súlyokkal mért érték (a cikk is azt közli). A
 mérésekben a nyolc adathalmaz átlagos súlyait használjuk (4.2.1); azzal a Wazuh 0,987, a Suricata 0,991.
 
@@ -175,9 +222,48 @@ kimenő forgalma megjelenik; ennek a címnek a tűzfalhoz rendelésével mindké
 minden érintett gép azonosíthatóvá vált.
 Az ellenpróbához az agent a gépek fokozatait rögzített kezdőértékű véletlen permutációval is meg
 tudja keverni.
+Ha egy gépi riasztásból a gépnév hiányzik, az agent az 5.2. táblázat szerint a riasztást beküldő
+Wazuh-ügynök címe alapján keresi ki a gépet a nyilvántartásból.
+
+A további hét forgatókönyv hálózata ugyanolyan felépítésű, de a címek forgatókönyvenként
+véletlenszerűek, és a hálózat leírása ezeket nem közli.
+A gépek szerepét, zónáját, fokozatát és szolgáltatásait ezért a russellmitchellre rögzített
+szabályokból vettem át, a címeket pedig kilenc rögzített szabállyal a riasztások szerkezetéből
+vezettem le, a címkék megtekintése nélkül.
+A legfontosabb szabályok: minden gép saját hálózati érzékelőt is futtat, amelynek riasztásaiban a
+gép címe szinte mindig szerepel; a tűzfal érzékelőjénél ez a cím a külső, címfordított cím; a
+gépnév nélküli Wazuh-ügynököt a beküldött naplók fajtája azonosítja.
+A szabályok helyességét azzal ellenőriztem, hogy a russellmitchell forgatókönyvön pontosan a
+korábban jóváhagyott nyilvántartást adják vissza.
+Mind a hét új forgatókönyvben mind a nyolc szervezeti szerep azonosítható volt; a gépek száma a
+külső levelezőkiszolgálók számától függően 11 és 13 között van.
 ```
 
+Megjegyzés: a kilenc szabály (G1–G9) és a forgatókönyvenkénti táblázat: `results/08_ait_mind8_nyilvantartas_javaslat.md`;
+ha részletesen akarod, a G1–G9 táblázat mellékletbe tehető. A 6.1 „a hálózat közzétett leírásából
+állítom össze” mondata mellé kell egy fél mondat a címekről (a feladatlistában is szerepel).
+
 Megjegyzés: a „mérés előtt” állításokat a 7.7 commitazonosítói igazolják – hivatkozz rá.
+
+---
+
+## 7.4b A sérülékenységi agent
+
+```latex
+\subsection{A sérülékenységi agent}
+
+A sérülékenységi agent azt becsüli, működhet-e a riasztásban jelzett támadás az érintett gépen.
+Az AIT-ADS riasztásai nem hivatkoznak sérülékenység-azonosítóra, ezért az agent itt szolgáltatás
+szintjén dolgozik: minden szabályhoz egy szolgáltatás-kategória tartozik (például web, levelezés,
+névfeloldás), minden géphez pedig a rajta futó szolgáltatások köre, a hálózat közzétett leírása
+alapján~\cite{landauer2023aitlds}.
+Ha a szabály szolgáltatása fut a gépen, az alkalmazhatóság 0,75, ha a gép szolgáltatásai ismertek,
+de a szabályé nincs köztük, 0,25; az ismert sérülékenységre hivatkozó szabály 1-et kapna.
+Ha a szabály nem köthető szolgáltatáshoz, vagy a gép ismeretlen, az érték a semleges 0,5.
+A szabályok és a szolgáltatások megfeleltetését a mérés előtt rögzítettem; a további hét
+forgatókönyvben előforduló húsz új szabályt ugyanazon elv szerint soroltam be.
+Az ellenpróbához az agent a gépek szolgáltatáskészleteit véletlenszerűen összekeveri a gépek között.
+```
 
 ---
 
@@ -196,8 +282,10 @@ mintán belüli; a többi forgatókönyvön a kiválasztott időköz változatla
 A szabály mindkét érzékelőnél a legnagyobb jelöltet, a 60 percet választotta, mert a tisztaság
 minden jelöltnél 0,99 fölött maradt.
 Ez egyben azt is jelzi, hogy a kétértékű címkékkel számolt tisztaság ezen az adathalmazon kevéssé
-különbözteti meg a jelölteket; a támadási lépések szerinti tisztaság a nyolc forgatókönyv eredeti
-címkéivel vizsgálható.
+különbözteti meg a jelölteket.
+A 6.3. alfejezetben leírt, támadási lépések szerinti tisztaságot az eredeti kiadás időszakaiból
+számolom: minden riasztás annak a támadási lépésnek a nevét kapja, amelynek időszakába esik, a
+többi a normál forgalomhoz tartozik.
 ```
 
 Megjegyzés: a csoportosítás eredményei (pl. 23 116 riasztás → 29 csoport) a 8. fejezetbe valók, nem ide.
@@ -254,11 +342,16 @@ Ez a gyakorlat a tesztadatból származó információ beszivárgása ellen véd
         páros összehasonlítás (súlyok) & 650abd0 & 2026-11-18 12:19 & 4. lépés \\ \hline
         a csoportosítás időközének szabálya & dc23189 & 2026-11-18 12:34 & 2. lépés \\ \hline
         az alkalmazhatóság megfeleltetése & 42036e1 & 2026-11-18 12:46 & 5. lépés \\ \hline
+        a hét további forgatókönyv nyilvántartása & 398c581 & 2026-11-18 13:28 & 1--5. lépés, 8 forgatókönyv \\ \hline
+        a nyolc forgatókönyves mérés terve & 47cfb7a & 2026-11-18 13:43 & 1--5. lépés, 8 forgatókönyv \\ \hline
     \end{tabular}
 \end{table}
 ```
 
-Megjegyzés: a táblázat az 5. lépés rögzítésével (42036e1) teljes a russellmitchellre; a 8 forgatókönyv gépnyilvántartásai új sorokat kapnak.
+Megjegyzés: a 8 forgatókönyves mérés 13:45-kor indult (a terv rögzítése után). A mérési terv
+(`config/elozetes_rogzites/ait_mind8_meresi_terv.yaml`) a dolgozatban nem előírt részleteket is
+rögzít (Holm-korrekció, 20 ismétlés a hiányos nyilvántartásnál, a tanult súlyok rácsa) – ezeket a
+6.3-ban egy-egy félmondattal érdemes megemlíteni.
 
 ---
 

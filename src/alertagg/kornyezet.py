@@ -42,14 +42,22 @@ def erintett_gep(alerts: pd.DataFrame, nyilv: Gepnyilvantartas) -> pd.Series:
     out = []
     raw = alerts["raw"] if "raw" in alerts.columns else pd.Series([None] * len(alerts))
     cols = alerts[["sensor", "hostname", "src_ip", "dst_ip"]].itertuples(index=False)
+    ismert: dict = {}
+    ip_gep: dict = {}
+
+    def gep_ip(ip):  # memoizált lekérdezés (az eredmény ugyanaz)
+        if ip not in ip_gep:
+            ip_gep[ip] = nyilv.gep_ip_alapjan(ip)
+        return ip_gep[ip]
+
     for row, r in zip(cols, raw, strict=True):
         if row.sensor == "wazuh":
-            if nyilv.ismert_gep(row.hostname):
-                out.append(row.hostname)
-            else:
-                out.append(nyilv.gep_ip_alapjan(ugynok_ip(r)))
+            h = row.hostname
+            if h not in ismert:
+                ismert[h] = nyilv.ismert_gep(h)
+            out.append(h if ismert[h] else gep_ip(ugynok_ip(r)))
         else:
-            out.append(nyilv.gep_ip_alapjan(row.dst_ip) or nyilv.gep_ip_alapjan(row.src_ip))
+            out.append(gep_ip(row.dst_ip) or gep_ip(row.src_ip))
     return pd.Series(out, index=alerts["alert_id"], name="erintett_gep", dtype=object)
 
 
