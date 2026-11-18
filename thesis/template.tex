@@ -100,6 +100,10 @@
 \setcounter{biburlnumpenalty}{9000}
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
+% az irodalomjegyzék balra zárt: a sorkizárás így nem nyújtja szét a DOI-k és URL-ek karaktereit
+% (eddig „10 . 1145 /” alakban jelentek meg), és a hosszú URL-ek sem lógnak ki a margóból
+\renewcommand*{\bibfont}{\raggedright}
+\appto\biburlsetup{\Urlmuskip=0mu plus 0.2mu\relax}
 
 % bekezdés behúzása
 \setlength{\parindent}{5 mm}
