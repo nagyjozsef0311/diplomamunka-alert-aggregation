@@ -48,3 +48,17 @@ def test_placebo_is_permutation(nyilv):
     p = kornyezet.osszekevert_fokozatok(nyilv, seed=1)
     assert sorted(p.values()) == sorted(nyilv.fokozatok().values())
     assert p == kornyezet.osszekevert_fokozatok(nyilv, seed=1)  # megismételhető
+
+
+def test_wazuh_gepnev_nelkul_az_ugynok_ip_alapjan(nyilv):
+    alerts = pd.DataFrame({
+        "alert_id": ["a", "b", "c", "d"],
+        "sensor": ["wazuh"] * 4,
+        "hostname": [None, None, "ws", None],
+        "src_ip": [None] * 4, "dst_ip": [None] * 4,
+        "raw": [{"ugynok_ip": "10.0.0.9"},                      # eredeti AIT-formátum
+                {"full_alert": {"agent": {"ip": "10.0.0.1"}}},  # CATS-formátum
+                {"ugynok_ip": "10.0.0.1"},                      # a gépnév elsőbbséget kap
+                {"ugynok_ip": "8.8.8.8"}],                      # ismeretlen ügynök
+    })
+    assert list(kornyezet.erintett_gep(alerts, nyilv)) == ["ws", "web", "ws", None]
