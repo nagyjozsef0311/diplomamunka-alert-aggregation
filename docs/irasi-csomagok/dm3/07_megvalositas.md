@@ -190,7 +190,56 @@ Ezzel a 6.4. alfejezetben előírt első kiemelt teszt teljesült: az összehaso
 \end{table}
 ```
 
-<!-- 7.3 kiegészítés: a gyors számítás – a 09-es ellenőrzés után kerül ide -->
+### 7.3 kiegészítés – a gyors számítás és az egyezés ellenőrzése (átvehető; a számok: `results/09_…`)
+
+```latex
+A szerzők eszköze minden riasztásnál végigjárja az időablakba eső összes riasztást, ezért a futásidő
+a riasztások számával közel négyzetesen nő.
+A russellmitchell forgatókönyv 23 ezer gépi riasztásán ez néhány perc, a santos 38 ezer riasztásán
+már 11 perc volt; a legnagyobb forgatókönyvek közel félmillió riasztására becslés szerint napokig
+tartott volna.
+Ezért az öt részpontszám képleteit változatlan matematikai tartalommal, de más számítási sorrendben is
+megvalósítottam: az időablakokba eső riasztásokat rendezett időbélyegeken, bináris kereséssel és
+halmozott összegekkel határozom meg, az azonos időpontú riasztásokat pedig egyszer számolom.
+
+A két megvalósítás egyezését riasztásonként ellenőriztem négy forgatókönyv tíz adathalmazán,
+amelyeken az eredeti eszköz belátható idő alatt lefut (\ref{tab:gyors}.~táblázat).
+Az öt részpontszám egyikében sem volt nagyobb eltérés $6 \cdot 10^{-11}$-nél, ami a lebegőpontos
+számábrázolás kerekítési hibájának nagyságrendje; a rangsort ez nem befolyásolja.
+A gyors változat ugyanazokon az adatokon 25--280-szor rövidebb idő alatt futott le, és a legnagyobb
+forgatókönyvön is néhány perc alatt végzett.
+Az egyezést automatikus teszt is ellenőrzi.
+A további mérésekben ezért a gyors változatot használom; az összehasonlítási alap ettől nem változik.
+```
+
+### 7.x. táblázat – az egyezés (Claude készítette, átvehető)
+
+```latex
+\begin{table}[H]
+    \centering
+    \caption{A kockázati pontszám kétféle számításának egyezése (Forrás: saját mérés)}
+    \label{tab:gyors}
+    \small
+    \begin{tabular}{|L{3.8cm}|L{1.8cm}|L{2.2cm}|L{2.0cm}|L{2.6cm}|}
+        \hline
+        \textbf{Adathalmaz} & \textbf{Riasztás} & \textbf{Eredeti eszköz (s)} & \textbf{Gyors (s)} & \textbf{Legnagyobb eltérés} \\ \hline
+        russellmitchell, Wazuh & 23\,116 & 286 & 4,9 & $4 \cdot 10^{-14}$ \\ \hline
+        russellmitchell, Suricata & 9186 & 83 & 2,2 & $1 \cdot 10^{-11}$ \\ \hline
+        santos, Wazuh & 38\,289 & 662 & 12,8 & $2 \cdot 10^{-15}$ \\ \hline
+        santos, Suricata & 44\,112 & 858 & 117 & $3 \cdot 10^{-11}$ \\ \hline
+        shaw, Wazuh & 35\,139 & 485 & 10,4 & $4 \cdot 10^{-14}$ \\ \hline
+        shaw, Suricata & 16\,692 & 145 & 1,2 & $2 \cdot 10^{-11}$ \\ \hline
+        wardbeck, Wazuh & 39\,184 & 651 & 13,1 & $1 \cdot 10^{-14}$ \\ \hline
+        wardbeck, Suricata & 24\,510 & 362 & 3,1 & $5 \cdot 10^{-11}$ \\ \hline
+    \end{tabular}
+\end{table}
+```
+
+Megjegyzés: a CATS-változat két adathalmaza (a russellmitchell felcímkézett változata) ugyanígy egyezik; a
+táblázatba elég az eredeti formátum nyolc sora. A futásidők egy 4 magos felhőgépen mértek, csak az
+arányuk érdekes. A 7.3 első bekezdésének „nem írtam újra” mondata így pontosítandó: „az
+összehasonlítási alapot a szerzők eszközével számoltam, és a gyors változatot ehhez mértem” (D29).
+
 
 Megjegyzés: a „teljes pontszám” sor az egy-kihagyásos súlyokkal mért érték (a cikk is azt közli). A
 mérésekben a nyolc adathalmaz átlagos súlyait használjuk (4.2.1); azzal a Wazuh 0,987, a Suricata 0,991.

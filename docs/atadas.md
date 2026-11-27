@@ -33,7 +33,7 @@ jelöld `[x]`-szel, és ne töröld. A korábbi két rész (lent) megmarad.
 - [ ] 2026-10-01 – **A szerző javítja a Word-sablonokban, majd PDF-ben feltölti Overleafbe:** a belső
   borítólapon a mintaszám maradt (T-000123/FI12904 helyett T/0012125/FI12904/N), az évszám a végleges
   dolgozatnál 2027; a konzultációs naplók kitöltése (most GIPSZ JAKAB mintaadat).
-- [ ] 2026-10-01 – `thesis/references.bib`: mind az 55 cikknél hiányzik a kötet és az oldalszám
+- [x] 2026-11-18 – Kötet- és oldalszámok pótolva, minden forrás ellenőrizve (`scripts/forrasok_ellenorzese.py`, v0.16). ~~`thesis/references.bib`: mind az 55 cikknél hiányzik a kötet és az oldalszám
   (az útmutató kéri); pótlás a Crossrefből szkripttel, amint az `api.crossref.org` elérhető.
   Webes forrásoknál (`langgraph2025`, `mcp2026spec`) az `urldate` a tényleges megtekintéskor kerül be.
 
@@ -106,8 +106,11 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-11-18 – A 6.1 szövegébe (szerző): a gépnyilvántartás IP-címei nem a közzétett leírásból, hanem a riasztások szerkezetéből, rögzített szabályokkal (G1–G9) származnak.
 - [ ] 2026-11-18 – **A szerző jóváhagyja** a 7 új forgatókönyv gépnyilvántartását (javaslat: `results/08_ait_mind8_nyilvantartas_javaslat.md`, szabályok G1–G9 és 20 új szabályazonosító megfeleltetése), utána önálló commit a mérés előtt.
 - [x] 2026-11-18 – A 7 új forgatókönyv nyilvántartása jóváhagyva és rögzítve (398c581). A mérési terv rögzítve (47cfb7a, D29). Az 1–5. lépés mind a 8 forgatókönyvön megmérve (`results/10_…`, `results/11_…`): a kockázati pontszám minden forgatókönyvön csökkenti a terhelést; a gép fontossága a Suricatánál javít (AP 7/8, Holm-p 0,031, az ellenpróba megerősíti), a Wazuh-nál mind a 8-on ront; az alkalmazhatóság hatása elhanyagolható; a tanult súlyok a Wazuh-nál a gép fontosságát ~0-ra veszik. 8. fejezet írási csomagja: 1. változat.
-- [ ] 2026-11-18 – A 7.3 kiegészítése a gyors pontozással, amint a `results/09_…` elkészül.
+- [x] 2026-11-18 – A 7.3 kiegészítése a gyors pontozással (`results/09_…`: 4 forgatókönyv, eltérés ≤ 6·10⁻¹¹).
 - [ ] 2026-11-18 – Még a dolgozat 6.3 szerint: mérés a zajjal kiegészített AIT-ADS-en (Karner 2026) – az adat elérhetőségét ellenőrizni.
+- [x] 2026-11-18 – A DM II. megfelelésének átnézése: `docs/atnezesek/dm2_megfeleles_2026-11-18.md`; dolgozat v0.13–v0.15 (táblázatszámozás, irodalomjegyzék formája és megtekintési dátumok).
+- [ ] 2026-11-18 – **A szerző javítja** a DM II. leadása előtt: konzultációs napló, borítólap törzskönyvi száma, prezentáció, az 1. fejezet hiányzó `ndichu2026` hivatkozása és nyelvi hibái (lásd az átnézést).
+- [x] 2026-11-27 – A DM II. beszámoló diasora (10 dia, 8 perc, előadói jegyzetekkel): `docs/prezentaciok/dm2_beszamolo_2026-11-27.pptx`, a dolgozat v0.5-ös változatából; szkript: `scripts/build_dm2_prezentacio.py`. Ív: probléma → szakirodalom (4 dia, kb. 4 perc) → kutatási rés → megoldás → architektúra → várt eredmények → összegzés.
 - [ ] 2026-11-18 – **A szerző választ:** a következő irány (A: DM II. befejezése – ajánlott; B: LangGraph + magyarázó agent; C: labor; D: zajos AIT-ADS).
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).

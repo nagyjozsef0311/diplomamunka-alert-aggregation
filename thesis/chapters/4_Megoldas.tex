@@ -42,14 +42,14 @@ A fokozatot nem gépenként, egyedi mérlegelés alapján határozom meg, hanem 
 	\caption{A gépek fontossági fokozatának meghatározása szerep és hálózati hely alapján}
 	\label{tab:fontossag}
 	\small
-	\begin{tabular}{|L{1.4cm}|L{6.6cm}|L{5.6cm}|}
+	\begin{tabular}{|L{1.6cm}|L{12.0cm}|}
 		\hline
-		\textbf{Fokozat} & \textbf{Szabály} & \textbf{Példa} \\ \hline
-		5 & Az internet felől elérhető kiszolgáló, amely üzleti adatot tárol vagy felhasználókat azonosít & nyilvános webkiszolgáló adatbázissal, távoli elérést biztosító átjáró \\ \hline
-		4 & Belső kiszolgáló, amelytől sok más gép vagy felhasználó működése függ & címtár, levelezés, belső fájlmegosztás \\ \hline
-		3 & Belső kiszolgáló korlátozott felhasználói körrel & belső wiki, fejlesztői kiszolgáló \\ \hline
-		2 & Felhasználói munkaállomás & irodai kliensgépek \\ \hline
-		1 & Teszt- vagy ideiglenes gép, üzleti adat nélkül; a szervezeten kívüli gép & tesztkörnyezet; külső levelező- vagy DNS-kiszolgáló \\ \hline
+		\textbf{Fokozat} & \textbf{Szabály} \\ \hline
+		5 & Az internet felől elérhető kiszolgáló, amely üzleti adatot tárol vagy felhasználókat azonosít \\ \hline
+		4 & Belső kiszolgáló, amelytől sok más gép vagy felhasználó működése függ \\ \hline
+		3 & Belső kiszolgáló korlátozott felhasználói körrel \\ \hline
+		2 & Felhasználói munkaállomás \\ \hline
+		1 & Teszt- vagy ideiglenes gép, üzleti adat nélkül; a szervezeten kívüli gép \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -59,7 +59,7 @@ A második környezeti mérőszám azt vizsgálja, működhet-e egyáltalán a r
 Az illesztéshez a gépeken futó szoftvereket szabványos szoftverazonosítóval (\ac{CPE}) tartom nyilván, mert a sérülékenység-adatbázisok ugyanezzel az azonosítóval kötik a sérülékenységet az érintett termékekhez~\cite{shi2024cpe}. A nem alkalmazható támadás azért nem kap nulla értéket, mert a nyilvántartás hibája esetén a riasztásnak a lista hátsó részében is láthatónak kell maradnia; a szűrésre épülő módszerek fő gyengesége éppen az volt, hogy ilyenkor a valódi támadás is eltűnik~\cite{njogu2012,sommestad2015}. A nyilvános AIT-ADS adathalmaz riasztásai nem hivatkoznak sérülékenység-azonosítóra, ezért ott csak a termék- és szolgáltatásszintű illesztés mérhető; a sérülékenység-azonosító szintű illesztést a saját tesztkörnyezetben vizsgálom.
 
 \subsubsection{A megfigyeltség}
-A harmadik környezeti mérőszám azt írja le, mennyire látják az érintett gépet a megfigyelőeszközök. A megfigyelési lefedettség a \ac{SOC}-ok működésének egyik ismert hiányossága~\cite{chamkar2024}, és a kockázatalapú pontozásra közvetlen hatással van: a halmozódás és a változatosság annál nagyobb, minél több érzékelő jelez ugyanarra a gépre. Egy gyengén megfigyelt gépen ugyanaz a támadás kevesebb riasztást vált ki, ezért a pontszáma alacsonyabb lesz, holott a kockázat nem kisebb, csak kevésbé látható.
+A harmadik környezeti mérőszám azt írja le, mennyire látják az érintett gépet a megfigyelőeszközök. A megfigyelési lefedettség a kockázatalapú pontozásra közvetlen hatással van: a halmozódás és a változatosság annál nagyobb, minél több érzékelő jelez ugyanarra a gépre. Egy gyengén megfigyelt gépen ugyanaz a támadás kevesebb riasztást vált ki, ezért a pontszáma alacsonyabb lesz, holott a kockázat nem kisebb, csak kevésbé látható.
 
 A lefedettséget gépenként két jellemzőből számolom: fut-e a gépen működő gépi érzékelő, és látja-e a hálózati érzékelő a gép hálózati szegmensét. A $c_e$ lefedettség a teljesülő feltételek aránya, értéke 0, 0,5 vagy 1. A mérőszám ennek a kiegészítője, $m_i = 1 - c_{e(i)}$, vagyis a kevésbé látható gép riasztásai kissé előrébb kerülnek, ellensúlyozva a halmozódás és a változatosság alulbecslését. A nyilvános adathalmazban minden gép azonos módon megfigyelt, ezért ott ez a mérőszám állandó, és a hatása csak a saját tesztkörnyezetben mérhető, ahol a lefedettséget szándékosan változtathatom.
 

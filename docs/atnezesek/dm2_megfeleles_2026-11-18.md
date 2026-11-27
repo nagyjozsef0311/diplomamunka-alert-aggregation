@@ -70,8 +70,8 @@ pontját és a feladatlap F1–F5 pontját lefedi; az F6 (eredmények) a DM III.
 | Absztrakt magyarul és angolul | ✅ |
 | Összefoglaló magyarul 1500–2500 karakter, és angolul | ✅ 1832, illetve 1782 karakter |
 | Hivatkozás [n] formában; irodalomjegyzék az első szerző szerint betűrendben | ✅ (biblatex, `sorting=nyt`) |
-| Internetes forrásnál az URL és a megtekintés dátuma | ⚠️ **9 tételnél** van URL, de hiányzik a megtekintés dátuma: `ndichu2026`, `abdennebi2026lang`, `wei2025cortex`, `karner2026alertbert`, `vallabhaneni2026sentinel`, `uetz2026rba`, `liu2026hesp`, `langgraph2025`, `mcp2026spec`. Az arXiv-cikkek internetes források, ezért ide is kell az `urldate`. |
-| Folyóiratcikknél a kötet és a kezdő–záró oldal | ⚠️ **30 cikknél** hiányzik a kötet- vagy az oldalszám. Ez régi feladat; pótlása a Crossrefből szkripttel lehetséges, ha a hálózati beállításban engedélyezed az `api.crossref.org`-ot. |
+| Internetes forrásnál az URL és a megtekintés dátuma | ✅ **javítva (v0.16):** mind a 80 hivatkozott tételnél van „utoljára megtekintve” dátum. 2026-11-18-án 85 forrást ténylegesen ellenőriztünk (Crossref, arXiv, illetve a webes URL), ezek dátuma az ellenőrzés napja. 6 webhely tiltja az automatikus lekérést (GitHub ×3, MITRE ×2, Cisco); ezeknél a korábbi, valós megtekintési dátum maradt. Részletek: `docs/atnezesek/forrasok_ellenorzese_2026-11-18.md`. |
+| Folyóiratcikknél a kötet és a kezdő–záró oldal | ✅ **javítva (v0.16):** a Crossrefből pótolva. Kivétel a `nadeem2021`: a Crossref még csak az előzetes online változatot tartja nyilván, végleges kötet nélkül. |
 | Szó szerinti idézet idézőjelben | ⚠️ 1.2: „erős összehasonlítási alap” – idézőjelben áll, de fordítás, nem szó szerinti idézet. Vagy jelöld „(saját fordítás)”-ként, vagy írd át idézőjel nélkül. |
 | A felépítés (3. melléklet) | ✅ A DM II.-ben az 1–6. pont, plusz az összefoglaló, a summary, az irodalomjegyzék és a jegyzékek. ⚠️ Az Ábrajegyzék és a Táblajegyzék számozott fejezet (10., 11.), a Rövidítések nem – egységesíteni érdemes (mind számozatlan). |
 
@@ -160,8 +160,6 @@ A DM II. tervet ír le, de ahol a megvalósítás már eldőlt, a szöveg ne mon
 - ⚠️ a fájlnevek és a pontos határidő.
 
 **Claude (kérésre):**
-- az `urldate` a 9 internetes forrásnál;
-- a kötet és az oldalszámok a 30 cikknél (`api.crossref.org` kell);
 - az ellenőrzőösszeg az eredményfájlokban (G/3);
 - a prezentáció vázlata (8 perc, kevés szöveg, sok ábra);
 - a DM III. konzultációs napló kivétele a DM II. változatból.
