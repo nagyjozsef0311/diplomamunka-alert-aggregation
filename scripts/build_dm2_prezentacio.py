@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""A Diplomamunka II. beszámoló diasora (8 perc, 7 dia), a korábbi diasor kinézetével (python-pptx).
+"""A Diplomamunka II. beszámoló diasora (8 perc, 8 dia: címdia, 6 tartalmi dia, záródia), a korábbi diasor kinézetével (python-pptx).
 
-Minden adat a dolgozat v0.5-ös változatából (thesis/, v0.17) származik; a diák alján a forrás.
+Minden adat a dolgozat v0.5-ös változatából (thesis/, v0.17) származik.
 Felépítés (a konzulensi visszajelzés és a szerző kérése szerint): probléma → csoportosítás →
 rangsorolás → kutatási rés és a választás indoka → architektúra és a döntések indoka → várt eredmények.
 
@@ -134,14 +134,11 @@ def content_slide(title, notes):
     return s
 
 
-def kicker(slide, text):
-    """Felirat a lábléc jobb oldalán: hol tartunk az előadás ívében."""
-    txt(slide, 4.3, 7.12, 5.45, 0.3, text, size=12, bold=True, color=WHITE, align=PP_ALIGN.RIGHT,
-        anchor=MSO_ANCHOR.MIDDLE, name="Szakasz")
+def dia_szam(slide):
+    """A dia sorszáma a lábléc jobb oldalán."""
+    txt(slide, 7.75, 7.12, 2.0, 0.3, str(len(prs.slides)), size=14, bold=True, color=WHITE,
+        align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE, name="Diaszám")
 
-
-def source(slide, text, y=6.62):
-    txt(slide, 0.3, y, 9.4, 0.28, text, size=9, color=MUTED, name="Forrás")
 
 
 def card(slide, x, y, w, h, big, small, fill, fg, big_size=28, small_size=12, name=None):
@@ -187,7 +184,7 @@ s = content_slide(
     "vakfoltokat hagy. A cél ezért az, hogy a már kiadott riasztásokat csoportosítsuk és "
     "rangsoroljuk – úgy, hogy egyetlen riasztás se tűnjön el.",
 )
-kicker(s, "PROBLÉMAFELVETÉS")
+dia_szam(s)
 card(s, 0.3, 1.9, 2.95, 2.15, "< 0,5%", "az AIT-ADS egyik forgatókönyvében a hálózati riasztások "
      "közül ennyi valódi", NAVY, WHITE, name="Kártya 1")
 card(s, 3.55, 1.9, 2.95, 2.15, "1 : 100", "1 támadás 10 000 eseményből, 1% téves jelzés mellett: "
@@ -202,8 +199,6 @@ txt(s, 0.55, 4.5, 8.9, 1.8, [
     ("a Suricata hálózati és a Wazuh gépi riasztásait mérőszámok és a környezetről szóló információ "
     "alapján csoportosítani és rangsorolni – szűrés nélkül, megismételhetően mérve."),
 ], size=14)
-source(s, "Forrás: a dolgozat 1.1, 1.3 és 2.5 pontja – Uetz és mtsai. 2026; Axelsson 2000; Alahmadi és mtsai. "
-          "2022; Ndichu és mtsai. 2026")
 
 # ============ 3. Csoportosítás (kb. 65 mp) ============
 s = content_slide(
@@ -220,7 +215,7 @@ s = content_slide(
     "tanulság viszont az, hogy a csoportosítás csak a tételek számát csökkenti; azt, hogy melyik "
     "csoport a legfontosabb, a rangsorolásnak kell eldöntenie.",
 )
-kicker(s, "SZAKIRODALOM 1 · CSOPORTOSÍTÁS")
+dia_szam(s)
 table(s, 0.3, 1.85, [2.35, 2.25, 2.55, 2.25], [
     ["Módszercsalád", "Erősség", "Gyengeség", "Mért eredmény"],
     ["Kulcsmezők és időablak", "gyors, tanítás nélküli, átlátható", "az ablak és a mezők megválasztásától függ", "a gyakorlatban legelterjedtebb"],
@@ -238,8 +233,6 @@ txt(s, 0.5, 5.18, 9.0, 1.2, [
      (("tanítás nélkül működik, megismételhető és átlátható. De a csoportosítás nem dönti el, melyik "
       "csoport a fontos – ehhez rangsorolás kell."), {"color": WHITE})],
 ], size=13, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 3.2 pontja és 3.1. táblázata, 5.3.2 – Valeur és mtsai. 2004; Landauer és mtsai. "
-          "2022; Julisch 2003; van Ede és mtsai. 2022; Karner és mtsai. 2026")
 
 # ============ 4. Rangsorolás (kb. 70 mp) ============
 s = content_slide(
@@ -256,7 +249,7 @@ s = content_slide(
     "valódi riasztásból 43-at mutatta. Ezt választottam alapnak – csakhogy ez a módszer a "
     "környezetről semmit nem tud.",
 )
-kicker(s, "SZAKIRODALOM 2 · RANGSOROLÁS")
+dia_szam(s)
 table(s, 0.3, 1.85, [2.25, 1.1, 1.0, 5.05], [
     ["Módszercsalád", "Környezet", "Tanítás", "Fő eredmény és gyengeség"],
     ["Súlyosság", "nem", "nem", "a mai gyakorlat; durva, a környezettől független"],
@@ -273,9 +266,6 @@ box(s, 6.7, 4.95, 3.0, 1.5, SKY_T, name="Választás 2")
 txt(s, 6.85, 5.02, 2.7, 1.38, [[("Választás: ", {"bold": True}),
                                ("a kockázatalapú pontozás az alap – de nem használja a környezetet.", {})]],
     size=12, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 3.3 pontja és 3.2. táblázata – Anuar és mtsai. 2013; Porras és mtsai. 2002; "
-          "Kruegel és mtsai. 2004; Njogu és mtsai. 2013; Sommestad, Franke 2015; Hassan és mtsai. 2019; "
-          "Uetz és mtsai. 2026", y=6.55)
 
 # ============ 5. Kutatási rés és a választás (kb. 75 mp) ============
 s = content_slide(
@@ -293,7 +283,7 @@ s = content_slide(
     "kockázati pontszámot egészíti ki a gép fontosságával, a támadás alkalmazhatóságával és a "
     "megfigyeltséggel, súlyozott összeggel, páros összehasonlításból kapott súlyokkal.",
 )
-kicker(s, "KUTATÁSI RÉS · A VÁLASZTÁS INDOKA")
+dia_szam(s)
 table(s, 0.3, 1.85, [2.6, 1.25, 1.35, 1.2, 1.1, 1.9], [
     ["Módszercsalád", "Tanítás nélkül", "Megismételhető", "Környezet", "Nem szűr", "Követhető indok"],
     ["Súlyosság szerint", "igen", "igen", "nem", "igen", "igen"],
@@ -313,7 +303,6 @@ txt(s, 0.5, 5.26, 9.0, 1.15, [
      (("kockázati pontszám + gép fontossága + alkalmazhatóság + megfigyeltség, súlyozott összeggel "
       "(páros összehasonlítás)."), {"color": WHITE})],
 ], size=13, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 3.5 pontja és 3.4. táblázata; 4.1 pontja és 4.1. táblázata")
 
 # ============ 6. Architektúra és döntések (kb. 75 mp) ============
 s = content_slide(
@@ -330,7 +319,7 @@ s = content_slide(
     "ne hagyja el a szervezetet. A lépések sorrendjét rögzített vezérlés adja, nem a modellek "
     "beszélgetése.",
 )
-kicker(s, "TERVEZETT ARCHITEKTÚRA · DÖNTÉSEK")
+dia_szam(s)
 s.shapes.add_picture(ARCH, Inches(0.3), Inches(1.75), height=Inches(4.8))
 x0 = 4.85
 decisions = [
@@ -346,8 +335,6 @@ for h, d, fill in decisions:
     box(s, x0, y, 4.85, hh, fill, name="Döntés")
     txt(s, x0 + 0.15, y + 0.07, 4.55, hh - 0.12, [[(h, {"bold": True, "size": 13})], d], size=11)
     y += hh + 0.12
-source(s, "Forrás: a dolgozat 3.4.3–3.4.4 és 5. fejezete, 5.1. ábra – Wei és mtsai. 2025; Roy és mtsai. 2026; "
-          "Liu, Wang 2026; Wu és mtsai. 2023", y=6.6)
 
 # ============ 7. Várt eredmények (kb. 65 mp) ============
 s = content_slide(
@@ -363,7 +350,7 @@ s = content_slide(
     "A torzítás ellen a súlyokat a mérés előtt rögzítem, és ellenpróbát végzek összekevert "
     "gépfontossággal. Köszönöm a figyelmet!",
 )
-kicker(s, "VÁRT EREDMÉNYEK")
+dia_szam(s)
 steps = [("1", "súlyosság"), ("2", "csoportosítás"), ("3", "kockázati pontszám"),
          ("4", "+ gép fontossága"), ("5", "+ alkalmazhatóság"), ("6", "+ megfigyeltség")]
 w = 1.5
@@ -389,7 +376,23 @@ txt(s, 0.5, 5.16, 9.0, 1.25, [
       "riasztások arányában látszhat; a CVE-szintű hatás és a megfigyeltség a laborban."),
       {"color": WHITE})],
 ], size=13, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 6. fejezete (6.1–6.3; 6.2–6.3. táblázat); a közölt érték: Uetz és mtsai. 2026")
+
+# ============ 8. Záródia (kb. 5 mp) ============
+z = prs.slides.add_slide(next(lay for lay in prs.slide_masters[0].slide_layouts
+                              if lay.name == "1 Záródia"))
+z.background.fill.solid()  # sötét záródia a sablon sötétkékjével
+z.background.fill.fore_color.rgb = NAVY
+for ph in z.placeholders:
+    if ph.placeholder_format.idx == 0:
+        ph.text_frame.text = "KÖSZÖNÖM A FIGYELMET!"
+        for r in ph.text_frame.paragraphs[0].runs:
+            r.font.color.rgb = WHITE
+            r.font.bold = True
+            r.font.size = Pt(40)
+box(z, 3.5, 4.55, 3.0, 0.06, AMBER, name="Kiemelő vonal")
+txt(z, 0.8, 4.85, 8.4, 0.9, ["Nagy József", ("Agent-alapú, metrika-vezérelt IDS-riasztásaggregáció "
+    "SOC-környezetben")], size=16, color=WHITE, align=PP_ALIGN.CENTER, name="Elköszönés")
+z.notes_slide.notes_text_frame.text = "[kb. 5 mp] Köszönöm a figyelmet! Szívesen válaszolok a kérdésekre."
 
 prs.save(OUT)
 print("ok", len(prs.slides))
