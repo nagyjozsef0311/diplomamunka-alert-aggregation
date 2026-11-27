@@ -110,7 +110,7 @@ Ezek a döntések készek, és megvalósíthatók.
 - [ ] 2026-11-18 – Még a dolgozat 6.3 szerint: mérés a zajjal kiegészített AIT-ADS-en (Karner 2026) – az adat elérhetőségét ellenőrizni.
 - [x] 2026-11-18 – A DM II. megfelelésének átnézése: `docs/atnezesek/dm2_megfeleles_2026-11-18.md`; dolgozat v0.13–v0.15 (táblázatszámozás, irodalomjegyzék formája és megtekintési dátumok).
 - [ ] 2026-11-18 – **A szerző javítja** a DM II. leadása előtt: konzultációs napló, borítólap törzskönyvi száma, prezentáció, az 1. fejezet hiányzó `ndichu2026` hivatkozása és nyelvi hibái (lásd az átnézést).
-- [x] 2026-11-27 – A DM II. beszámoló diasora (10 dia, 8 perc, előadói jegyzetekkel): `docs/prezentaciok/dm2_beszamolo_2026-11-27.pptx`, a dolgozat v0.5-ös változatából; szkript: `scripts/build_dm2_prezentacio.py`. Ív: probléma → szakirodalom (4 dia, kb. 4 perc) → kutatási rés → megoldás → architektúra → várt eredmények → összegzés.
+- [x] 2026-11-27 – A DM II. beszámoló diasora (7 dia, kb. 6–7 perc előadói jegyzettel): `docs/prezentaciok/dm2_beszamolo.pptx`, a dolgozat v0.5-ös változatából; szkript: `scripts/build_dm2_prezentacio.py`. Ív: probléma → csoportosítás → rangsorolás → kutatási rés és a választás indoka (4.1. táblázat) → architektúra és a döntések indoka (miért nem nyelvi modell) → várt eredmények.
 - [ ] 2026-11-18 – **A szerző választ:** a következő irány (A: DM II. befejezése – ajánlott; B: LangGraph + magyarázó agent; C: labor; D: zajos AIT-ADS).
 - [x] 2026-11-18 – DM III. írási csomagok elindítva: `docs/irasi-csomagok/dm3/` (00 terv, 07 megvalósítás – élő, 08 eredmények – váz).
 - [ ] 2026-11-18 – A 4.2. táblázat 1-es sorát a dolgozatban is ki kell egészíteni („a szervezeten kívüli gép”, D25).

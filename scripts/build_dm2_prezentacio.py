@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""A Diplomamunka II. beszámoló diasora (8 perc, 10 dia), a korábbi diasor kinézetével (python-pptx).
+"""A Diplomamunka II. beszámoló diasora (8 perc, 7 dia), a korábbi diasor kinézetével (python-pptx).
 
 Minden adat a dolgozat v0.5-ös változatából (thesis/, v0.17) származik; a diák alján a forrás.
-Felépítés (a konzulensi visszajelzés szerint): probléma → irodalomkutatás (4 dia, kb. 4,5 perc) →
-kutatási rés → javasolt megoldás → architektúra → várt eredmények → összegzés.
+Felépítés (a konzulensi visszajelzés és a szerző kérése szerint): probléma → csoportosítás →
+rangsorolás → kutatási rés és a választás indoka → architektúra és a döntések indoka → várt eredmények.
 
 Használat:
     python scripts/build_dm2_prezentacio.py docs/prezentaciok/kutatasi_eredmenyek_2026-10-14.pptx \
@@ -151,6 +151,7 @@ def card(slide, x, y, w, h, big, small, fill, fg, big_size=28, small_size=12, na
     txt(slide, x + 0.18, y + 0.8, w - 0.36, h - 0.9, small, size=small_size, color=fg)
 
 
+
 # ============ 1. Címdia (kb. 15 mp) ============
 t = prs.slides[0]
 vals = {
@@ -168,308 +169,227 @@ for ph in t.placeholders:
                 for r in para.runs:
                     r.font.size = Pt(16)
 t.notes_slide.notes_text_frame.text = (
-    "[kb. 15 mp] Jó napot kívánok! Nagy József vagyok, a diplomamunkám a behatolásérzékelők "
-    "riasztásainak csoportosításáról és rangsorolásáról szól. "
-    "Az előadás íve: a probléma, a szakirodalom eredménye és a kutatási rés, a javasolt megoldás "
-    "és felépítése, végül az, hogyan mérem és mit várok."
+    "[kb. 15 mp] Jó napot kívánok! Nagy József vagyok. A diplomamunkám a behatolásérzékelők "
+    "riasztásainak csoportosításáról és rangsorolásáról szól: a problémával kezdem, utána a "
+    "szakirodalom eredményével és a kutatási réssel, végül a tervezett rendszerrel és a mérés tervével."
 )
 
-# ============ 2. A probléma (kb. 50 mp) ============
+# ============ 2. Probléma (kb. 60 mp) ============
 s = content_slide(
     "Túl sok riasztás, kevés valódi támadás",
-    "[kb. 50 mp] A biztonsági műveleti központok elemzőit elárasztják a riasztások, és ezek túlnyomó "
-    "része nem valódi támadás. A nyilvános AIT-ADS adathalmaz egyik forgatókönyvében a hálózati "
-    "riasztásoknak kevesebb mint fél százaléka valódi: minden valódi riasztásra kétszáz további jut.\n\n"
-    "Axelsson az alapgyakoriság-hibára vezette vissza: ha tízezer "
-    "eseményből egy támadás, és az érzékelő minden támadást észrevesz, de a többi esemény egy "
-    "százalékára is jelez, akkor száz riasztásból csak egy lesz valódi.\n\n"
-    "Alahmadi és szerzőtársai elemzőkkel készített felmérése szerint a téves riasztások nagy része "
-    "nem hibás észlelés, hanem a szervezet jóindulatú működése váltja ki. A túlterhelt csapatok "
-    "ezért elnyomó szabályokat írnak, vagy csak a súlyosságra hagyatkoznak – ez vakfoltokat hagy, "
-    "amelyeket a támadó kihasználhat. Vagyis a már kiadott riasztásokat jól kell rangsorolni.",
+    "[kb. 60 mp] A biztonsági műveleti központok elemzőit elárasztják a riasztások. A nyilvános "
+    "AIT-ADS adathalmaz egyik forgatókönyvében a hálózati riasztásoknak kevesebb mint fél százaléka "
+    "valódi. Ez nem csak beállítási hiba: Axelsson alapgyakoriság-hibája szerint ha tízezer eseményből "
+    "egy a támadás, és az érzékelő a többi egy százalékára is jelez, száz riasztásból csak egy valódi. "
+    "Az elemzőkkel készült felmérés szerint a téves riasztások nagy részét a szervezet jóindulatú "
+    "működése váltja ki.\n\n"
+    "A túlterhelt csapatok elnyomó szabályokat írnak, vagy csak a súlyosságra hagyatkoznak, ez "
+    "vakfoltokat hagy. A cél ezért az, hogy a már kiadott riasztásokat csoportosítsuk és "
+    "rangsoroljuk – úgy, hogy egyetlen riasztás se tűnjön el.",
 )
-kicker(s, "1 / 4 · PROBLÉMAFELVETÉS")
+kicker(s, "PROBLÉMAFELVETÉS")
 card(s, 0.3, 1.9, 2.95, 2.15, "< 0,5%", "az AIT-ADS egyik forgatókönyvében a hálózati riasztások "
-     "közül ennyi valódi – 1 valódira 200 további jut", NAVY, WHITE, name="Kártya 1")
+     "közül ennyi valódi", NAVY, WHITE, name="Kártya 1")
 card(s, 3.55, 1.9, 2.95, 2.15, "1 : 100", "1 támadás 10 000 eseményből, 1% téves jelzés mellett: "
      "100 riasztásból 1 valódi (alapgyakoriság-hiba)", AMBER, NAVY, name="Kártya 2")
-card(s, 6.8, 1.9, 2.95, 2.15, "jóindulatú", "a téves riasztások nagy része a szervezet szokásos "
-     "működéséből fakad, nem hibás észlelésből (20 + 21 elemző)", SKY, NAVY, name="Kártya 3")
-box(s, 0.3, 4.35, 9.4, 2.05, SKY_T, name="Következmény doboz")
+card(s, 6.8, 1.9, 2.95, 2.15, "jóindulatú", "a téves riasztások nagy részét a szervezet szokásos "
+     "működése váltja ki, nem hibás észlelés", SKY, NAVY, name="Kártya 3")
+box(s, 0.3, 4.35, 9.4, 2.05, SKY_T, name="Cél doboz")
 txt(s, 0.55, 4.5, 8.9, 1.8, [
-    [("A következmény", {"bold": True, "size": 18})],
-    ("A túlterhelt elemzők elnyomó szabályokat írnak, vagy csak az eszköz súlyossági szintjére "
-    "hagyatkoznak – ez a támadó számára kihasználható vakfoltokat hagy."),
-    [("A feladat: ", {"bold": True}), (("a már kiadott riasztásokat úgy csoportosítani és rangsorolni, "
-                                      "hogy az elemző figyelme a valószínűleg valódiakra jusson."), {})],
+    [("Következmény: ", {"bold": True}), (("elnyomó szabályok és csak súlyosság szerinti szűrés – "
+                                         "a támadó számára kihasználható vakfoltok."), {})],
+    [("A dolgozat célja", {"bold": True, "size": 17})],
+    ("a Suricata hálózati és a Wazuh gépi riasztásait mérőszámok és a környezetről szóló információ "
+    "alapján csoportosítani és rangsorolni – szűrés nélkül, megismételhetően mérve."),
 ], size=14)
-source(s, "Forrás: Uetz és mtsai. 2026; Axelsson 2000; Alahmadi és mtsai. 2022; Ndichu és mtsai. 2026 "
-          "(a dolgozat 1.1 és 2.5 pontja)")
+source(s, "Forrás: a dolgozat 1.1, 1.3 és 2.5 pontja – Uetz és mtsai. 2026; Axelsson 2000; Alahmadi és mtsai. "
+          "2022; Ndichu és mtsai. 2026")
 
-# ============ 3. Irodalom I: csoportosítás (kb. 65 mp) ============
+# ============ 3. Csoportosítás (kb. 65 mp) ============
 s = content_slide(
-    "Szakirodalom 1/4: csoportosítás",
-    "[kb. 65 mp] Az irodalmat két fő feladat mentén dolgoztam fel: csoportosítás és rangsorolás, "
-    "és külön megnéztem az agentes és nyelvi modelles megoldásokat.\n\n"
-    "Csoportosításban öt módszercsaládot találtam. A legegyszerűbb a kulcsmezők és időablak alapján "
-    "von össze: gyors és átlátható, de az ablak megválasztásától függ. Landauer tartományfüggetlen "
-    "hasonlósággal kb. 80%-kal csökkentette az elemző elé kerülő csoportok számát. Julisch "
-    "ok-feltárásnál néhány tucat kiváltó ok adta a riasztások több mint 90%-át – ha ezeket "
-    "megszüntetjük, a zaj forrását szüntetjük meg. A többlépcsős korreláció a támadási láncot mutatja, "
-    "de előre rögzített tudást igényel. A tanuló módszerek pontosak: a DeepCASE az események "
-    "86,72%-át kezelte automatikusan – de tanítást igényelnek, és nehezen magyarázhatók.\n\n"
-    "A fontos tanulság: a csoportosítás csökkenti a tételek számát, de egyik sem mondja meg, "
-    "melyik csoport a legfontosabb.",
+    "Szakirodalom: a riasztások csoportosítása",
+    "[kb. 65 mp] A csoportosításban öt módszercsaládot vizsgáltam. A kulcsmezők és időablak alapján "
+    "összevonó módszer a gyakorlatban a legelterjedtebb: gyors, nem kell tanítani, és az elemző "
+    "látja, miért került két riasztás egy csoportba. A tartományfüggetlen hasonlóság kb. 80%-kal "
+    "kevesebb csoportot adott, de zajban a csoportok összemosódnak. Az ok-feltárás a zaj okát "
+    "szünteti meg, de utólagos. A többlépcsős korreláció és a tanuló módszerek pontosabbak – a "
+    "DeepCASE az események 86,72%-át kezelte automatikusan –, de előre rögzített tudást vagy "
+    "tanítóadatot igényelnek, és nehezen magyarázhatók.\n\n"
+    "Ezért választottam a kulcsmezős, időközös csoportosítást: ugyanazt a gépet érintő, egymáshoz "
+    "időben közeli riasztások kerülnek egy csoportba. Tanítás nélkül működik és átlátható. A fontos "
+    "tanulság viszont az, hogy a csoportosítás csak a tételek számát csökkenti; azt, hogy melyik "
+    "csoport a legfontosabb, a rangsorolásnak kell eldöntenie.",
 )
-kicker(s, "2 / 4 · SZAKIRODALOM")
-table(s, 0.3, 1.85, [2.35, 2.3, 2.35, 2.4], [
+kicker(s, "SZAKIRODALOM 1 · CSOPORTOSÍTÁS")
+table(s, 0.3, 1.85, [2.35, 2.25, 2.55, 2.25], [
     ["Módszercsalád", "Erősség", "Gyengeség", "Mért eredmény"],
     ["Kulcsmezők és időablak", "gyors, tanítás nélküli, átlátható", "az ablak és a mezők megválasztásától függ", "a gyakorlatban legelterjedtebb"],
     ["Tartományfüggetlen hasonlóság", "tetszőleges riasztásformára", "zajban a csoportok összemosódnak", "kb. 80%-kal kevesebb csoport"],
     ["Ok-feltárás", "a zaj okát szünteti meg", "utólagos, nem rangsorol", "néhány tucat ok → a riasztások > 90%-a"],
-    ["Többlépcsős korreláció", "a támadási láncot egyben mutatja", "előre rögzített tudás vagy tanítás kell", "–"],
-    ["Gépi tanulás, gráf", "pontos, zajtűrő", "tanítást igényel, nehezen magyarázható", "86,72% automatikusan kezelve"],
-], size=10.5, row_h=0.56, name="Csoportosítás-táblázat")
-box(s, 0.3, 5.45, 9.4, 1.0, AMBER_T, name="Tanulság")
-txt(s, 0.5, 5.53, 9.0, 0.85, [
-    [("Tanulság: ", {"bold": True}), (("a csoportosítás a tételszámot csökkenti, de nem mondja meg, "
-                                      "melyik csoport a legfontosabb – ehhez rangsorolás kell."), {})],
-], size=14, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 3.2 pontja és 3.1. táblázata – Valeur és mtsai. 2004; Landauer és mtsai. "
+    ["Többlépcsős korreláció", "a támadási láncot mutatja", "előre rögzített tudás vagy tanítás kell", "–"],
+    ["Gépi tanulás, gráf", "pontos, zajtűrő", "tanítás kell, nehezen magyarázható", "86,72% automatikusan kezelve"],
+], size=10.5, row_h=0.52, highlight={1: AMBER_T}, name="Csoportosítás-táblázat")
+box(s, 0.3, 5.1, 9.4, 1.35, NAVY, name="Választás")
+txt(s, 0.5, 5.18, 9.0, 1.2, [
+    [("Választás: ", {"bold": True, "color": AMBER}),
+     ("kulcsmezők és időköz – ugyanazt a gépet érintő, időben közeli riasztások egy csoportba.",
+      {"color": WHITE})],
+    [("Miért? ", {"bold": True, "color": AMBER}),
+     (("tanítás nélkül működik, megismételhető és átlátható. De a csoportosítás nem dönti el, melyik "
+      "csoport a fontos – ehhez rangsorolás kell."), {"color": WHITE})],
+], size=13, anchor=MSO_ANCHOR.MIDDLE)
+source(s, "Forrás: a dolgozat 3.2 pontja és 3.1. táblázata, 5.3.2 – Valeur és mtsai. 2004; Landauer és mtsai. "
           "2022; Julisch 2003; van Ede és mtsai. 2022; Karner és mtsai. 2026")
 
-# ============ 4. Irodalom II: rangsorolás (kb. 70 mp) ============
+# ============ 4. Rangsorolás (kb. 70 mp) ============
 s = content_slide(
-    "Szakirodalom 2/4: rangsorolás",
-    "[kb. 70 mp] A rangsorolásnál öt családot különítettem el. A súlyosság szerinti sorrend ma a "
-    "gyakorlat, de durva és a környezettől független.\n\n"
-    "A többszempontú módszerek – például Anuar és szerzőtársai páros összehasonlítása – az érintett "
-    "eszköz fontosságát is súlyozzák: náluk minden incidens sorba állítható volt, míg a "
-    "sérülékenységek szabványos pontozásával csak 17%-uk. A környezetet használó módszerek – Porras, "
-    "Kruegel, Njogu – a gép fontosságát és sérülékenységét veszik figyelembe, de szűrnek: hiányos "
-    "nyilvántartásnál valódi támadást is eltávolítanak, ezt Sommestad és Franke kísérlete is "
-    "megmutatta. A tanuló módszerek, mint a NoDoze, 86%-kal csökkentették a téves riasztásokat, de "
-    "címkét vagy részletes gépi naplót igényelnek.\n\n"
-    "A legerősebb, tanítás nélküli módszer a kockázatalapú pontozás: Uetz és szerzőtársai nyolc "
-    "adathalmazon 0,72-ről 0,92-re emelték a rangsor-pontosságot, és ha az elemző csak a lista első "
-    "10%-át nézi át, a 44 valódi riasztásból 43-at látja, súlyosság szerint csak 28,6-ot. Ez lesz az "
-    "összehasonlítási alapom.",
+    "Szakirodalom: a riasztások rangsorolása",
+    "[kb. 70 mp] A rangsorolásban öt családot találtam. A súlyosság szerinti sorrend a mai gyakorlat, "
+    "de durva. A többszempontú módszerek – például páros összehasonlítás – a gép fontosságát is "
+    "súlyozzák: Anuar és szerzőtársainál minden incidens rangsorolható volt, míg a CVSS alapján "
+    "csak 17%-uk; a súlyok hatását viszont nem vizsgálták. A környezetet használó módszerek a gép "
+    "fontosságát és sérülékenységét nézik, de szűrnek: Sommestad és Franke kísérletében a szűrés "
+    "valódi támadásokat is eltávolított. A tanuló módszerek 86%-kal kevesebb téves riasztást adtak, "
+    "de címkét vagy részletes gépi naplót igényelnek – valós SOC-ban ez ritkán van.\n\n"
+    "A legerősebb, tanítás nélküli, nyilvánosan mért módszer a kockázatalapú pontozás: nyolc "
+    "adathalmazon 0,72-ről 0,92-re emelte a rangsor-pontosságot, és a lista első 10%-ában a 44 "
+    "valódi riasztásból 43-at mutatta. Ezt választottam alapnak – csakhogy ez a módszer a "
+    "környezetről semmit nem tud.",
 )
-kicker(s, "2 / 4 · SZAKIRODALOM")
-table(s, 0.3, 1.85, [2.2, 1.15, 1.05, 5.0], [
+kicker(s, "SZAKIRODALOM 2 · RANGSOROLÁS")
+table(s, 0.3, 1.85, [2.25, 1.1, 1.0, 5.05], [
     ["Módszercsalád", "Környezet", "Tanítás", "Fő eredmény és gyengeség"],
     ["Súlyosság", "nem", "nem", "a mai gyakorlat; durva, a környezettől független"],
-    ["Többszempontú (AHP, fuzzy)", "igen", "nem", "minden incidens rangsorolható (CVSS-sel csak 17,23%); súlyok érzékenységvizsgálat nélkül"],
+    ["Többszempontú (AHP, fuzzy)", "igen", "nem", "minden incidens rangsorolható (CVSS-sel 17,23%); súlyok érzékenységvizsgálat nélkül"],
     ["Környezet és ellenőrzés", "igen", "nem", "szűr: hiányos nyilvántartásnál valódi támadást is eltávolít"],
     ["Tanuló, származáskövető", "részben", "igen", "86%-kal kevesebb téves riasztás; címke vagy gépi napló kell"],
     ["Kockázatalapú pontozás", "nem", "nem", "a legerősebb nyilvánosan mért, tanítás nélküli módszer"],
-], size=10.5, row_h=0.5, highlight={5: AMBER_T}, name="Rangsorolás-táblázat")
-card(s, 0.3, 5.05, 4.55, 1.45, "0,72 → 0,92", "rangsor-pontosság, 8 adathalmaz átlaga: súlyosság "
-     "vs. kockázatalapú pontozás", NAVY, WHITE, big_size=24, small_size=12, name="Kártya RBA 1")
-card(s, 5.15, 5.05, 4.55, 1.45, "43 / 44  vs.  28,6", "valódi riasztás a lista első 10%-ában: "
-     "kockázatalapú vs. súlyosság szerinti sorrend", AMBER, NAVY, big_size=24, small_size=12,
-     name="Kártya RBA 2")
+], size=10.5, row_h=0.48, highlight={5: AMBER_T}, name="Rangsorolás-táblázat")
+card(s, 0.3, 4.95, 3.0, 1.5, "0,72 → 0,92", "rangsor-pontosság, 8 adathalmaz: súlyosság vs. "
+     "kockázatalapú", NAVY, WHITE, big_size=22, small_size=11, name="Kártya RBA 1")
+card(s, 3.5, 4.95, 3.0, 1.5, "43 / 44", "valódi riasztás a lista első 10%-ában (súlyosság szerint: "
+     "28,6)", AMBER, NAVY, big_size=22, small_size=11, name="Kártya RBA 2")
+box(s, 6.7, 4.95, 3.0, 1.5, SKY_T, name="Választás 2")
+txt(s, 6.85, 5.02, 2.7, 1.38, [[("Választás: ", {"bold": True}),
+                               ("a kockázatalapú pontozás az alap – de nem használja a környezetet.", {})]],
+    size=12, anchor=MSO_ANCHOR.MIDDLE)
 source(s, "Forrás: a dolgozat 3.3 pontja és 3.2. táblázata – Anuar és mtsai. 2013; Porras és mtsai. 2002; "
           "Kruegel és mtsai. 2004; Njogu és mtsai. 2013; Sommestad, Franke 2015; Hassan és mtsai. 2019; "
-          "Uetz és mtsai. 2026", y=6.58)
+          "Uetz és mtsai. 2026", y=6.55)
 
-# ============ 5. Irodalom III: agentek és nyelvi modellek (kb. 65 mp) ============
+# ============ 5. Kutatási rés és a választás (kb. 75 mp) ============
 s = content_slide(
-    "Szakirodalom 3/4: agentek, nyelvi modellek",
-    "[kb. 65 mp] Az agent-alapú felépítés nem új: a többágenses behatolásérzékelő rendszerek már "
-    "régóta önálló, cserélhető összetevőkre bontják a feladatot, szabályalapú döntésekkel.\n\n"
-    "Az új hullám a nagy nyelvi modelleké. A CORTEX több nyelvimodell-agenttel pontosabb lett: az "
-    "F1-érték 0,66-ról 0,78-ra nőtt, a téves riasztási arány 24,9-ről 14,2%-ra csökkent. Az ára: "
-    "riasztásonként 5,7-szer több szöveget dolgozott fel, és egy riasztás 152 másodpercig tartott, "
-    "3,4-szeres lassulással. Az AgentSOC-nál a futásidő 95%-át a nyelvi modell tette ki, és egy kis, "
-    "részben mesterséges környezetben mértek. Liu és Wang azt mutatta meg, hogy a kis, helyben "
-    "futó modellek önállóan nem tudnak végigvinni egy vizsgálatot; ha viszont a lépések sorrendjét "
-    "külső, kiszámítható vezérlő adja, a sikeres befejezés aránya 0,125-ről 1-re nő.\n\n"
-    "A tanulság: a nyelvi modell a szöveg értelmezésére és magyarázatára jó, a pontozást és a "
-    "lépések sorrendjét kiszámítható programra kell bízni.",
+    "A kutatási rés – és miért ez a megoldás",
+    "[kb. 75 mp] Öt követelményt fogalmaztam meg: a rendszer tanítóadat nélkül működjön, mert valós "
+    "SOC-ban alig van címkézett riasztás; legyen megismételhető, különben a mérések nem vethetők "
+    "össze; használja a környezetet; ne szűrjön, mert hiányos nyilvántartásnál valódi támadás "
+    "tűnhet el; és a sorrend indoka legyen követhető.\n\n"
+    "A táblázat mutatja, hogy egyik módszercsalád sem teljesíti mind az ötöt. A kockázatalapú "
+    "pontozás négyet teljesít, de nem használja a környezetet. A környezeti módszerek szűrnek. A "
+    "nyelvimodell-agentek nem megismételhetők: ugyanarra a riasztásra két futás más választ adhat, "
+    "és a magyarázatuk ellenőrizetlen. Ezért nem nyelvi modellre építettem a rangsorolást.\n\n"
+    "A kutatási rés tehát: mennyit javít a környezeti információ egy már erős, nyilvánosan mért "
+    "rangsoroláson, ha nem szűrünk vele, és megismételhetően mérjük? A választott megoldás a "
+    "kockázati pontszámot egészíti ki a gép fontosságával, a támadás alkalmazhatóságával és a "
+    "megfigyeltséggel, súlyozott összeggel, páros összehasonlításból kapott súlyokkal.",
 )
-kicker(s, "2 / 4 · SZAKIRODALOM")
-card(s, 0.3, 1.9, 2.95, 2.25, "0,66 → 0,78", "CORTEX: F1 több agenttel – de 5,7× több "
-     "szöveg és 3,4× lassabb (152 s / riasztás)", NAVY, WHITE, big_size=26, name="Kártya CORTEX")
-card(s, 3.55, 1.9, 2.95, 2.25, "95%", "AgentSOC: a futásidő ennyi részét a nyelvi modell teszi ki; "
-     "kis, részben mesterséges környezetben mérve", AMBER, NAVY, big_size=26, name="Kártya AgentSOC")
-card(s, 6.8, 1.9, 2.95, 2.25, "0,125 → 1,0", "HESP: helyi kis modell befejezési aránya, ha a "
-     "lépések sorrendjét külső vezérlő adja", SKY, NAVY, big_size=26, name="Kártya HESP")
-box(s, 0.3, 4.45, 9.4, 1.95, SKY_T, name="Tanulság doboz")
-txt(s, 0.55, 4.6, 8.9, 1.7, [
-    [("Tanulság a tervezéshez", {"bold": True, "size": 18})],
-    ("A nyelvi modell lassú, költséges és nem megismételhető – a szöveg értelmezésére és a "
-    "magyarázatra jó, a pontozásra és a vezérlésre nem."),
-    [("Ezért: ", {"bold": True}), (("a pontszámot és a sorrendet kiszámítható program adja, a nyelvi "
-                                   "modell csak ellenőrzött magyarázatot ír."), {})],
-], size=14)
-source(s, "Forrás: a dolgozat 3.4 pontja és 3.3. táblázata – Bougueroua és mtsai. 2021; Wei és mtsai. "
-          "2025 (CORTEX); Roy és mtsai. 2026 (AgentSOC); Liu, Wang 2026 (HESP)")
-
-# ============ 6. Irodalom IV: a kutatási rés (kb. 60 mp) ============
-s = content_slide(
-    "Szakirodalom 4/4: a kutatási rés",
-    "[kb. 60 mp] Az irodalomkutatás eredményét ez a táblázat foglalja össze: minden sorban egy "
-    "hiányosság, és mellette, hogyan válaszol rá a tervezett rendszer.\n\n"
-    "A legfontosabb az első sor. A legerősebb nyilvános, tanítás nélküli módszer, a kockázatalapú "
-    "pontozás csak a riasztások folyamából dolgozik: nem tudja, mennyire fontos az érintett gép, "
-    "működhet-e rajta a támadás, és mennyire látjuk. A környezetet használó módszerek viszont szűrnek, "
-    "és ezért hiányos nyilvántartásnál valódi támadást is elrejtenek. A nyelvimodelles megoldások "
-    "lassúak és nem megismételhetők, és a legtöbbjük nem nyilvános vagy mesterséges adaton mér.\n\n"
-    "A kutatási kérdésem ezért: mennyit javít a környezeti információ egy már erős, nyilvánosan "
-    "mért rangsoroláson, ha nem szűrünk vele, és megismételhető módon mérjük?",
-)
-kicker(s, "2 / 4 · SZAKIRODALOM → KUTATÁSI RÉS")
-table(s, 0.3, 1.85, [4.55, 4.85], [
-    ["Hiányosság a szakirodalomban", "A tervezett rendszer válasza"],
-    ["A legerősebb tanítás nélküli módszer nem használ környezetet", "a kockázati pontszám bővítése: gép fontossága, sérülékenység, megfigyeltség"],
-    ["A környezeti módszerek szűrnek – valódi támadás is eltűnhet", "a környezet csak súly, riasztást nem töröl"],
-    ["A szakértői súlyok hatását ritkán vizsgálják", "páros összehasonlítás, érzékenységvizsgálat, tanult súlyok"],
-    ["A tanuló módszerek címkét igényelnek", "tanítóadat nélkül működik"],
-    ["A nyelvimodell-agentek lassúak, nem megismételhetők", "kiszámítható pontozás és vezérlés; a modell csak magyaráz"],
-    ["Nem nyilvános vagy mesterséges adaton mérnek", "nyilvános, felcímkézett adathalmaz (AIT-ADS)"],
-], size=11, row_h=0.47, highlight={1: AMBER_T}, name="Rés-táblázat")
-box(s, 0.3, 5.3, 9.4, 1.15, NAVY, name="Kérdés doboz")
-txt(s, 0.55, 5.38, 8.9, 1.0, [
+kicker(s, "KUTATÁSI RÉS · A VÁLASZTÁS INDOKA")
+table(s, 0.3, 1.85, [2.6, 1.25, 1.35, 1.2, 1.1, 1.9], [
+    ["Módszercsalád", "Tanítás nélkül", "Megismételhető", "Környezet", "Nem szűr", "Követhető indok"],
+    ["Súlyosság szerint", "igen", "igen", "nem", "igen", "igen"],
+    ["Többszempontú (AHP, fuzzy)", "igen", "igen", "igen", "igen", "régi adaton mérve"],
+    ["Környezet és ellenőrzés", "igen", "igen", "igen", "nem", "igen"],
+    ["Kockázatalapú pontozás", "igen", "igen", "nem", "igen", "igen"],
+    ["Tanuló, származáskövető", "nem", "részben", "részben", "igen", "nehezen"],
+    ["Nyelvimodell-agentek", "igen", "nem", "részben", "igen", "ellenőrizetlen szöveg"],
+    ["Választott megoldás", "igen", "igen", "igen", "igen", "igen"],
+], size=10.5, row_h=0.4, highlight={7: AMBER_T}, name="Követelmény-táblázat")
+box(s, 0.3, 5.2, 9.4, 1.25, NAVY, name="Kérdés doboz")
+txt(s, 0.5, 5.26, 9.0, 1.15, [
     [("Kutatási kérdés: ", {"bold": True, "color": AMBER}),
-     (("mennyit javít a környezeti információ egy már erős, nyilvánosan mért rangsoroláson – "
-      "szűrés nélkül, megismételhető méréssel?"), {"color": WHITE})],
-], size=15, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 3.5 pontja és 3.4. táblázata")
+     (("mennyit javít a környezeti információ egy már erős, nyilvánosan mért rangsoroláson – szűrés "
+      "nélkül, megismételhető méréssel?"), {"color": WHITE})],
+    [("Megoldás: ", {"bold": True, "color": AMBER}),
+     (("kockázati pontszám + gép fontossága + alkalmazhatóság + megfigyeltség, súlyozott összeggel "
+      "(páros összehasonlítás)."), {"color": WHITE})],
+], size=13, anchor=MSO_ANCHOR.MIDDLE)
+source(s, "Forrás: a dolgozat 3.5 pontja és 3.4. táblázata; 4.1 pontja és 4.1. táblázata")
 
-# ============ 7. A javasolt megoldás (kb. 55 mp) ============
+# ============ 6. Architektúra és döntések (kb. 75 mp) ============
 s = content_slide(
-    "Javasolt megoldás: pontszám + környezet",
-    "[kb. 55 mp] A választott megoldás öt követelményből indul: tanítóadat nélkül működjön, "
-    "megismételhető legyen, használja a környezetet, ne szűrjön, és az indoka követhető legyen. "
-    "A meglévő módszerek egyike sem teljesíti mind az ötöt.\n\n"
-    "Az alap a kockázatalapú pontszám, változtatás nélkül átvéve; ehhez adok három környezeti "
-    "mérőszámot: a gép fontosságát a szerepéből és hálózati helyéből, a támadás alkalmazhatóságát a "
-    "gépen futó szoftverekből, és a megfigyeltséget. Ismeretlen adatnál a semleges 0,5 érték jár, így "
-    "a hiányos nyilvántartás sem előre, sem hátra nem sorol.\n\n"
-    "A négy mérőszámot súlyozott összeg vonja össze. A súlyokat páros összehasonlítással határozom "
-    "meg, a következetességi arány 0,1 alatt kell legyen, és a súlyokat a mérés előtt rögzítem, hogy "
-    "az eredmény ne befolyásolhassa őket.",
+    "Tervezett architektúra: hét együttműködő agent",
+    "[kb. 75 mp] A rendszer hét agentből áll. Az egységesítő közös formára hozza a két érzékelő "
+    "riasztásait, a csoportosító összefogja az összetartozókat, a környezeti és a sérülékenységi "
+    "agent a gépnyilvántartásból dolgozik, a rangsoroló a mérés előtt rögzített súlyokkal számol. "
+    "Ez az öt agent kiszámítható program: a pontszám és a sorrend csak tőlük származik.\n\n"
+    "Miért nem nyelvi modellre építettem? A szakirodalomban a CORTEX nyelvimodell-agentjei "
+    "3,4-szer lassabbak voltak és 5,7-szer több szöveget dolgoztak fel, az AgentSOC futásidejének "
+    "95%-át a modell tette ki; a kimenetük nem megismételhető, és hihető, de hamis állításokat is "
+    "tehetnek. A kis, helyi modellek pedig önállóan nem tudnak végigvinni egy vizsgálatot. Ezért "
+    "a nyelvi modell nálam csak magyarázatot ír, ellenőrzéssel, és helyben fut, hogy a naplóadat "
+    "ne hagyja el a szervezetet. A lépések sorrendjét rögzített vezérlés adja, nem a modellek "
+    "beszélgetése.",
 )
-kicker(s, "3 / 4 · JAVASOLT MEGOLDÁS")
-box(s, 0.3, 1.85, 9.4, 0.85, NAVY, name="Képlet doboz")
-txt(s, 0.5, 1.9, 9.0, 0.75, [[("S", {"bold": True, "color": AMBER, "size": 24}),
-                              ("  =  w", {"size": 22, "color": WHITE}), ("r", {"size": 14, "color": WHITE}),
-                              (" · r  +  w", {"size": 22, "color": WHITE}), ("g", {"size": 14, "color": WHITE}),
-                              (" · g  +  w", {"size": 22, "color": WHITE}), ("a", {"size": 14, "color": WHITE}),
-                              (" · a  +  w", {"size": 22, "color": WHITE}), ("m", {"size": 14, "color": WHITE}),
-                              (" · m", {"size": 22, "color": WHITE})]],
-    align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE, name="Képlet")
-table(s, 0.3, 2.9, [2.35, 3.95, 3.1], [
-    ["Mérőszám", "Jelentés", "Értékek"],
-    ["r – kockázati pontszám", "5 részpontszám a riasztások folyamából (változatlanul átvéve)", "0–1, folytonos"],
-    ["g – a gép fontossága", "a gép szerepéből és hálózati helyéből, rögzített szabályokkal", "0; 0,25; … ; 1 (ismeretlen: 0,5)"],
-    ["a – alkalmazhatóság", "működhet-e a támadás a gépen (szoftverkészlet, CVE)", "0,25; 0,5; 0,75; 1"],
-    ["m – megfigyeltség", "mennyire vakfoltos a gép (gépi és hálózati érzékelő)", "0; 0,5; 1"],
-], size=11, row_h=0.45, highlight={1: SKY_T}, name="Mérőszám-táblázat")
-cards = [("Nem szűr", "a környezet csak súly; riasztás nem tűnik el"),
-         ("Semleges hiány", "ismeretlen gép vagy szoftver: 0,5"),
-         ("Rögzített súlyok", "páros összehasonlítás, CR < 0,1, a mérés előtt")]
-for k, (h, d) in enumerate(cards):
-    x = 0.3 + k * 3.25
-    box(s, x, 5.3, 2.9, 1.15, AMBER_T, name=f"Elv {k+1}")
-    txt(s, x + 0.15, 5.38, 2.6, 1.0, [[(h, {"bold": True, "size": 14})], d], size=12)
-source(s, "Forrás: a dolgozat 4. fejezete (4.1–4.3; 4.1–4.3. táblázat); Uetz és mtsai. 2026; Saaty 1990")
-
-# ============ 8. Architektúra (kb. 55 mp) ============
-s = content_slide(
-    "Felépítés: hét együttműködő agent",
-    "[kb. 50 mp] A rendszer hét agentből áll. Az egységesítő közös formára hozza a Suricata és a Wazuh riasztásait, a csoportosító összefogja "
-    "az összetartozókat, a környezeti és a sérülékenységi agent a gépnyilvántartásból dolgozik, a "
-    "rangsoroló kiszámolja a pontszámot a rögzített súlyokkal. Ez az öt agent kiszámítható program: "
-    "a pontszám és a sorrend csak tőlük származik.\n\n"
-    "A hatodik, magyarázó agent az egyetlen, amely nyelvi modellt használ – helyben futtatva, és a "
-    "szövegét egy ellenőrző lépés vizsgálja: nem tartalmazhat a csoportban nem szereplő gépet vagy "
-    "szabályt. A vezérlő a lépések sorrendjét tartja. A megvalósítás három rétegű: a mérések "
-    "keretrendszer nélküli Python-modulokon futnak, erre épül a LangGraph-vezérlés, és opcionálisan "
-    "egy csak olvasható MCP-csatlakozó.",
-)
-kicker(s, "3 / 4 · JAVASOLT MEGOLDÁS – ARCHITEKTÚRA")
+kicker(s, "TERVEZETT ARCHITEKTÚRA · DÖNTÉSEK")
 s.shapes.add_picture(ARCH, Inches(0.3), Inches(1.75), height=Inches(4.8))
-x0 = 5.0
-layers = [("1. Mag", "keretrendszer nélküli Python-modulok; a mérések ezen futnak", SKY_T),
-          ("2. Vezérlés", "LangGraph-állapotgráf; teszt igazolja, hogy ugyanazt a sorrendet adja", SKY_T),
-          ("3. Csatlakozó", "MCP, csak olvasható gépnyilvántartás (opcionális)", GREY_T)]
-for k, (h, d, fill) in enumerate(layers):
-    y = 1.85 + k * 1.0
-    box(s, x0, y, 4.7, 0.85, fill, name=f"Réteg {k+1}")
-    txt(s, x0 + 0.15, y + 0.07, 4.4, 0.75, [[(h, {"bold": True, "size": 13})], d], size=11)
-box(s, x0, 5.0, 4.7, 1.45, AMBER_T, name="Elv doboz")
-txt(s, x0 + 0.15, 5.08, 4.4, 1.3, [
-    [("A nyelvi modell szerepe", {"bold": True, "size": 13})],
-    ("csak magyarázatot ír, helyben fut (Ollama), ellenőrzés vizsgálja; a sorrendet és a pontszámot "
-    "nem befolyásolja"),
-], size=11)
-source(s, "Forrás: a dolgozat 5. fejezete, 5.1. ábra (saját ábra)")
+x0 = 4.85
+decisions = [
+    ("Pontszám: kiszámítható program", "ugyanarra a bemenetre mindig ugyanaz a sorrend – csak így mérhető", SKY_T),
+    ("Nyelvi modell: csak magyaráz", ("CORTEX: 3,4× lassabb, 5,7× több szöveg; AgentSOC: a futásidő 95%-a; "
+     "nem megismételhető, hamis állítást is tehet"), AMBER_T),
+    ("Helyi modell (Ollama)", "a naplóadat nem hagyja el a szervezetet; díjmentes; rögzíthető változat", SKY_T),
+    ("Rögzített vezérlés (LangGraph)", "a sorrendet nem a modellek beszélgetése alakítja (mint az AutoGenben)", SKY_T),
+]
+y = 1.8
+for h, d, fill in decisions:
+    hh = 1.25 if fill == AMBER_T else 1.05
+    box(s, x0, y, 4.85, hh, fill, name="Döntés")
+    txt(s, x0 + 0.15, y + 0.07, 4.55, hh - 0.12, [[(h, {"bold": True, "size": 13})], d], size=11)
+    y += hh + 0.12
+source(s, "Forrás: a dolgozat 3.4.3–3.4.4 és 5. fejezete, 5.1. ábra – Wei és mtsai. 2025; Roy és mtsai. 2026; "
+          "Liu, Wang 2026; Wu és mtsai. 2023", y=6.6)
 
-# ============ 9. Várt eredmények (kb. 60 mp) ============
+# ============ 7. Várt eredmények (kb. 65 mp) ============
 s = content_slide(
     "Mérési terv és várt eredmények",
-    "[kb. 55 mp] A hatást lépésenkénti bővítéssel mérem: a súlyosság szerinti sorrendből indulok, "
-    "jön a csoportosítás, a kockázatalapú pontozás mint összehasonlítási alap, majd egyenként a "
-    "gép fontossága, az alkalmazhatóság és a megfigyeltség. Így minden lépés az új információ "
-    "hatását mutatja.\n\n"
-    "Két környezetben mérek: a nyilvános AIT-ADS nyolc forgatókönyvén, és egy saját laborban, ahol a "
-    "környezeti információ teljes, és a sérülékenységek CVE szinten is illeszthetők. A különbségeket "
-    "páros Wilcoxon-próbával vizsgálom a nyolc forgatókönyvön.\n\n"
-    "Mit várok? A közölt eredmények szerint a kockázatalapú pontozás az AIT-ADS-en már 0,98–0,99 "
-    "rangsor-pontosságú, ezért ott plafonhatás várható; a javulás a lista elején, az átlagos "
-    "pontosságban és a terhelés csökkenésében jelentkezhet. A javulást ellenpróbával is ellenőrzöm: "
-    "véletlenszerűen összekevert gépfontosság nem adhat ugyanilyen javulást.",
+    "[kb. 65 mp] A hatást lépésenként mérem: a súlyosság szerinti sorrendből indulok, jön a "
+    "csoportosítás, a kockázatalapú pontozás mint összehasonlítási alap, majd egyenként a gép "
+    "fontossága, az alkalmazhatóság és a megfigyeltség. Így minden lépés az új információ "
+    "hozzájárulását mutatja. A nyilvános AIT-ADS nyolc forgatókönyvén és egy saját laborban mérek, "
+    "páros Wilcoxon-próbával.\n\n"
+    "A várakozás: a közölt eredmények szerint az alap már 0,98–0,99 rangsor-pontosságú, ezért "
+    "plafonhatás várható; a javulás a lista elején és az átnézendő riasztások arányában "
+    "látszhat. A CVE-szintű alkalmazhatóságot és a megfigyeltséget csak a laborban lehet mérni. "
+    "A torzítás ellen a súlyokat a mérés előtt rögzítem, és ellenpróbát végzek összekevert "
+    "gépfontossággal. Köszönöm a figyelmet!",
 )
-kicker(s, "4 / 4 · VÁRT EREDMÉNYEK")
-table(s, 0.3, 1.85, [0.7, 3.2, 5.5], [
-    ["Lépés", "Rangsorolás alapja", "Mit mutat meg"],
-    ["1", "súlyosság", "a mai, egyszerű gyakorlat"],
-    ["2", "csoportosítás", "a csoportosítás hatása (tételszám, tisztaság)"],
-    ["3", "kockázati pontszám", "az erős, környezetet nem használó alap – visszamérve"],
-    ["4", "+ gép fontossága", "a gépnyilvántartás hozzájárulása"],
-    ["5", "+ alkalmazhatóság", "a szoftverkészlet hozzájárulása"],
-    ["6", "+ megfigyeltség", "a teljes modell (csak a laborban)"],
-], size=11, row_h=0.4, highlight={3: SKY_T}, name="Lépés-táblázat")
-cards = [("Mérőszámok", "rangsor-pontosság, átlagos pontosság, első 10%, a 98%-hoz átnézendő listarész"),
-         ("Statisztika", "páros Wilcoxon-próba, 8 forgatókönyv; hatásnagyság"),
-         ("Torzítás ellen", "előzetes rögzítés, ±20%, tanult súlyok, ellenpróba")]
+kicker(s, "VÁRT EREDMÉNYEK")
+steps = [("1", "súlyosság"), ("2", "csoportosítás"), ("3", "kockázati pontszám"),
+         ("4", "+ gép fontossága"), ("5", "+ alkalmazhatóság"), ("6", "+ megfigyeltség")]
+w = 1.5
+for k, (n, d) in enumerate(steps):
+    x = 0.3 + k * (w + 0.08)
+    fill = AMBER if k == 2 else (SKY if k >= 3 else GREY_T)
+    box(s, x, 1.85, w, 1.0, fill, name=f"Lépés {n}")
+    txt(s, x + 0.1, 1.9, w - 0.2, 0.9, [[(n + ". lépés", {"bold": True, "size": 12})], d],
+        size=12, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+txt(s, 0.3, 2.92, 9.4, 0.3, "szürke: kiindulás · sárga: összehasonlítási alap (visszamérve) · kék: a "
+    "környezeti mérőszámok egyenként", size=10, color=MUTED)
+cards = [("Hol mérek?", "AIT-ADS, 8 forgatókönyv (nyilvános) + saját labor (teljes környezet, CVE-szint)"),
+         ("Mivel?", "rangsor-pontosság, átlagos pontosság, első 10%, a 98%-hoz átnézendő listarész; Wilcoxon-próba"),
+         ("Torzítás ellen", "előzetesen rögzített súlyok, ±20%, tanult súlyok, ellenpróba összekevert fontossággal")]
 for k, (h, d) in enumerate(cards):
     x = 0.3 + k * 3.25
-    box(s, x, 4.75, 2.9, 1.1, SKY_T, name=f"Módszer {k+1}")
-    txt(s, x + 0.15, 4.82, 2.6, 0.95, [[(h, {"bold": True, "size": 13})], d], size=11)
-box(s, 0.3, 5.95, 9.4, 0.6, AMBER_T, name="Várakozás doboz")
-txt(s, 0.5, 5.98, 9.0, 0.55, [[("Várakozás: ", {"bold": True}),
-                               (("az AIT-ADS-en plafonhatás (közölt 0,98–0,99) – a javulás a lista elején "
-                                "és a terhelésben látszhat; a CVE-szintű hatás a laborban."), {})]],
-    size=12, anchor=MSO_ANCHOR.MIDDLE)
-source(s, "Forrás: a dolgozat 6. fejezete (6.1–6.3; 6.2–6.3. táblázat); a közölt érték: Uetz és mtsai. 2026",
-       y=6.68)
-
-# ============ 10. Összegzés (kb. 25 mp) ============
-s = content_slide(
-    "Összegzés és a következő félév",
-    "[kb. 20 mp] Összefoglalva: a legerősebb, tanítás nélküli módszer nem használja a környezetet, "
-    "a környezeti módszerek pedig szűrnek. Az általam javasolt rendszer szűrés nélkül egészíti ki, "
-    "és a hatást nyilvános adaton, megismételhetően méri. A "
-    "következő félévben a megvalósítás, a mérések és a laboratóriumi tesztek következnek. "
-    "Köszönöm a figyelmet!",
-)
-kicker(s, "ÖSSZEGZÉS")
-steps = [("Probléma", "< 0,5% valódi riasztás; elnyomó szabályok, vakfoltok", NAVY, WHITE),
-         ("Rés", "a legerősebb módszer nem használ környezetet; a környezetiek szűrnek", AMBER, NAVY),
-         ("Megoldás", "kockázati pontszám + 3 környezeti mérőszám, hét agent, a nyelvi modell csak magyaráz", SKY, NAVY),
-         ("Mérés", "lépésenként, AIT-ADS 8 forgatókönyv + labor, Wilcoxon-próba", SKY_T, NAVY)]
-for k, (h, d, fill, fg) in enumerate(steps):
-    y = 1.85 + k * 0.95
-    box(s, 0.3, y, 9.4, 0.82, fill, name=f"Ív {k+1}")
-    txt(s, 0.5, y + 0.06, 1.9, 0.7, h, size=16, bold=True, color=fg, anchor=MSO_ANCHOR.MIDDLE)
-    txt(s, 2.4, y + 0.06, 7.1, 0.7, d, size=13, color=fg, anchor=MSO_ANCHOR.MIDDLE)
-box(s, 0.3, 5.75, 9.4, 0.7, GREY_T, name="Következő félév")
-txt(s, 0.5, 5.8, 9.0, 0.6, [[("Diplomamunka III.: ", {"bold": True}),
-                            (("megvalósítás, mérés a 8 forgatókönyvön, laboratóriumi tesztek, "
-                             "eredmények és elemzés."), {})]], size=13, anchor=MSO_ANCHOR.MIDDLE)
+    box(s, x, 3.35, 2.9, 1.55, SKY_T, name=f"Módszer {k+1}")
+    txt(s, x + 0.15, 3.43, 2.6, 1.4, [[(h, {"bold": True, "size": 13})], d], size=11)
+box(s, 0.3, 5.1, 9.4, 1.35, NAVY, name="Várakozás doboz")
+txt(s, 0.5, 5.16, 9.0, 1.25, [
+    [("Várakozás: ", {"bold": True, "color": AMBER}),
+     (("az alap már 0,98–0,99 (plafonhatás) – a környezet hatása a lista elején és az átnézendő "
+      "riasztások arányában látszhat; a CVE-szintű hatás és a megfigyeltség a laborban."),
+      {"color": WHITE})],
+], size=13, anchor=MSO_ANCHOR.MIDDLE)
+source(s, "Forrás: a dolgozat 6. fejezete (6.1–6.3; 6.2–6.3. táblázat); a közölt érték: Uetz és mtsai. 2026")
 
 prs.save(OUT)
 print("ok", len(prs.slides))
